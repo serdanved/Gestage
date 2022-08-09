@@ -1,0 +1,70 @@
+
+
+
+.main-sidebar{padding-top:65px !important;}
+
+
+.box-title { text-transform: uppercase; }
+
+
+.form_validation_errors {font-weight: 700; font-style: italic; color: red;}
+
+
+#draggable li { font-size: 15px; cursor: pointer; display: inline-block; width: 20%; }
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {color: black;}
+
+
+
+body .content-wrapper .btn_collapsed{background:transparent !important;}
+
+.popover-title{text-align:center;font-weight:bold;}
+
+.panel-heading-with-add{
+    position: relative;
+}
+
+
+.panel-heading-with-add button{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.panel-heading-with-add a{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+body {
+    font-size: 16px !important;
+}
+
+.letter-generator-perms {display: none;}
+
+.panel-primary>.panel-heading {
+    background-color: #328fad;
+    border-color: #328fad;
+}
+
+@media screen and  (max-width: 800px) {
+ .col-md-12 img {max-width:200px;}
+
+ .col-md-12 .list-group-item{min-height:70px;}
+}
+
+    
+    
+
+	.flip-scroll td:last-child { border-bottom: 1px solid #babcbf; }
+
+
+@media screen and (max-width: 767px){
+.fixed .content-wrapper, .fixed .right-side {
+    padding-top: 120px !important;
+
+}
+.user-menu.dropdown > a{font-size:14px !important;}
+    }

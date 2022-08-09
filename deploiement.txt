@@ -1,0 +1,47 @@
+Déploiement de GESTAGE.
+
+Gestage nécessite un environnement Linux de préférence, mais peut aussi convenir à Windows.
+Vous devez fonctionner sous PHP 7.4 minimum, idéalement PHP 8.0.
+Gestage n'a pas encore été testé sous PHP 8.1.
+
+Vous devez également disposer d'un serveur MySQL version 5.7 au minimum, ou MariaDB 10.2 minimum.
+
+Pour déployer Gestage, il vous suffit de faire un git clone sur le lien suivant:
+git clone https://bitbucket.org/blitzmedia/gestage/src/master/
+
+Cela vous permettera de télécharger automatiquement la dernière version de Gestage.
+
+Une fois téléchargé, vous trouverez les informations de structure de la base de données avec des données test dans le fichier blitzmedia_gestage.sql
+
+Utilisez votre infrastructure (ex phpmyadmin) pour importer cette base de donnée sur votre serveur.
+
+Vous trouverez dans le dossier application/config deux fichiers de configuration nécessaire:
+
+- config.php
+- database.php
+
+database.php, veuillez renseigner les lignes 78 à 81 selon votre infrastructure.
+config.php, veuillez changer la ligne 28 pour le URL ou Gestage sera accessible.
+
+Une fois installé et configuré, ouvrez le système sur votre propre lien (exemple)
+
+https://gestage.blitzmedia.io/user/login
+
+Si le système ne fonctionne pas, assurez-vous de vérifier l'existence du fichier .htaccess et d'en modifier le contenu, selon votre type d'infrastructure.
+Le fichier .htaccess déployé proviens d'un serveur Linux fonctionnant avec cPanel & Apache.
+
+Informations de connexion par défaut:
+Admin: support@blitzmedia.io / 1234
+Enseignant: teacher@blitzmedia.io / 1234
+Élève: student@blitzmedia.io / 1234
+Employeur: 5813834747 / 1234
+
+Si vous éprouvez des difficultés pour l'implantation, Blitz Media peut vous y aider.
+Nous pouvons également héberger l'infrastructure pour vous.
+Simplement nous rejoindre au info@blitzmedia.io, ou contacter M. Smith au 581-383-4747 poste 101.
+
+Au fil du temps, nous maintiendrons ce repo autant que possible avec diverses corrections de problèmes.
+Libre à vous d'utiliser les fonctions de git pour vous mettre à jour.
+
+Attention: Utilisez convenablement les commandes de git pour vous mettre à jour. (ex git pull)
+Il est possible que vous écrasiez vos configurations ou vos programmations personnalisées.

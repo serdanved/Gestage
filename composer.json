@@ -1,0 +1,20 @@
+{
+	"description": "The CodeIgniter framework",
+	"name": "codeigniter/framework",
+	"type": "project",
+	"homepage": "https://codeigniter.com",
+	"license": "MIT",
+	"support": {
+		"forum": "http://forum.codeigniter.com/",
+		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
+		"irc": "irc://irc.freenode.net/codeigniter",
+		"source": "https://github.com/bcit-ci/CodeIgniter"
+	},
+	"require": {
+		"php": ">=7.4",
+		"ldaptools/ldaptools": "^0.25.2",
+		"spipu/html2pdf": "^5.2",
+		"thenetworg/oauth2-azure": "^1.4",
+		"tecnickcom/tcpdf": "^6.4"
+	}
+}
