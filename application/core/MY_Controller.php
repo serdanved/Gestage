@@ -20,7 +20,7 @@ class MY_Controller extends CI_Controller {
 
 		/* SI L'UTILISATEUR EST UN ÉLÈVE MAIS PAS D'ENSEIGNANT ASSOCIÉ, ON MONTRE UN MESSAGE D'ERREUR */
 		if (is_student()) {
-			if (($this->session->userdata("program_id") == 0) && ($this->uri->segment(2) != "set_program")) {
+			if ($this->session->userdata("program_id") == 0 && $this->uri->segment(2) != "set_program" && $this->uri->segment(2) != "disconnect") {
 				redirect("/student/set_program/" . $this->session->userdata("userid"));
 			}
 
