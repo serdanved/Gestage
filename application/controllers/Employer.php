@@ -26,7 +26,7 @@ class Employer extends MY_Controller {
 
 	//LIST OF EMPLOYERS | GET EMPLOYERS DATA
 	function index() {
-		if (is_teacher() || is_admin()) {
+		if (is_teacher()) {
 			$program_ids = array();
 			$data['teacher_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
 			foreach ($data['teacher_programs'] as $teacher_program) {
@@ -35,6 +35,11 @@ class Employer extends MY_Controller {
 			$data['teacher_programs_not'] = $this->Teacher_model->get_teacher_programs_not($program_ids);
 
 			$data['employers'] = $this->Employer_model->get_all_employers();
+			$data['_view'] = 'employer/index';
+			$this->load->view('layouts/main', $data);
+		}
+
+		if (is_admin()) {
 			$data['_view'] = 'employer/index';
 			$this->load->view('layouts/main', $data);
 		}
