@@ -131,8 +131,12 @@
 	}
 
 	function disconnect() {
-		session_destroy();
-		redirect("/user/login");
+		if (!file_exists("application/controllers/Azure.php")) {
+			session_destroy();
+			redirect("/user/login");
+		} else {
+			redirect("/azure/disconnect");
+		}
 	}
 
 	function profile() {
@@ -235,13 +239,13 @@
 
 		$this->form_validation->set_rules('EMAIL', 'COURRIEL', 'valid_email|required');
 		$this->form_validation->set_rules('NAME', 'NOM', 'required');
-        $this->form_validation->set_rules('PASSWORD', 'MOT DE PASSE', 'required');
+		$this->form_validation->set_rules('PASSWORD', 'MOT DE PASSE', 'required');
 
 		if ($this->form_validation->run()) {
 			$params = array(
 				'NAME' => $this->input->post('NAME'),
 				'EMAIL' => $this->input->post('EMAIL'),
-                'PASSWORD_HASH' => password_hash($this->input->post('PASSWORD'), PASSWORD_BCRYPT),
+				'PASSWORD_HASH' => password_hash($this->input->post('PASSWORD'), PASSWORD_BCRYPT),
 			);
 
 			$uid = $this->User_model->add_admin($params);
@@ -263,13 +267,13 @@
 		if (isset($data['user']['ID'])) {
 			$this->load->library('form_validation');
 
-            $this->form_validation->set_rules('EMAIL', 'EMAIL', 'valid_email|required');
-            $this->form_validation->set_rules('NAME', 'NOM', 'required');
+			$this->form_validation->set_rules('EMAIL', 'EMAIL', 'valid_email|required');
+			$this->form_validation->set_rules('NAME', 'NOM', 'required');
 
 			if ($this->form_validation->run()) {
 				$params = array(
-                    'EMAIL' => $this->input->post('EMAIL'),
-                    'NAME' => $this->input->post('NAME'),
+					'EMAIL' => $this->input->post('EMAIL'),
+					'NAME' => $this->input->post('NAME'),
 				);
 
 				$this->User_model->update_admin($ID, $params);

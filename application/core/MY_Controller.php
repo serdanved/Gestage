@@ -12,7 +12,7 @@ class MY_Controller extends CI_Controller {
 			}
 		} else {
 			if (!is_user_logged()) {
-				if ((uri_string() != "azure/connection") && (uri_string() != "azure/login")) {
+				if ((uri_string() != "azure/connection") && (uri_string() != "azure/login") && (uri_string() != "azure/cron")) {
 					redirect("/azure/login");
 				}
 			}
