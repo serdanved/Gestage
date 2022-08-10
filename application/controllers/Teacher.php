@@ -32,7 +32,7 @@ class Teacher extends MY_Controller {
 		// $this->mybreadcrumb->add('Home', base_url());
 		// $this->mybreadcrumb->add('Cities', base_url('cities/listing'));
 		// $data['breadcrumbs'] = $this->mybreadcrumb->render();
-		$data['activeTeachers'] = $this->Teacher_model->get_all_teachers_with_programs();
+		$data['activeTeachers'] = $this->Teacher_model->get_all_active_teachers();
 		$data['inactiveTeachers'] = $this->Teacher_model->get_all_inactive_teachers();
 		$data['_view'] = 'teacher/index';
 		$this->load->view('layouts/main', $data);

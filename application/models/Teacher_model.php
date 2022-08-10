@@ -156,6 +156,20 @@ class Teacher_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    function get_all_active_teachers() {
+        $query = "SELECT Tea.ID, Tea.NAME, Tea.EMAIL_CS,
+            (
+                SELECT GROUP_CONCAT(Pro.NAME SEPARATOR \"<br>\")
+                FROM TEACHER_PROGRAMS AS Tea_Pro
+                LEFT JOIN PROGRAMS AS Pro ON Pro.ID = Tea_Pro.PROGRAM_ID
+                WHERE Tea_Pro.TEACHER_ID = Tea.ID
+                GROUP BY Tea_Pro.TEACHER_ID
+            ) AS PROGRAM_NAMES
+        FROM TEACHERS AS Tea
+        WHERE Tea.DISABLED = 0";
+        return $this->db->query($query)->result_array();
+    }
+
     function get_all_teachers_with_programs()
     {
         $this->db->select('Tea.ID, Tea.GUID, Tea.NAME, Tea.EMAIL_CS, GROUP_CONCAT(Pro.NAME SEPARATOR "<br>") AS PROGRAM_NAMES');
@@ -170,7 +184,7 @@ class Teacher_model extends CI_Model
     {
         $this->db->select('Tea.ID, Tea.GUID, Tea.NAME, Tea.EMAIL_CS');
         $this->db->from('TEACHERS AS Tea');
-        $this->db->join('TEACHER_PROGRAMS AS Tea_Pro', 'Tea.ID = Tea_Pro.TEACHER_ID','left');
+        $this->db->join('TEACHER_PROGRAMS AS Tea_Pro', 'Tea.ID = Tea_Pro.TEACHER_ID', 'left');
         $this->db->where('Tea_Pro.TEACHER_ID', NULL)->where("Tea.DISABLED", 0);
         return $this->db->get()->result_array();
     }
