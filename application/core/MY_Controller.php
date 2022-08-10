@@ -26,10 +26,16 @@ class MY_Controller extends CI_Controller {
 
 			$this->load->model('Student_model');
 			$teacher_assigned = $this->Student_model->get_assigned_teacher($this->session->userid);
-
-			if (!$teacher_assigned) {
-				//show_error("Vous n'avez pas encore d'enseignant associé à votre compte. Veuillez communiquer avec votre enseignant.");
-			}
 		}
+
+        if (is_teacher()) {
+            if ($this->uri->segment(2) != "noProgram") {
+                $this->load->model('Teacher_model');
+                $programs = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+                if (count($programs) < 1) {
+                    redirect("/teacher/noProgram");
+                }
+            }
+        }
 	}
 }

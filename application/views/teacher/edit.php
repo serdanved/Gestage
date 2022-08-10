@@ -8,8 +8,9 @@
 			<div class="panel-body">
 				<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="PROGRAMS_IDS" class="control-label"><span
-									class="text-danger">*</span>PROGRAMME(S)</label>
+						<label for="PROGRAMS_IDS" class="control-label">
+							<span class="text-danger">*</span>PROGRAMME(S)
+						</label>
 						<div class="form-group">
 							<select id="PROGRAM_IDS" name="PROGRAM_IDS[]" class="selectpicker form-control" multiple
 							        data-actions-box="false" data-header="CHOISIR PROGRAMME" title="AUCUNE">

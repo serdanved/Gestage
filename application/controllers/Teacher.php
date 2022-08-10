@@ -79,7 +79,7 @@ class Teacher extends MY_Controller {
 			$this->load->library('form_validation');
 
 			$this->form_validation->set_rules('NAME', 'NOM', 'required');
-			$this->form_validation->set_rules('PROGRAM_IDS[]', 'PROGRAM IDS', 'required');
+			//$this->form_validation->set_rules('PROGRAM_IDS[]', 'PROGRAM IDS', 'required');
 
 			if ($this->form_validation->run()) {
 				//UPDATE TEACHERS NAME
@@ -132,28 +132,16 @@ class Teacher extends MY_Controller {
 		if (isset($data['teacher']['ID'])) {
 			$this->load->library('form_validation');
 
-			$this->form_validation->set_rules('NAME', 'NOM', 'required');
-			//$this->form_validation->set_rules('PROGRAM_IDS[]','PROGRAM IDS','required');
+			$this->form_validation->set_rules('PROGRAM_IDS[]', 'PROGRAM IDS', 'required');
 
 			if ($this->form_validation->run()) {
-				// die(var_dump($this->input->post()));
-
-				//UPDATE TEACHERS NAME
-				$params = array(
-					'NAME' => $this->input->post('NAME'),
-				);
-				$this->Teacher_model->update_teacher($ID, $params);
-
-				//UPDATE TEACHER PROGRAMS
 				$this->Teacher_model->update_teacher_programs($ID, $this->input->post('PROGRAM_IDS'));
-
-				die("IN");
 				redirect('/dashboard');
 			} else {
 				$this->load->model('Program_model');
 				$data['all_programs'] = $this->Program_model->get_all_programs();
 
-				$data['_view'] = 'teacher/edit';
+				$data['_view'] = 'teacher/no-program';
 				$this->load->view('layouts/main', $data);
 			}
 		} else {
