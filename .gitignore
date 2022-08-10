@@ -27,3 +27,4 @@ resources/documents/**/*
 resources/tmp/**/*
 
 application/controllers/Azure.php
+application/controllers/AzureDisable.php
