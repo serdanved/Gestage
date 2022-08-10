@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller {
 		}
 
         if (is_teacher()) {
-            if ($this->uri->segment(2) != "noProgram") {
+            if ($this->uri->segment(2) != "noProgram" && $this->uri->segment(2) != "disconnect") {
                 $this->load->model('Teacher_model');
                 $programs = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
                 if (count($programs) < 1) {
