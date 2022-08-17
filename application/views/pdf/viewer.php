@@ -1,5 +1,5 @@
 <div id="adobe-dc-view"></div>
-<script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+<script src="https://documentcloud.adobe.com/view-sdk/viewer.js?ver=<?= rand(1, 999999999) ?>"></script>
 <script type="text/javascript">
 const viewerConfig = {
     enableAnnotationAPIs: true,
@@ -15,7 +15,7 @@ document.addEventListener("adobe_dc_view_sdk.ready", function() {
     var previewFilePromise = adobeDCView.previewFile({
         content: {
             location: {
-                url: "<?= $file ?>",
+                url: "<?= $file ?>?ver=<?= rand(1, 999999999) ?>",
             }
         },
         metaData: {
