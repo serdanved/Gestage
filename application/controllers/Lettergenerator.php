@@ -87,7 +87,7 @@ class Lettergenerator extends MY_Controller {
 			$html2pdf = new htmltopdf('P', 'letter');
 
 			$content = $letter["CONTENT"];
-			$content = str_replace("../../resources/img/centre_prof_alma.jpg", "http://gestage.cslsj.qc.ca/resources/img/centre_prof_alma.jpg", $content);
+			$content = str_replace("../../resources/img/centre_prof_alma.jpg", base_url() . "resources/img/centre_prof_alma.jpg", $content);
 			$content = str_replace("<body", "<page", $content);
 			$content = str_replace("</body>", "</page>", $content);
 			$stage = $this->Internship_model->get_internship($internship_id);
@@ -209,10 +209,7 @@ class Lettergenerator extends MY_Controller {
 					case "SIGNATURE_ELEVE":
 						$signature_value_eleve = $this->Obligation_model->get_obligation_signature_by_document_student($document_id);
 						if ($signature_value_eleve != "") {
-							$signature_value_eleve = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signature_value_eleve));
-							@unlink("resources/uploads/" . $internship_id . "/tmpeleve.png");
-							file_put_contents("resources/uploads/" . $internship_id . "/tmpeleve.png", $signature_value_eleve);
-							$content = str_replace($tag, "<img width=200 height=15  src='https://gestage.cslsj.qc.ca/resources/uploads/" . $internship_id . "/tmpeleve.png'>", $content);
+							$content = str_replace($tag, "<img width='200' height='15' src='$signature_value_eleve'>", $content);
 						} else {
 							$content = str_replace($tag, "", $content);
 						}
@@ -220,10 +217,7 @@ class Lettergenerator extends MY_Controller {
 					case "SIGNATURE_ENSEIGNANT":
 						$signature_value_enseignant = $this->Obligation_model->get_obligation_signature_by_document_teacher($document_id);
 						if ($signature_value_enseignant != "") {
-							@unlink("resources/uploads/" . $internship_id . "/tmpenseignant.png");
-							$signature_value_enseignant = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signature_value_enseignant));
-							file_put_contents("resources/uploads/" . $internship_id . "/tmpenseignant.png", $signature_value_enseignant);
-							$content = str_replace($tag, "<img width=200 height=15  src='https://gestage.cslsj.qc.ca/resources/uploads/" . $internship_id . "/tmpenseignant.png'>", $content);
+							$content = str_replace($tag, "<img width='200' height='15' src='$signature_value_enseignant'>", $content);
 						} else {
 							$content = str_replace($tag, "", $content);
 						}
@@ -231,15 +225,10 @@ class Lettergenerator extends MY_Controller {
 					case "SIGNATURE_EMPLOYEUR":
 						$signature_value_employeur = $this->Obligation_model->get_obligation_signature_by_document_employer($document_id);
 						if ($signature_value_employeur != "") {
-							@unlink("resources/uploads/" . $internship_id . "/tmpemployeur.png");
-							$signature_value_employeur = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signature_value_employeur));
-							file_put_contents("resources/uploads/" . $internship_id . "/tmpemployeur.png", $signature_value_employeur);
-							$content = str_replace($tag, "<img width=200 height=15  src='https://gestage.cslsj.qc.ca/resources/uploads/" . $internship_id . "/tmpemployeur.png'>", $content);
+							$content = str_replace($tag, "<img width='200' height='15' src='$signature_value_employeur'>", $content);
 						} else {
 							$content = str_replace($tag, "", $content);
 						}
-						break;
-
 						break;
 				}
 			}
@@ -282,7 +271,7 @@ class Lettergenerator extends MY_Controller {
 
 				$content = $data['letter']["CONTENT"];
 				$original_content = $content;
-				$content = str_replace("../../resources/img/centre_prof_alma.jpg", "http://gestage.cslsj.qc.ca/resources/img/centre_prof_alma.jpg", $content);
+				$content = str_replace("../../resources/img/centre_prof_alma.jpg", base_url() . "/resources/img/centre_prof_alma.jpg", $content);
 				$content = str_replace("<body", "<page", $content);
 				$content = str_replace("</body>", "</page>", $content);
 				// die($content);
