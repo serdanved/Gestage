@@ -1,5 +1,5 @@
 <div id="adobe-dc-view"></div>
-<script src="https://documentcloud.adobe.com/view-sdk/viewer.js?ver=<?= rand(1, 999999999) ?>"></script>
+<script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
 <script type="text/javascript">
 const viewerConfig = {
     enableAnnotationAPIs: true,
