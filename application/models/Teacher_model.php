@@ -94,6 +94,7 @@ class Teacher_model extends CI_Model
 
     function get_teacher_programs_not($IDS)
     {
+        array_push($IDS, 0);
         $this->db->select(' DISTINCT(Pro.ID) AS ID, Pro.NAME AS NAME');
         $this->db->from('TEACHER_PROGRAMS AS Tea_Pro');
         $this->db->join('TEACHERS AS Tea', 'Tea.ID = Tea_Pro.TEACHER_ID');

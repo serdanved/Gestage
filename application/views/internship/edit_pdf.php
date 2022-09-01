@@ -48,7 +48,11 @@
                         ?></td>
                         <td>
                             <div class="btn-group pull-right" role="group" aria-label="Actions Documents">
-                                <a href="<?= site_url("/pdf/viewer/{$internship["ID"]}/{$D["ID"]}") ?>" target="_blank" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="<?= site_url("/pdf/viewer/{$internship["ID"]}/{$D["ID"]}") ?>"
+                                   target="_blank" class="btn btn-primary"
+                                   onclick="event.preventDefault(); window.open('<?= site_url("/pdf/viewer/{$internship["ID"]}/{$D["ID"]}") ?>?ver=' + Math.floor(Math.random() * 9999999));">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                                 <?php if (is_teacher()) { ?>
                                 <a href="<?= site_url("/pdf/delete_stage_pdf/{$internship["ID"]}/{$D["ID"]}") ?>"
                                    onclick="return confirm('Êtes-vous sûr de voulloir supprimer ce document?')"
