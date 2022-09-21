@@ -94,31 +94,32 @@
 							</tr>
 							</thead>
 							<tbody>
-							<?php foreach ($teacher_programs_not as $T) {
-								foreach ($employers as $E) {
-									if ($E["VISIBLE"] == 1 && $E['PROGRAM_ID'] == $T['ID']) { ?>
-										<tr>
-											<td><?= $E['EMPLOYER_NAME'] ?></td>
-											<td><?= $E['EMAIL'] ?></td>
-											<td><?php get_employer_internship_count($E['ID']); ?></td>
-											<td><?= $E['CITY'] ?></td>
-											<td><?= $E['ADDRESS'] ?></td>
-											<td>
-												<select name="EMPLOYER_ADD_PROGRAM"
-												        data-employer-id="<?= $E['ID'] ?>"
-												        class="form-control EMPLOYER_ADD_PROGRAM" style="width:100%"
-												        title="Ajouter au programme"
-												        data-header="Ajouter au programme"
-												        placeholder="Ajouter au programme">
-													<option value="" selected disabled>Ajouter au programme</option>
-													<?php foreach ($teacher_programs as $program) {
-														echo "<option data-employer-id='{$E['ID']}' value='{$program['ID']}'>{$program['NAME']}</option>";
-													} ?>
-												</select>
-											</td>
-										</tr>
-									<?php }
-								}
+							<?php $tpn = array(); foreach ($teacher_programs_not as $T) {
+                                $tpn[] = $T["ID"];
+                            }
+                            foreach ($employers as $E) {
+                                if ($E["VISIBLE"] == 1 && !in_array($E['PROGRAM_ID'], $tpn)) { ?>
+                                    <tr>
+                                        <td><?= $E['EMPLOYER_NAME'] ?></td>
+                                        <td><?= $E['EMAIL'] ?></td>
+                                        <td><?php get_employer_internship_count($E['ID']); ?></td>
+                                        <td><?= $E['CITY'] ?></td>
+                                        <td><?= $E['ADDRESS'] ?></td>
+                                        <td>
+                                            <select name="EMPLOYER_ADD_PROGRAM"
+                                                    data-employer-id="<?= $E['ID'] ?>"
+                                                    class="form-control EMPLOYER_ADD_PROGRAM" style="width:100%"
+                                                    title="Ajouter au programme"
+                                                    data-header="Ajouter au programme"
+                                                    placeholder="Ajouter au programme">
+                                                <option value="" selected disabled>Ajouter au programme</option>
+                                                <?php foreach ($teacher_programs as $program) {
+                                                    echo "<option data-employer-id='{$E['ID']}' value='{$program['ID']}'>{$program['NAME']}</option>";
+                                                } ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <?php }
 							} ?>
 							</tbody>
 						</table>

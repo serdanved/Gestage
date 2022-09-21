@@ -106,9 +106,9 @@ class Employer_model extends CI_Model {
 	 */
 	function get_all_employers() {
 		$this->db->select("PRO.ID AS PROGRAM_ID, EMP.ID,EMP.VISIBLE,EMP.USERNAME,EMP.EMPLOYER_NAME,EMP.CONTACT_NAME,EMP.PHONE,EMP.COUNTRY,EMP.PROVINCE,EMP.CITY,EMP.ADDRESS,EMP.POSTAL_CODE,EMP.EMAIL,EMP.NEQ,EMP.INACTIVE");
-		$this->db->from('EMPLOYER_PROGRAMS AS EMP_PRO');
-		$this->db->join('EMPLOYERS AS EMP', 'EMP_PRO.EMPLOYER_ID = EMP.ID');
-		$this->db->join('PROGRAMS AS PRO', 'EMP_PRO.PROGRAM_ID = PRO.ID');
+		$this->db->from("EMPLOYERS AS EMP");
+		$this->db->join('EMPLOYER_PROGRAMS AS EMP_PRO', 'EMP_PRO.EMPLOYER_ID = EMP.ID', "left");
+		$this->db->join('PROGRAMS AS PRO', 'EMP_PRO.PROGRAM_ID = PRO.ID', "left");
 		$this->db->order_by('EMPLOYER_NAME', 'asc');
 		return $this->db->get()->result_array();
 	}
