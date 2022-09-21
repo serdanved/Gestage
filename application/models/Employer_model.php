@@ -194,6 +194,10 @@ class Employer_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function update_employer_contact($id, $params) {
+		return $this->db->where("ID", $id)->update("EMPLOYER_CONTACTS", $params);
+	}
+
 	function get_employer_contact($ID) {
 		return $this->db->get_where('EMPLOYER_CONTACTS', array('ID' => $ID))->row_array();
 	}

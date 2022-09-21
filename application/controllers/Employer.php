@@ -496,4 +496,19 @@ class Employer extends MY_Controller {
 			return false;
 		}
 	}
+
+	function batch_save_contacts($EMPLOYER_ID) {
+		$ids = $this->input->post("id");
+		$names = $this->input->post("name");
+		$emails = $this->input->post("email");
+		$phones = $this->input->post("phone");
+
+		if (is_array($ids) && is_array($names) && is_array($emails) && is_array($phones)) {
+			foreach ($ids as $i => $id) {
+				$this->Employer_model->update_employer_contact($id, array("CONTACT_NAME" => $names[$i], "CONTACT_PHONE" => $phones[$i], "CONTACT_EMAIL" => $emails[$i],));
+			}
+		}
+
+		redirect('employer/edit/' . $EMPLOYER_ID);
+	}
 }

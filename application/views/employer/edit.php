@@ -116,49 +116,48 @@
 				</div>
                 <?= form_close() ?>
 
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<div class="panel-heading-with-add">
-							<h3 class="panel-title">
-								CONTACTS
-							</h3>
-							<div class="panel-tools">
-								<button type="button" data-toggle="modal" data-target="#EmployerContactModal"
-								        class="btn btn-success btn-xs ">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="panel-body">
-						<table class="table table-hover ">
-							<thead>
+				<?= form_open("employer/batch_save_contacts/{$employer['ID']}") ?>
+				<div class="panel-body">
+					<table class="table table-hover ">
+						<thead>
+						<tr>
+							<th>NOM</th>
+							<th>TÉLÉPHONE</th>
+							<th>COURRIEL</th>
+							<th>ACTIONS</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach ($employer_contacts as $contact) { ?>
 							<tr>
-								<th>NOM</th>
-								<th>TÉLÉPHONE</th>
-								<th>COURRIEL</th>
-								<th>ACTIONS</th>
+								<td>
+									<input type="hidden" name="id[]" value="<?= $contact["ID"] ?>">
+									<input type="text" name="name[]" class="form-control" value="<?= $contact["CONTACT_NAME"] ?>" required>
+								</td>
+								<td>
+									<input type="text" name="phone[]" class="form-control" value="<?= $contact["CONTACT_PHONE"] ?>" required>
+								</td>
+								<td>
+									<input type="text" name="email[]" class="form-control" value="<?= $contact["CONTACT_EMAIL"] ?>" required>
+								</td>
+								<td>
+									<a href="https://gestage.cslsj.qc.ca/employer/remove_employer_contact/<?= $contact["ID"] ?>/<?= $contact["EMPLOYER_ID"] ?>"
+										class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="bottom"
+										title="" data-original-title="Supprimé le contact">
+										<span class="fa fa-trash"></span>
+									</a>
+								</td>
 							</tr>
-							</thead>
-							<tbody>
-							<?php foreach ($employer_contacts as $contact) { ?>
-								<tr>
-									<td><?= $contact["CONTACT_NAME"] ?></td>
-									<td><?= $contact["CONTACT_PHONE"] ?></td>
-									<td><?= $contact["CONTACT_EMAIL"] ?></td>
-									<td>
-										<a href="https://gestage.cslsj.qc.ca/employer/remove_employer_contact/<?= $contact["ID"] ?>/<?= $contact["EMPLOYER_ID"] ?>"
-										   class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="bottom"
-										   title="" data-original-title="Supprimé le contact">
-											<span class="fa fa-trash"></span>
-										</a>
-									</td>
-								</tr>
-							<?php } ?>
-							</tbody>
-						</table>
-					</div>
+						<?php } ?>
+						</tbody>
+					</table>
 				</div>
+				<div class="panel-footer">
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-check"></i> SAUVEGARDER
+					</button>
+				</div>
+				<?= form_close() ?>
 			</div>
 			<div class="box-footer">
 			</div>
