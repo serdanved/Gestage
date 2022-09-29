@@ -177,17 +177,17 @@
                 <div class="modal-body col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-								<label for="PROGRAM_ID" class="control-label">PROGRAMME</label>
-								<div class="form-group">
-									<select style="width:100%:" name="PROGRAM_ID" class="form-control">
-										<option value="">Sélectionner un programme</option>
-										<?php foreach($all_programs as $program) {
-											// $selected = ($program['ID'] == $this->input->post('PROGRAM_ID')) ? ' selected="selected"' : "";
-											echo '<option value="'.$program['ID'].'" >'.$program['NAME'].'</option>';
-										} ?>
-									</select>
-								</div>
-							</div>
+                            <label for="PROGRAM_ID" class="control-label">PROGRAMME</label>
+                            <div class="form-group">
+                                <select style="width:100%:" name="PROGRAM_ID" class="form-control">
+                                    <option value="">Sélectionner un programme</option>
+                                    <?php foreach($all_programs as $program) {
+                                        // $selected = ($program['ID'] == $this->input->post('PROGRAM_ID')) ? ' selected="selected"' : "";
+                                        echo '<option value="'.$program['ID'].'" >'.$program['NAME'].'</option>';
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">

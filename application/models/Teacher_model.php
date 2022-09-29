@@ -79,7 +79,7 @@ class Teacher_model extends CI_Model
     }
 
     function remove_program($PROGRAM_ID,$TEACHER_ID){
-         return $this->db->delete('TEACHER_PROGRAMS',array('PROGRAM_ID'=>$PROGRAM_ID,'TEACHER_ID'=>$TEACHER_ID));
+        return $this->db->delete('TEACHER_PROGRAMS',array('PROGRAM_ID'=>$PROGRAM_ID,'TEACHER_ID'=>$TEACHER_ID));
     }
 
     function get_teacher_programs($ID)
@@ -95,12 +95,10 @@ class Teacher_model extends CI_Model
     function get_teacher_programs_not($IDS)
     {
         array_push($IDS, 0);
-        $this->db->select(' DISTINCT(Pro.ID) AS ID, Pro.NAME AS NAME');
-        $this->db->from('TEACHER_PROGRAMS AS Tea_Pro');
-        $this->db->join('TEACHERS AS Tea', 'Tea.ID = Tea_Pro.TEACHER_ID');
-        $this->db->join('PROGRAMS AS Pro', 'Pro.ID = Tea_Pro.PROGRAM_ID');
-        $this->db->where_not_in('Pro.ID', $IDS);
-        $this->db->order_by(' Pro.NAME', 'ASC');
+        $this->db->select('ID, NAME');
+        $this->db->from('PROGRAMS');
+        $this->db->where_not_in('ID', $IDS);
+        $this->db->order_by('NAME', 'ASC');
 
         return $this->db->get()->result_array();
     }
