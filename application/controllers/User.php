@@ -110,7 +110,7 @@
 	}
 
 	private function verify_employer($uid, $pass) {
-		$user = $this->db->get_where("EMPLOYERS", array("PHONEHASH" => preg_replace('/\D/', '', $uid)))->row_array();
+		$user = $this->db->get_where("EMPLOYERS", array("PHONEHASH" => $uid))->row_array();
 		if ($user == null) {
 			return false;
 		}
