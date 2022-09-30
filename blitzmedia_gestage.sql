@@ -511,7 +511,8 @@ INSERT INTO `OPTIONS` (`ID`, `NAME`, `VALUE`) VALUES
 (3, '_SMTP_HOST', 'mail.blitzmedia.io'),
 (4, '_SMTP_PORT', '25'),
 (5, '_SMTP_USER', 'user@blitzmedia.io'),
-(6, '_SMTP_PASS', '1234');
+(6, '_SMTP_PASS', '1234'),
+(7, '_ADOBE_KEY', 'e9103ee23ff2428599d4ace4d17e493f');
 
 -- --------------------------------------------------------
 

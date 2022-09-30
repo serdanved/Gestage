@@ -9,7 +9,7 @@ const viewerConfig = {
 
 document.addEventListener("adobe_dc_view_sdk.ready", function() {
     var adobeDCView = new AdobeDC.View({
-        clientId: "e9103ee23ff2428599d4ace4d17e493f",
+        clientId: "<?= get_option_value("_ADOBE_KEY") ?>",
         divId: "adobe-dc-view",
     });
     var previewFilePromise = adobeDCView.previewFile({
