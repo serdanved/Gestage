@@ -33,6 +33,9 @@
                                 <td><?php echo $S['SCHOOL']; ?></td>
                                 <td><?php echo $S['PROGRAM_NAME']; ?></td>
                                 <td>
+                                    <a href="<?= site_url("student/login_as/{$S["ID"]}") ?>" class="btn btn-warning btn-xs">
+                                        <i class="fa fa-door-open"></i>
+                                    </a>
                                     <a href="<?= site_url('student/archive_student/'.$S['ID']) ?>" class="btn btn-danger btn-xs"
                                         onclick="return confirm('Êtes-vous sûr de voulloir faire cela?')">
                                         <span class="fa fa-trash"></span> Désactiver

@@ -131,6 +131,24 @@
 	}
 
 	function disconnect() {
+		if ($this->session->userdata("ADMIN") != null) {
+			$admin = $this->session->userdata("ADMIN");
+			$user = $this->User_model->get_admin($admin);
+			foreach($this->session->all_userdata() as $D => $V) {
+				$this->session->unset_userdata($D);
+			}
+			$this->session->set_userdata(array(
+				"userid" => $user["ID"],
+				"status" => "admin",
+				"status_id" => 0,
+				"name" => $user["NAME"],
+				"mail" => $user["EMAIL"],
+				"logged_in" => 1,
+			));
+			redirect("/dashboard/index");
+			return;
+		}
+
 		if (!file_exists("application/controllers/Azure.php")) {
 			session_destroy();
 			redirect("/user/login");

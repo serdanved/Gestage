@@ -11,6 +11,27 @@ class Teacher extends MY_Controller {
 		$this->load->model('Student_model');
 	}
 
+	function login_as($ID) {
+		if (!is_admin()) {
+			show_error("Vous devez être un administrateur pour faire cela");
+		}
+
+		$tea = $this->Teacher_model->get_teacher($ID);
+		$admin = $this->session->userdata("userid");
+		foreach($this->session->all_userdata() as $D => $V) {
+            $this->session->unset_userdata($D);
+        }
+		$this->session->set_userdata(array(
+			"userid" => $tea["ID"],
+			"status" => "teacher",
+			"status_id" => 2,
+			"name" => $tea["NAME"],
+			"logged_in" => 1,
+			"ADMIN" => $admin,
+		));
+		redirect("dashboard/index");
+	}
+
 	/*
 	 * Listing of teachers
 	 */

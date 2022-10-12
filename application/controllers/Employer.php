@@ -24,6 +24,28 @@ class Employer extends MY_Controller {
 		$this->load->model('Teacher_model');
 	}
 
+	function login_as($ID) {
+		if (!is_admin()) {
+			show_error("Vous devez être un administrateur pour faire cela");
+		}
+
+		$emp = $this->Employer_model->get_employer($ID);
+		$admin = $this->session->userdata("userid");
+		foreach($this->session->all_userdata() as $D => $V) {
+            $this->session->unset_userdata($D);
+        }
+		$this->session->set_userdata(array(
+			"userid" => $emp["ID"],
+			"status" => "employer",
+			"status_id" => 3,
+			"name" => $emp["EMPLOYER_NAME"],
+			"mail" => null,
+			"logged_in" => 1,
+			"ADMIN" => $admin,
+		));
+		redirect("dashboard/index");
+	}
+
 	//LIST OF EMPLOYERS | GET EMPLOYERS DATA
 	function index() {
 		if (is_teacher()) {

@@ -11,6 +11,29 @@ class Student extends MY_Controller {
 		$this->load->model('Program_model');
 	}
 
+	function login_as($ID) {
+		if (!is_admin()) {
+			show_error("Vous devez être un administrateur pour faire cela");
+		}
+
+		$stu = $this->Student_model->get_student($ID);
+		$admin = $this->session->userdata("userid");
+		foreach($this->session->all_userdata() as $D => $V) {
+            $this->session->unset_userdata($D);
+        }
+		$this->session->set_userdata(array(
+			"userid" => $stu["ID"],
+			"status" => "student",
+			"status_id" => 1,
+			"name" => $stu["NAME"],
+			"mail" => $stu["EMAIL_CS"],
+			"program_id" => $stu["PROGRAM_ID"],
+			"logged_in" => 1,
+			"ADMIN" => $admin,
+		));
+		redirect("dashboard/index");
+	}
+
 	/*
 	 * Listing of students
 	 */

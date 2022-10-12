@@ -168,6 +168,9 @@
 						<td><?= $E['CITY'] ?></td>
 						<td><?= $E['ADDRESS'] ?></td>
 						<td>
+							<a href="<?= site_url("employer/login_as/{$E["ID"]}") ?>" class="btn btn-warning btn-xs">
+								<i class="fa fa-door-open"></i>
+							</a>
 							<a href="<?= site_url('employer/delete_employer/'.$E['ID']) ?>" class="btn btn-danger btn-xs"
                                 onclick="return confirm('Êtes-vous sûr de voulloir faire cela?')">
                                 <i class="fa fa-trash"></i>
@@ -186,5 +189,4 @@
         </div>
     </div>
 </div>
-
 <?php } ?>

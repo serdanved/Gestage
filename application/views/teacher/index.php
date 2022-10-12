@@ -29,6 +29,9 @@
                                     <td><?= $T['PROGRAM_NAMES'] ?></td>
                                     <td><?= $T['EMAIL_CS'] ?></td>
                                     <td>
+                                        <a href="<?= site_url("teacher/login_as/{$T["ID"]}") ?>" class="btn btn-warning btn-xs">
+                                            <i class="fa fa-door-open"></i>
+                                        </a>
                                         <a href="<?= site_url('teacher/archive_teacher/'.$T['ID']) ?>" class="btn btn-danger btn-xs"
                                             onclick="return confirm('Êtes-vous sûr de voulloir faire cela?')">
                                             <span class="fa fa-trash"></span> Désactiver
