@@ -29,23 +29,23 @@ th {
 
 
 <div class="row" style="text-align:center">
-    <img  style="max-width:200px" src="http://gestage.cslsj.qc.ca/resources/img/logo_cfp.png">
-    
-    
+    <img  style="max-width:200px" src="<?= site_url("/resources/img/logo_gestage.png") ?>">
+
+
     <?php //var_dump($internships) ;?>
     <div class="col-md-12">
-        
+
         <div class="box box-info">
             <div class="box-header">
                 <hr>
-                <h3 class="box-title">PRÉSENCES  
-                <?php 
+                <h3 class="box-title">PRÉSENCES
+                <?php
                 $hour_left =  intval($block["TOTAL_HOURS"]) - intval($block["SCHEDULE_TOTAL_HOURS"]);
-                echo " POUR " . mb_strtoupper(get_student_name_by_id($internship["STUDENT_ID"])); 
+                echo " POUR " . mb_strtoupper(get_student_name_by_id($internship["STUDENT_ID"]));
                 echo " <br>" . mb_strtoupper(date_in_french($block["DATE_START"]));
                 echo " - " . mb_strtoupper(date_in_french($block["DATE_END"]));
-                echo "<br><br> NOMBRE D'HEURES À FAIRE : " . $block["SCHEDULE_TOTAL_HOURS"];  
-                echo "<br> NOMBRE D'HEURES ATTRIBUÉES AU STAGE : " . $block["TOTAL_HOURS"];  
+                echo "<br><br> NOMBRE D'HEURES À FAIRE : " . $block["SCHEDULE_TOTAL_HOURS"];
+                echo "<br> NOMBRE D'HEURES ATTRIBUÉES AU STAGE : " . $block["TOTAL_HOURS"];
                 //echo " <br><br> STAGE #" . $internship["ID"] . " | ". strtoupper($block["NAME"]) . " | " . $block["TOTAL_HOURS"] . " | " . $block["SCHEDULE_TOTAL_HOURS"];
                 echo " <br><br> STAGE #" . $internship["ID"] . " | ". mb_strtoupper($block["NAME"]);?>
 
@@ -55,11 +55,11 @@ th {
             </div>
 
             <div class="box-body">
-                
-          
 
-                  
-                     
+
+
+
+
 
 
 
@@ -111,13 +111,13 @@ th {
             </table>
             </div>
             <!-- /.box-body -->
-            
-            
+
+
         </div>
 
 
     </div>
-    
+
     </div>
 </div>
 </div>

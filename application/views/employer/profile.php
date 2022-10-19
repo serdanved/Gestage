@@ -7,7 +7,7 @@
 			<div class="panel-body">
 				<div class="row clearfix">
 					<div class="col-md-12">
-						<img class="center-block" src="<?= site_url('resources/img/logo_cfp.png') ?>">
+						<img class="center-block" src="<?= site_url('resources/img/logo_gestage.png') ?>">
 						<br>
 						<h3 class="profile-username text-center"><?= $user["EMPLOYER_NAME"] ?></h3>
 						<h3 class="profile-username text-center"><?= $user["CONTACT_NAME"] ?></h3>

@@ -26,39 +26,39 @@ th {
 
 
 <div class="row" style="text-align:center">
-    <img  style="max-width:200px" src="http://gestage.cslsj.qc.ca/resources/img/logo_cfp.png">
-    
-    
+    <img  style="max-width:200px" src="<?= site_url("/resources/img/logo_gestage.png") ?>">
+
+
     <?php //var_dump($internships) ;?>
     <div class="col-md-12">
-        
+
         <div class="box box-info">
             <div class="box-header">
                 <hr>
-                <h3 class="box-title">ABSENCES  
-                <?php 
-                if($studentid != "null"){ echo " POUR " . strtoupper(get_student_name_by_id($studentid));  } 
-                
+                <h3 class="box-title">ABSENCES
+                <?php
+                if($studentid != "null"){ echo " POUR " . strtoupper(get_student_name_by_id($studentid));  }
+
                 if($start_date != "null"){ echo " <br> DU " . strtoupper(date_in_french($start_date));  }
                 if($end_date != "null"){ echo " <br> AU " . strtoupper(date_in_french($end_date));  }?>
-                
+
                 </h3>
-                
+
             </div>
-            
+
             <div class="box-body">
-                
-          
-                      
-                  
-                     
-                     
-                   
-   
+
+
+
+
+
+
+
+
         <!-- SECTION POUR EMPLOYEURS ACTIFS -->
         <?php foreach($unique_student as $student): ?>
         <div style="margin-bottom:50px;" class="panel panel-primary">
-            
+
             <div class="panel-heading">
             <h2 style="text-align:left;"><?php echo get_student_name_by_id($student); ?></h2>
            </div>
@@ -73,7 +73,7 @@ th {
                         <th class="col-md-1">JOURNÉE COMPLÈTE</th>
 					    <th class="col-md-1">NOMBRE D'HEURES</th>
 					    <th class="col-md-4">NOTES</th>
-					    
+
                     </tr>
                 </thead>
                 <tbody>
@@ -95,14 +95,14 @@ th {
             </table>
             </div>
             <!-- /.box-body -->
-            
-            
+
+
         </div>
         <?php endforeach; ?>
 
 
     </div>
-    
+
     </div>
 </div>
 </div>
