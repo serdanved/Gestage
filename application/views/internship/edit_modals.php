@@ -251,7 +251,7 @@
 						<div class="col-md-6">
 							<label for='TOTAL_HOURS' class="control-label">HEURES TOTAL</label>
 							<div class="form-group input-group col-md-12">
-								<input id="TOTAL_HOURS" name="TOTAL_HOURS"
+								<input type="number" step="0.01" min="0.00" id="TOTAL_HOURS" name="TOTAL_HOURS"
 								       value="<?= $this->input->post('TOTAL_HOURS') ?>" class="form-control">
 							</div>
 						</div>

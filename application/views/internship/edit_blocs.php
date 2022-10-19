@@ -36,7 +36,7 @@
 				<tbody>
 				<?php foreach ($all_blocks as $AB) { ?>
 					<tr>
-						<td align=center><?php
+						<td align="center"><?php
 							if ($AB['CURRENT'] == 0) {
 								if (is_teacher()) {
 									echo "<a href='/block/set_current/" . $AB['ID'] . "/" . $AB['INTERNSHIP_ID'] . "' <i class='far fa-star'></i></a>";
