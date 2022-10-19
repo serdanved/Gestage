@@ -8,6 +8,47 @@ function scrollToAnchor(aid) {
 	$('html,body').animate({scrollTop: aTag.offset().top - 110}, 'slow');
 }
 
+function set_select_program_teacher_data(program_id) {
+	$.ajax({
+		type: 'POST',
+		url: '/teacher/get_teachers_from_program/',
+		data: {program_id: program_id},
+		datatype: 'json',
+		success: function (data) {
+			if (data != "") {
+				var returnedData = JSON.parse(data);
+				$("#TEACHER_ID").empty();
+				for (var i = 0; i < returnedData.length; i++) {
+					$("#TEACHER_ID").append("<option value='" + returnedData[i].ID + "'>" + returnedData[i].NAME + "</option>");
+				}
+			} else {
+				$("#TEACHER_ID").empty();
+			}
+		}
+	});
+}
+
+function set_select_program_employer_data(program_id) {
+	$.ajax({
+		type: 'POST',
+		url: '/employer/get_employers_from_program/',
+		data: {program_id: program_id},
+		datatype: 'json',
+		success: function (data) {
+			if (data != "") {
+				var returnedData = JSON.parse(data);
+				$("#EMPLOYER_ID").empty();
+				for (var i = 0; i < returnedData.length; i++) {
+					$("#EMPLOYER_ID").append("<option value='" + returnedData[i].ID + "'>" + returnedData[i].NAME + "</option>");
+				}
+				$("#EMPLOYER_ID").trigger('change');
+			} else {
+				$("#EMPLOYER_ID").empty();
+			}
+		}
+	});
+}
+
 $.urlParam = function (name) {
 	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 	if (results == null) {
@@ -321,48 +362,7 @@ $(document).ready(function () {
 
 	$('#NoteModal').on('shown.bs.modal', function () {
 		$("input[name='DESCRIPTION']").focus();
-	})
-
-	function set_select_program_teacher_data(program_id) {
-		$.ajax({
-			type: 'POST',
-			url: '/teacher/get_teachers_from_program/',
-			data: {program_id: program_id},
-			datatype: 'json',
-			success: function (data) {
-				if (data != "") {
-					var returnedData = JSON.parse(data);
-					$("#TEACHER_ID").empty();
-					for (var i = 0; i < returnedData.length; i++) {
-						$("#TEACHER_ID").append("<option value='" + returnedData[i].ID + "'>" + returnedData[i].NAME + "</option>");
-					}
-				} else {
-					$("#TEACHER_ID").empty();
-				}
-			}
-		});
-	}
-
-	function set_select_program_employer_data(program_id) {
-		$.ajax({
-			type: 'POST',
-			url: '/employer/get_employers_from_program/',
-			data: {program_id: program_id},
-			datatype: 'json',
-			success: function (data) {
-				if (data != "") {
-					var returnedData = JSON.parse(data);
-					$("#EMPLOYER_ID").empty();
-					for (var i = 0; i < returnedData.length; i++) {
-						$("#EMPLOYER_ID").append("<option value='" + returnedData[i].ID + "'>" + returnedData[i].NAME + "</option>");
-					}
-					$("#EMPLOYER_ID").trigger('change');
-				} else {
-					$("#EMPLOYER_ID").empty();
-				}
-			}
-		});
-	}
+	});
 
 	function set_select_employer_contact_data(employer_id) {
 		$.ajax({
