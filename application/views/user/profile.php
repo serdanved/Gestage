@@ -33,9 +33,6 @@
 						<li class="list-group-item">
 						    <b>Programme</b> <a href="/student/set_program" class="pull-right"><?= get_program_name_by_id($user["PROGRAM_ID"]); ?></a>
 						</li>
-						<li class="list-group-item">
-						    <b>Groupe</b> <a class="pull-right"><?= $user["GROUP_ID"]; ?></a>
-						</li>
 						<?php } ?>
 
 						<?php if ($typeid == 2) {
