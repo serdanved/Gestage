@@ -28,7 +28,7 @@
 						<ul class="list-group list-group-unbordered">
 						<?php if ($typeid == 1) { ?>
 						<li class="list-group-item">
-						    <b>Tuteur de stage</b> <a class="pull-right"><?= get_user_fullname_by_id_and_type($user["TEACHER_ID"],"2"); ?></a>
+						    <b>Superviseur de stage</b> <a class="pull-right"><?= get_user_fullname_by_id_and_type($user["TEACHER_ID"],"2"); ?></a>
 						</li>
 						<li class="list-group-item">
 						    <b>Programme</b> <a href="/student/set_program" class="pull-right"><?= get_program_name_by_id($user["PROGRAM_ID"]); ?></a>
