@@ -98,7 +98,7 @@
                                 $tpn[] = $T["ID"];
                             }
                             foreach ($employers as $E) {
-                                if ($E["VISIBLE"] == 1 && !in_array($E['PROGRAM_ID'], $tpn)) { ?>
+                                if ($E["VISIBLE"] == 1 && in_array($E['PROGRAM_ID'], $tpn)) { ?>
                                     <tr>
                                         <td><?= $E['EMPLOYER_NAME'] ?></td>
                                         <td><?= $E['EMAIL'] ?></td>
