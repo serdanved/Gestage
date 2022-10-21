@@ -252,7 +252,6 @@ class Employer extends MY_Controller {
 				$this->form_validation->set_rules('ADDRESS', 'ADRESSE', 'required');
 				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', 'required');
 				$this->form_validation->set_rules('POSTAL_CODE', 'CODE POSTAL', 'callback_zip_check');
-				$this->form_validation->run();
 
 				//CHECK IF ALL VALIDATION ARE GOOOD AND INSERT IN DB THEN REDIRECT IN EMPLOYER INDEX
 				if ($this->form_validation->run()) {

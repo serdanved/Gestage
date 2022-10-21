@@ -24,7 +24,7 @@
 			<div class="panel-heading with-border">
 				<h3 class="panel-title">MODIFIER VOS INFORMATIONS</h3>
 			</div>
-			<?= form_open('employer/edit/' . $user['ID']) ?>
+			<?= form_open('employer/profile') ?>
 			<div class="panel-body">
 				<div class="row clearfix col-md-12">
 					<div class="col-md-3">
