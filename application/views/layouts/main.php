@@ -162,7 +162,7 @@
 						<a href="javascript:scrollToAnchor('presences');">PRÉSENCES</a>
 					</li>
 					<li class="scroll">
-						<a href="javascript:scrollToAnchor('horairestage');">HORAIRE TYPE DES HEURES DE L'ENTREPRISE</a>
+						<a href="javascript:scrollToAnchor('horairestage');">HORAIRE</a>
 					</li>
 					<li class="scroll">
 						<a href="javascript:scrollToAnchor('vosobligations');">VOS OBLIGATIONS</a>
