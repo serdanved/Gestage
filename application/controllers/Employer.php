@@ -22,6 +22,7 @@ class Employer extends MY_Controller {
 		$this->load->model('Program_model');
 		$this->load->model('Employer_program_model');
 		$this->load->model('Teacher_model');
+		$this->load->model("Option_model");
 	}
 
 	function login_as($ID) {
@@ -224,10 +225,11 @@ class Employer extends MY_Controller {
 	}
 
 	function profile() {
+		$schoolName = $this->Option_model->get_option(1)["VALUE"];
 		if (is_employer()) {
 			$data["typeid"] = "3";
 			$data["user"] = $this->Employer_model->get_employer($this->session->userid);
-			$data['type'] = "Employeur pour CFP ALMA";
+			$data['type'] = "Employeur pour $schoolName";
 
 			$data['_view'] = 'employer/profile';
 			$this->load->view('layouts/main', $data);
