@@ -30,18 +30,9 @@
 					<div class="col-md-3">
 						<label for="EMPLOYER_NAME" class="control-label">NOM EMPLOYEUR</label>
 						<div class="form-group">
-							<input type="text" name="EMPLOYER_NAME"
+							<input type="text" name="EMPLOYER_NAME" required
 							       value="<?= $this->input->post('EMPLOYER_NAME') ? $this->input->post('EMPLOYER_NAME') : $user['EMPLOYER_NAME'] ?>"
 							       class="form-control" id="EMPLOYER_NAME" />
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<label for="CONTACT_NAME" class="control-label">CONTACT</label>
-						<div class="form-group">
-							<input type="text" name="CONTACT_NAME"
-							       value="<?= $this->input->post('CONTACT_NAME') ? $this->input->post('CONTACT_NAME') : $user['CONTACT_NAME'] ?>"
-							       class="form-control" id="CONTACT_NAME" />
 						</div>
 					</div>
 
@@ -52,9 +43,8 @@
 								<div class="input-group-addon">
 									<i class="fa fa-phone"></i>
 								</div>
-								<input type="text" name="PHONE" class="form-control bfh-phone"
-								       value="<?= $this->input->post('PHONE') ? $this->input->post('PHONE') : $user['PHONE'] ?>"
-								       data-format="(ddd) ddd-dddd" id="PHONE">
+								<input type="text" name="PHONE" class="form-control" required
+								       value="<?= $this->input->post('PHONE') ? $this->input->post('PHONE') : $user['PHONE'] ?>" id="PHONE">
 							</div>
 						</div>
 					</div>
@@ -66,7 +56,7 @@
 								<div class="input-group-addon">
 									<i class="fas fa-envelope"></i>
 								</div>
-								<input type="text" name="EMAIL" class="form-control"
+								<input type="text" name="EMAIL" class="form-control" required
 								       value="<?= $this->input->post('EMAIL') ? $this->input->post('EMAIL') : $user['EMAIL'] ?>"
 								       id="EMAIL">
 							</div>
@@ -76,7 +66,7 @@
 					<div class="col-md-3">
 						<label for="PROVINCE" class="control-label">PROVINCE</label>
 						<div class="form-group">
-							<input type="text" name="PROVINCE"
+							<input type="text" name="PROVINCE" required
 							       value="<?= $this->input->post('PROVINCE') ? $this->input->post('PROVINCE') : $user['PROVINCE'] ?>"
 							       class="form-control" id="PROVINCE" />
 						</div>
@@ -85,7 +75,7 @@
 					<div class="col-md-3">
 						<label for="CITY" class="control-label">VILLE</label>
 						<div class="form-group">
-							<input type="text" name="CITY"
+							<input type="text" name="CITY" required
 							       value="<?= $this->input->post('CITY') ? $this->input->post('CITY') : $user['CITY'] ?>"
 							       class="form-control" id="CITY" />
 						</div>
@@ -94,7 +84,7 @@
 					<div class="col-md-3">
 						<label for="ADDRESS" class="control-label">ADRESSE</label>
 						<div class="form-group">
-							<input type="text" name="ADDRESS"
+							<input type="text" name="ADDRESS" required
 							       value="<?= $this->input->post('ADDRESS') ? $this->input->post('ADDRESS') : $user['ADDRESS'] ?>"
 							       class="form-control" id="ADDRESS" />
 						</div>
@@ -103,7 +93,7 @@
 					<div class="col-md-3">
 						<label for="POSTAL_CODE" class="control-label">CODE POSTAL</label>
 						<div class="form-group">
-							<input type="text" name="POSTAL_CODE"
+							<input type="text" name="POSTAL_CODE" required
 							       value="<?= $this->input->post('POSTAL_CODE') ? $this->input->post('POSTAL_CODE') : $user['POSTAL_CODE'] ?>"
 							       class="form-control" id="POSTAL_CODE" />
 						</div>
@@ -112,7 +102,7 @@
 					<div class="col-md-3">
 						<label for="PHONEHASH" class="control-label">ID CONNEXION</label>
 						<div class="form-group">
-							<input type="text" name="PHONEHASH"
+							<input type="text" name="PHONEHASH" required
 							       value="<?= $this->input->post('PHONEHASH') ? $this->input->post('PHONEHASH') : $user['PHONEHASH'] ?>"
 							       class="form-control" id="PHONEHASH" />
 						</div>

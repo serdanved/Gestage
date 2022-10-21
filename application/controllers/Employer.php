@@ -232,20 +232,14 @@ class Employer extends MY_Controller {
 			$data['type'] = "Employeur pour $schoolName";
 
 			$data['_view'] = 'employer/profile';
-			$this->load->view('layouts/main', $data);
 			$ID = $this->session->userid;
 
 			//CHECK IF USER IS EDITING
 			if (count($this->input->post()) > 0) {
 				$ID = $this->session->userid;
 				//FORM VALIDATION RULES
-				$_POST['PHONE'] = preg_replace("/[^0-9]+/", "", $this->input->post('PHONE'));
 				$this->form_validation->set_rules('EMPLOYER_NAME', 'NOM EMPLOYEUR', 'required');
-				$this->form_validation->set_rules('CONTACT_NAME', 'NOM DU CONTACT', 'required');
-				//CHECK IF USER IS UPDATING PHONE BEFORE CHECKS TO FIGHT AGSINT UNIQUE CONSTRAINT
-				if ($data['user']['PHONE'] != $_POST['PHONE']) {
-					$this->form_validation->set_rules('PHONE', 'NUMÉRO DE TÉLÉPHONE', 'required|is_unique[EMPLOYERS.PHONE]');
-				}
+				$this->form_validation->set_rules('PHONE', 'NUMÉRO DE TÉLÉPHONE', 'required');
 				$this->form_validation->set_rules('EMAIL', 'COURRIEL', 'required|valid_email');
 				$this->form_validation->set_rules('PROVINCE', 'PROVINCE', 'required');
 				$this->form_validation->set_rules('CITY', 'VILLE', 'required');
@@ -271,6 +265,8 @@ class Employer extends MY_Controller {
 					redirect('employer/profile');
 				}
 			}
+
+			$this->load->view('layouts/main', $data);
 		}
 	}
 
