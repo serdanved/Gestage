@@ -117,47 +117,60 @@
                 <?= form_close() ?>
 
 				<?= form_open("employer/batch_save_contacts/{$employer['ID']}") ?>
-				<div class="panel-body">
-					<table class="table table-hover ">
-						<thead>
-						<tr>
-							<th>NOM</th>
-							<th>TÉLÉPHONE</th>
-							<th>COURRIEL</th>
-							<th>ACTIONS</th>
-						</tr>
-						</thead>
-						<tbody>
-						<?php foreach ($employer_contacts as $contact) { ?>
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-heading-with-add">
+							<h3 class="panel-title">
+								GESTION DES CONTACTS
+							</h3>
+
+							<div class="panel-tools">
+								<button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#EmployerContactModal"><span class="glyphicon glyphicon-plus"></span></button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
 							<tr>
-								<td>
-									<input type="hidden" name="id[]" value="<?= $contact["ID"] ?>">
-									<input type="text" name="name[]" class="form-control" value="<?= $contact["CONTACT_NAME"] ?>" required>
-								</td>
-								<td>
-									<input type="text" name="phone[]" class="form-control" value="<?= $contact["CONTACT_PHONE"] ?>" required>
-								</td>
-								<td>
-									<input type="text" name="email[]" class="form-control" value="<?= $contact["CONTACT_EMAIL"] ?>" required>
-								</td>
-								<td>
-									<a href="https://gestage.cslsj.qc.ca/employer/remove_employer_contact/<?= $contact["ID"] ?>/<?= $contact["EMPLOYER_ID"] ?>"
-										class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="bottom"
-										title="" data-original-title="Supprimé le contact">
-										<span class="fa fa-trash"></span>
-									</a>
-								</td>
+								<th>NOM</th>
+								<th>TÉLÉPHONE</th>
+								<th>COURRIEL</th>
+								<th>ACTIONS</th>
 							</tr>
-						<?php } ?>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+							<?php foreach ($employer_contacts as $contact) { ?>
+								<tr>
+									<td>
+										<input type="hidden" name="id[]" value="<?= $contact["ID"] ?>">
+										<input type="text" name="name[]" class="form-control" value="<?= $contact["CONTACT_NAME"] ?>" required>
+									</td>
+									<td>
+										<input type="text" name="phone[]" class="form-control" value="<?= $contact["CONTACT_PHONE"] ?>" required>
+									</td>
+									<td>
+										<input type="text" name="email[]" class="form-control" value="<?= $contact["CONTACT_EMAIL"] ?>" required>
+									</td>
+									<td>
+										<a href="<?= site_url("employer/remove_employer_contact/{$contact["ID"]}/{$contact["EMPLOYER_ID"]}") ?>"
+											class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="bottom"
+											title="" data-original-title="Supprimé le contact">
+											<span class="fa fa-trash"></span>
+										</a>
+									</td>
+								</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i> SAUVEGARDER
+						</button>
+					</div>
+					<?= form_close() ?>
 				</div>
-				<div class="panel-footer">
-					<button type="submit" class="btn btn-success">
-						<i class="fa fa-check"></i> SAUVEGARDER
-					</button>
-				</div>
-				<?= form_close() ?>
 			</div>
 			<div class="box-footer">
 			</div>
@@ -257,12 +270,10 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button style="background-color:Gainsboro;float:left" type="button"
-					        class="btn btn-secondary bg-secondary" data-dismiss="modal">
+					<button style="background-color:Gainsboro;float:left" type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">
 						FERMER
 					</button>
-					<button id="submit_employer_contact_form" class=" btn btn-primary" type="button"
-					        class="btn btn-primary " value="<?= $this->uri->segment(3) ?>">
+					<button id="submit_employer_contact_form" class=" btn btn-primary" type="button" class="btn btn-primary " value="<?= $this->uri->segment(3) ?>">
 						ENREGISTRER
 					</button>
 				</div>

@@ -146,4 +146,38 @@
 		</div>
 	</div>
     <?= form_close() ?>
+
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading with-border">
+				<h3 class="panel-title">INFORMATIONS DE CONTACT</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th>NOM</th>
+						<th>TÉLÉPHONE</th>
+						<th>COURRIEL</th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php foreach ($employer_contacts as $contact) { ?>
+						<tr>
+							<td>
+								<?= $contact["CONTACT_NAME"] ?>
+							</td>
+							<td>
+								<?= $contact["CONTACT_PHONE"] ?>
+							</td>
+							<td>
+								<?= $contact["CONTACT_EMAIL"] ?>
+							</td>
+						</tr>
+					<?php } ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>

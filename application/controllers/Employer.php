@@ -229,6 +229,7 @@ class Employer extends MY_Controller {
 		if (is_employer()) {
 			$data["typeid"] = "3";
 			$data["user"] = $this->Employer_model->get_employer($this->session->userid);
+			$data['employer_contacts'] = $this->Employer_model->get_all_employer_contacts($this->session->userid);
 			$data['type'] = "Employeur pour $schoolName";
 
 			$data['_view'] = 'employer/profile';
@@ -252,7 +253,6 @@ class Employer extends MY_Controller {
 					$params = array(
 						'PHONEHASH' => $this->input->post('PHONEHASH'),
 						'EMPLOYER_NAME' => $this->input->post('EMPLOYER_NAME'),
-						'CONTACT_NAME' => $this->input->post('CONTACT_NAME'),
 						'PHONE' => preg_replace("/[^0-9]+/", "", $this->input->post('PHONE')),
 						'PROVINCE' => $this->input->post('PROVINCE'),
 						'CITY' => $this->input->post('CITY'),
