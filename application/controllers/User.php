@@ -171,7 +171,7 @@
 		if (is_student()) {
 			$data["typeid"] = 1;
 			$data["user"] = $this->Student_model->get_student($this->session->userid);
-			$data['type'] = "Élève du " . $data["user"]["SCHOOL"];
+			$data['type'] = "Élève de " . get_option_value("_SCHOOL_NAME");
 		}
 
 		if (is_teacher()) {
