@@ -82,6 +82,12 @@ class Teacher_model extends CI_Model
         return $this->db->delete('TEACHER_PROGRAMS',array('PROGRAM_ID'=>$PROGRAM_ID,'TEACHER_ID'=>$TEACHER_ID));
     }
 
+    function get_all_teacher_programs() {
+        return $this->db->select("ID, NAME")
+            ->get("PROGRAMS")
+            ->result_array();
+    }
+
     function get_teacher_programs($ID)
     {
         $this->db->select('Pro.ID AS ID, Pro.NAME AS NAME');

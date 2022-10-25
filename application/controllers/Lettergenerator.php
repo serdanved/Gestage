@@ -16,7 +16,11 @@ class Lettergenerator extends MY_Controller {
 	 */
 	function index() {
 		$data['letters'] = $this->Lettergenerator_model->get_all_letters();
-		$data["all_programs"] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+		$data["all_programs"] = $this->Teacher_model->get_all_teacher_programs();
+		if (is_teacher()) {
+			$data["all_programs"] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+		}
+
 		$data['_view'] = 'lettergenerator/index';
 		$this->load->view('layouts/main', $data);
 	}
@@ -119,7 +123,6 @@ class Lettergenerator extends MY_Controller {
 				$bloc4       = $blocks[3];
 			}
 			else { $bloc4["DATE_DEBUT"] = "";$bloc4["DATE_FIN"] = "";$bloc4["HORAIRE"] = ""; }
-
 			*/
 
 			switch ($program["PAVILION"]) {
@@ -312,7 +315,6 @@ class Lettergenerator extends MY_Controller {
 					$bloc4       = $blocks[3];
 				}
 				else { $bloc4["DATE_DEBUT"] = "";$bloc4["DATE_FIN"] = "";$bloc4["HORAIRE"] = ""; }
-
 				*/
 
 				/* SET PAVILION VARIABLE */

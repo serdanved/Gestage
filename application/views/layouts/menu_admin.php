@@ -29,6 +29,11 @@
     </a>
 </li>
 <li>
+    <a href="<?= site_url("/lettergenerator/index") ?>">
+        <i class="fa fa-list-ul" style="margin: 0 4px"></i> GÉNÉRATEUR DE LETTRES
+    </a>
+</li>
+<li>
     <a href="<?= site_url("/pdf/index") ?>">
         <i class="fas fa-file-pdf" style="margin: 0 4px"></i> <span>GESTION PDF</span>
     </a>
