@@ -84,46 +84,44 @@ class Employer extends MY_Controller {
 			if (isset($_POST) && count($_POST) > 0) {
 				$params = array(
 					'NAME' => $this->input->post('NAME'),
+					'PROGRAM_ID' => $this->input->post('PROGRAM'),
 				);
 
 				$this->Employer_model->update_category($ID, $params);
 				redirect('employer/catindex');
-			} else {
-				$data['_view'] = 'employer/cat_edit';
-				$this->load->view('layouts/main', $data);
 			}
+
+			$data['_view'] = 'employer/cat_edit';
+			$this->load->view('layouts/main', $data);
 		} else {
 			show_error('The category you are trying to edit does not exist.');
 		}
 	}
 
-	function catadd($program) {
+	function catadd() {
 		if (isset($_POST) && count($_POST) > 0) {
 			$params = array(
 				'NAME' => $this->input->post('NAME'),
-				'PROGRAM_ID' => $program,
+				'PROGRAM_ID' => $this->input->post('PROGRAM'),
 			);
 
 			$catid = $this->Employer_model->add_category($params);
-			redirect('employer/catindex/');
-		} else {
-			$data["program_id"] = $program;
-			$data['_view'] = 'employer/cat_add';
-			$this->load->view('layouts/main', $data);
+			redirect('employer/catindex');
 		}
+
+		$data['_view'] = 'employer/cat_add';
+		$this->load->view('layouts/main', $data);
 	}
 
 	function catindex() {
-		if ($this->session->userdata("userid")) {
-			$program_ids = array();
-			$data['teacher_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
-			foreach ($data['teacher_programs'] as $teacher_program) {
-				array_push($program_ids, $teacher_program["ID"]);
-			}
-
-			$data['_view'] = 'employer/cat_index';
-			$this->load->view('layouts/main', $data);
+		if (!is_admin()) {
+			redirect("/");
+			return;
 		}
+
+		$data["cats"] = $this->Employer_model->get_all_categories();
+		$data['_view'] = 'employer/cat_index';
+		$this->load->view('layouts/main', $data);
 	}
 
 	function sendinfo() {
@@ -245,7 +243,22 @@ class Employer extends MY_Controller {
 				$this->form_validation->set_rules('PROVINCE', 'PROVINCE', 'required');
 				$this->form_validation->set_rules('CITY', 'VILLE', 'required');
 				$this->form_validation->set_rules('ADDRESS', 'ADRESSE', 'required');
-				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', 'required');
+				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION',
+					array(
+						'required',
+						array(
+							"unique",
+							function($value) {
+								$count = $this->db->where("PHONEHASH", $value)->from("employers")->count_all_results();
+								if ($count > 0) {
+									$this->form_validation->set_message('unique', 'Un utilisateur avec ce ID existe déjà');
+									return false;
+								} else {
+									return true;
+								}
+							},
+						),
+					));
 				$this->form_validation->set_rules('POSTAL_CODE', 'CODE POSTAL', 'callback_zip_check');
 
 				//CHECK IF ALL VALIDATION ARE GOOOD AND INSERT IN DB THEN REDIRECT IN EMPLOYER INDEX
@@ -262,7 +275,6 @@ class Employer extends MY_Controller {
 					);
 
 					$this->Employer_model->update_employer($ID, $params);
-					redirect('employer/profile');
 				}
 			}
 

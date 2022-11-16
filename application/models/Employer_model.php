@@ -34,6 +34,10 @@ class Employer_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function get_all_categories() {
+		return $this->db->get("EMPLOYERS_CAT")->result_array();
+	}
+
 	function get_categories($ID) {
 		return $this->db->get_where('EMPLOYERS_CAT', array('PROGRAM_ID' => $ID))->result_array();
 	}

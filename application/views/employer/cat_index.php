@@ -1,63 +1,39 @@
 <div class="row">
-    
-    
-    
-    <div class="col-md-12">
-        
-        <div class="box box-info">
-            <div class="box-header">
-                <h3 class="box-title">LISTE DES CATEGORIES DE MES PROGRAMMES</h3>
-            </div>
-            
-            <div class="box-body">
-        <?php foreach ($teacher_programs as $T) {
-$categories = $this->Employer_model->get_categories($T["ID"]);
- ?>
-        
-        <!-- SECTION POUR EMPLOYEURS ACTIFS -->
-        <div class="panel panel-primary">
-            
-            <div class="panel-heading">
-                <div class="panel-heading-with-add"> 
-                <h3 class="panel-title"><?= $T['NAME']; ?></h3>
+	<div class="col-md-12">
+		<div class="box box-info">
+			<div class="box-header">
+				<h3 class="box-title">LISTE DES CATEGORIES D'EMPLOYER</h3>
+                <?php if (is_teacher() || is_admin()) { ?>
+                    <a href="<?= site_url('employer/catadd') ?>" class="btn btn-success btn-xs pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                <?php } ?>
+			</div>
 
-                    <a href="<?php echo site_url('employer/catadd/'.$T["ID"]); ?>"  class="btn btn-success btn-xs">
-          		        <span class="glyphicon glyphicon-plus"></span>
-        	        </a>
-
-            </div>
-           </div>
-            <!-- /.box-header -->
-            <div class="panel-body cell-border table-responsive ">
-              <table class="table table-hover cat-table">
-                <thead>
+			<div class="box-body">
+                <table class="table table-hover cat-table">
+                    <thead>
                     <tr>
                         <th>CATÉGORIE</th>
-					    <th>ACTIONS</th>
+                        <th>PROGRAMME</th>
+                        <th>ACTIONS</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($categories as &$C ): ?>
-                            <tr>
-                  	            <td><?php echo $C['NAME'];?></td>
-        						<td>
-                                    <a href="<?php echo site_url('employer/catedit/'.$C['ID']); ?>" class="btn btn-info btn-xs"><i class="fas fa-pencil-alt"></i></a> 
-                                </td>
-                            </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            </div>
-            <!-- /.box-body -->
-        </div>
-
-
-       
-        <?php } ?>
-    </div>
-    
-    </div>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($cats as $C) { ?>
+                        <tr>
+                            <td><?= $C['NAME'] ?></td>
+                            <td><?= $this->Program_model->get_program_name_by_id($C["PROGRAM_ID"])["NAME"] ?></td>
+                            <td>
+                                <a href="<?= site_url('employer/catedit/' . $C['ID']) ?>" class="btn btn-info btn-xs">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+	</div>
 </div>
-</div>
-
-
