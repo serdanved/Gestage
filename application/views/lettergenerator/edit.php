@@ -19,7 +19,7 @@
 	                        <input type="text" name="DESC" value="<?php echo $lettergenerator['DESC']; ?>" class="form-control" id="DESC" />
 						</div>
 					</div>
-                    
+
                     <div class="col-md-4">
                             <label for="PROGRAM_ID" class="control-label">
                                 Programme
@@ -27,29 +27,29 @@
                             <div class="form-group">
                                 <select name="PROGRAM_ID" class="form-control select2">
                                     <option value="">Tous les programmes</option>
-                                    <?php 
+                                    <?php
                                     foreach($all_programs as $program)
                                     {
-                                       $selected = ($program['ID'] == $lettergenerator['PROGRAM_ID']) ? ' selected="selected"' : "";         
+                                       $selected = ($program['ID'] == $lettergenerator['PROGRAM_ID']) ? ' selected="selected"' : "";
                                        echo '<option value="'.$program['ID'].'" '.$selected.'>'.$program['NAME'].'</option>';
-                                    } 
+                                    }
                                     ?>
                                 </select>
                                 <span class="text-danger">
                                     <?php echo form_error('PROGRAM_ID');?>
                                 </span>
                             </div>
-                        </div> 
-                    
-                    
+                        </div>
+
+
 
 					<div class='col-md-12'>
 						<label for="CONTENT" class="control-label">Contenu</label>
 						<div class="form-group">
 	                        <textarea name="CONTENT" class="form-control" id="CONTENT" /><?php echo $lettergenerator['CONTENT']; ?></textarea>
-						</div>					    
+						</div>
 					</div>
-					
+
 					<div class='col-md-12'>
 						 <div class="box box-info">
             <div class="box-header">
@@ -76,21 +76,24 @@
 					echo "<br><br>";
 					foreach($program_fields as $fields) {
 						echo "<li>{PROGRAMME.".$fields."}</li> ";
-					}	
+					}
 
 
-                    /*    
+                    /*
 					foreach($block_fields as $fields) {
 						echo "<li>{".$fields."}</li> ";
-					}	*/				
-					echo "<br><br>";					
+					}	*/
+					echo "<br><br>";
                     echo "<li>{PAVILION_ADDRESS}</li> ";
                     echo "<li>{PAVILION_POSTAL_CODE}</li> ";
 
 
 
-                        echo "<br><br>";					
+					echo "<br><br>";
                     echo "<li>{DATE}</li> ";
+					echo "<li>{SIGNATURE_ENSEIGNANT}</li> ";
+					echo "<li>{SIGNATURE_EMPLOYEUR}</li> ";
+					echo "<li>{SIGNATURE_ELEVE}</li> ";
 					?>
 					</ul>
 
@@ -99,8 +102,8 @@
 			</div>
 			</div>
 			</div>
-			
-			
+
+
           	<div class="box-footer">
             	<button type="submit" class="btn btn-success">
             		<i class="fa fa-check"></i> SAUVEGARDER
