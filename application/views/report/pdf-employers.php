@@ -11,7 +11,7 @@
             img { float:right; right:0; position:absolute; top:0; }
         </style>
         <h4>Liste de tous les Employeurs avec leurs Contact(s)</h4>
-        <img src="<?= site_url("/resources/img/logo_gestage.png") ?>">
+        <img height="80" src="<?= site_url("/resources/img/logo_gestage.png") ?>">
         <br><br><br>
         <?php foreach ($employers as $e) { ?>
             <div style="page-break-inside: avoid; margin-bottom: 1em; line-height:1.2em; height:15em; width: 100%;">

@@ -11,7 +11,7 @@
         </style>
 
         <h4>Liste des stages entre <?= $post["date_debut"] ?> et <?= $post["date_fin"] ?></h4>
-        <img src="<?= site_url("/resources/img/logo_gestage.png") ?>">
+        <img height="80" src="<?= site_url("/resources/img/logo_gestage.png") ?>">
         <br><br>
 
         <table style="width:100%" cellspacing="2" cellpadding="2">
