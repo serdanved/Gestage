@@ -11,7 +11,7 @@
             img { float:right; right:0; position:absolute; top:0; }
         </style>
         <h4>Liste simplifié des Employeurs</h4>
-        <img src="<?= site_url("/resources/img/logo.png") ?>">
+        <img src="<?= site_url("/resources/img/logo_gestage.png") ?>">
         <br><br><br>
         <table style="width:100%" cellspacing="2" cellpadding="2">
             <thead>

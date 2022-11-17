@@ -23,7 +23,7 @@
                 <h4>Liste des employeurs de stages en date du <?= date("Y-m-d") ?></h4>
             <?php } ?>
         <?php } ?>
-        <img src="<?= site_url("/resources/img/logo.png") ?>">
+        <img src="<?= site_url("/resources/img/logo_gestage.png") ?>">
         <br><br>
         <table style="width:100%" cellspacing="2" cellpadding="2">
             <thead>

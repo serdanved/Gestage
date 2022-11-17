@@ -41,8 +41,6 @@
                             </div>
                         </div>
 
-
-
 					<div class='col-md-12'>
 						<label for="CONTENT" class="control-label">Contenu</label>
 						<div class="form-group">
@@ -57,8 +55,7 @@
             </div>
             <div class="box-body">
 					<ul  style = "list-style-type:none;" id = "draggable">
-					<?php
-					foreach($eleve_fields as $fields) {
+					<?php foreach($eleve_fields as $fields) {
 						echo "<li>{ETUDIANT.".$fields."}</li> ";
 					}
 					echo "<br><br>";
@@ -78,16 +75,12 @@
 						echo "<li>{PROGRAMME.".$fields."}</li> ";
 					}
 
-
-                    /*
-					foreach($block_fields as $fields) {
+                    /*foreach($block_fields as $fields) {
 						echo "<li>{".$fields."}</li> ";
-					}	*/
+					}*/
 					echo "<br><br>";
                     echo "<li>{PAVILION_ADDRESS}</li> ";
                     echo "<li>{PAVILION_POSTAL_CODE}</li> ";
-
-
 
 					echo "<br><br>";
                     echo "<li>{DATE}</li> ";
@@ -96,7 +89,6 @@
 					echo "<li>{SIGNATURE_ELEVE}</li> ";
 					?>
 					</ul>
-
 					</div>
 				</div>
 			</div>
