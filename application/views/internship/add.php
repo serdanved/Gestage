@@ -31,7 +31,7 @@
 									<select name="STUDENT_ID[]" class="form-control" multiple>
 										<option value="">Sélectionner un élève</option>
 										<?php foreach ($all_students as $student) {
-											$selected = in_array($student['ID'], $this->input->post('STUDENT_ID')) ? 'selected="selected"' : "";
+											$selected = in_array($student['ID'], $this->input->post('STUDENT_ID') ?? []) ? 'selected="selected"' : "";
 											echo '<option value="' . $student['ID'] . '" ' . $selected . '>' . get_student_name_by_id($student['ID']) . '</option>';
 										} ?>
 									</select>
