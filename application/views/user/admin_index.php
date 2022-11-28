@@ -19,13 +19,12 @@
                     </thead>
                     <?php foreach($users as $U) { ?>
                     <tr>
-						<td><?php echo $U['ID']; ?></td>
-						<td><?php echo $U['NAME']; ?></td>
-						<td><?php echo $U['EMAIL']; ?></td>
+						<td><?= $U['ID'] ?></td>
+						<td><?= $U['NAME'] ?></td>
+						<td><?= $U['EMAIL'] ?></td>
 						<td>
                             <?php if ($U["ID"] != $this->session->userid) { ?>
-                            <a href="<?= site_url('user/admin_delete/'.$U['ID']) ?>" class="btn btn-danger btn-xs"
-                                onclick="return confirm('Êtes-vous sûr de voulloir faire cela?')">
+                            <a href="<?= site_url('user/admin_delete/'.$U['ID']) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Êtes-vous sûr de voulloir faire cela?')">
                                 <span class="fa fa-trash"></span> Supprimer
                             </a>
                             <?php } ?>

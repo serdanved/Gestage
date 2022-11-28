@@ -273,7 +273,7 @@
 					<button style="background-color:Gainsboro;float:left" type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">
 						FERMER
 					</button>
-					<button id="submit_employer_contact_form" class=" btn btn-primary" type="button" class="btn btn-primary " value="<?= $this->uri->segment(3) ?>">
+					<button id="submit_employer_contact_form" class="btn btn-primary" type="button" value="<?= $this->uri->segment(3) ?>">
 						ENREGISTRER
 					</button>
 				</div>

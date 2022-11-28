@@ -10,17 +10,15 @@
 					<div class="col-md-6">
 						<label for="NAME" class="control-label">NOM</label>
 						<div class="form-group">
-							<input type="text" name="NAME"
-							       value="<?= $this->input->post('NAME') ? $this->input->post('NAME') : $user['NAME'] ?>"
-							       class="form-control" id="NAME" />
+							<input type="text" name="NAME" class="form-control" id="NAME" required
+							       value="<?= $this->input->post('NAME') ? $this->input->post('NAME') : $user['NAME'] ?>" />
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="EMAIL" class="control-label">COURRIEL</label>
 						<div class="form-group">
-							<input type="email" name="EMAIL"
-							       value="<?= $this->input->post('EMAIL') ? $this->input->post('EMAIL') : $user['EMAIL'] ?>"
-							       class="form-control" id="EMAIL" />
+							<input type="email" name="EMAIL" class="form-control" id="EMAIL" required
+							       value="<?= $this->input->post('EMAIL') ? $this->input->post('EMAIL') : $user['EMAIL'] ?>" />
 							<span class="text-danger"><?= form_error('EMAIL') ?></span>
 						</div>
 					</div>

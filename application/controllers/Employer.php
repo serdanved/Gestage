@@ -131,9 +131,15 @@ class Employer extends MY_Controller {
             $this->Employer_model->update_employer($employer["ID"], array(
                 "PASSWORD_HASH" => password_hash($pass, PASSWORD_BCRYPT),
             ));
-			$email_to = $employer['EMAIL'];
-			$email_message = "Utilisateur : {$employer['PHONEHASH']}<br>Mot de passe : $pass";
-			email("gestage@cslsj.qc.ca", "Gestage", $email_to, "Gestage | Demande d'information de connexion", $email_message, "", "");
+
+			foreach ($this->Employer_model->get_all_employer_contacts($employer["ID"]) as $c) {
+				$email_to = trim($c['CONTACT_EMAIL']);
+				$email_message = "Utilisateur : {$employer['PHONEHASH']}<br>Mot de passe : $pass";
+				if (filter_var($email_to, FILTER_VALIDATE_EMAIL)) {
+					email(get_option_value("_SMTP_FROM"), "Gestage", $email_to, "Gestage | Demande d'information de connexion", $email_message, "", "");
+				}
+			}
+
 			echo "DONE";
 		}
 	}

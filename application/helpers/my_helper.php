@@ -58,7 +58,7 @@ function get_user_fullname_by_id_and_type($id, $type) {
 	return $name;
 }
 
-function email($from = "gestage@cslsj.qc.ca", $from_name = "Gestage", $to = "support@blitzmedia.io", $subject = "Test Courriel Gestage", $message = "Ceci est un message test pour smtp Gestage", $internship_id = "", $archor = "#vosobligations") {
+function email($from, $from_name = "Gestage", $to = "support@blitzmedia.io", $subject = "Test Courriel Gestage", $message = "Ceci est un message test pour smtp Gestage", $internship_id = "", $archor = "#vosobligations") {
 	$CI =& get_instance();
 	$config = array(
 		'protocol' => 'smtp',
@@ -77,6 +77,8 @@ function email($from = "gestage@cslsj.qc.ca", $from_name = "Gestage", $to = "sup
 	$CI->email->set_crlf("\r\n");
 
 	$email_body = file_get_contents(dirname(__FILE__) . "/../../resources/uploads/template/Notification.html");
+	$email_body = str_replace("{SITE_URL}", site_url(), $email_body);
+	$email_body = str_replace("{SCHOOL_NAME}", get_option_value("_SCHOOL_NAME"), $email_body);
 
 	//SET MESSAGE SUBJECT
 	$email_body = str_replace("{MESSAGE_SUBJECT}", $subject, $email_body);
@@ -606,7 +608,7 @@ function insert_obligations_entry($internship_id, $document_id, $obligation_stud
 
 			//SEND MESSAGE
 			$to_email = get_student_email_by_id($internship_data["STUDENT_ID"]);
-			email("gestage@cslsj.qc.ca", "Gestage", $to_email, "Gestage | Nouvelle Obligation", "Vous avez reçu une nouvelle obligation pour votre stage.", $internship_id, "#vosobligations");
+			email(get_option_value("_SMTP_FROM"), "Gestage", $to_email, "Gestage | Nouvelle Obligation", "Vous avez reçu une nouvelle obligation pour votre stage.", $internship_id, "#vosobligations");
 		}
 		if ($obligation_teacher == 1) {
 			$params_obligations["USER_ID"] = $internship_data["TEACHER_ID"];
@@ -617,7 +619,7 @@ function insert_obligations_entry($internship_id, $document_id, $obligation_stud
 
 			//SEND MESSAGE
 			$to_email = get_teacher_email_by_id($internship_data["TEACHER_ID"]);
-			email("gestage@cslsj.qc.ca", "Gestage", $to_email, "Gestage | Nouvelle Obligation", "Vous avez reçu une nouvelle obligation pour votre stage.", $internship_id, "#vosobligations");
+			email(get_option_value("_SMTP_FROM"), "Gestage", $to_email, "Gestage | Nouvelle Obligation", "Vous avez reçu une nouvelle obligation pour votre stage.", $internship_id, "#vosobligations");
 		}
 
 		if ($obligation_employer == 1) {
@@ -629,7 +631,7 @@ function insert_obligations_entry($internship_id, $document_id, $obligation_stud
 
 			//SEND MESSAGE
 			$to_email = get_employer_email_by_id($internship_data["EMPLOYER_ID"]);
-			email("gestage@cslsj.qc.ca", "Gestage", $to_email, "Gestage | Nouvelle Obligation", "Vous avez reçu une nouvelle obligation pour votre stage.", $internship_id, "#vosobligations");
+			email(get_option_value("_SMTP_FROM"), "Gestage", $to_email, "Gestage | Nouvelle Obligation", "Vous avez reçu une nouvelle obligation pour votre stage.", $internship_id, "#vosobligations");
 		}
 	}
 }
