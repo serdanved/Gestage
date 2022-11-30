@@ -274,7 +274,6 @@ class Lettergenerator extends MY_Controller {
 
 				$content = $data['letter']["CONTENT"];
 				$original_content = $content;
-				$content = str_replace("../../resources/img/centre_prof_alma.jpg", base_url() . "/resources/img/centre_prof_alma.jpg", $content);
 				$content = str_replace("<body", "<page", $content);
 				$content = str_replace("</body>", "</page>", $content);
 				// die($content);
