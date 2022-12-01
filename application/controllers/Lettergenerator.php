@@ -91,7 +91,7 @@ class Lettergenerator extends MY_Controller {
 			$html2pdf = new htmltopdf('P', 'letter');
 
 			$content = $letter["CONTENT"];
-			$content = str_replace("../../resources/img/centre_prof_alma.jpg", base_url() . "resources/img/centre_prof_alma.jpg", $content);
+			$content = str_replace("../../resources/img/centre_prof_alma.jpg", base_url() . "resources/img/logo_gestage.png", $content);
 			$content = str_replace("<body", "<page", $content);
 			$content = str_replace("</body>", "</page>", $content);
 			$stage = $this->Internship_model->get_internship($internship_id);
@@ -209,6 +209,9 @@ class Lettergenerator extends MY_Controller {
 						$content = str_replace($tag,$bloc4[$fixtag[1]],$content);
 						break;
 					*/
+					case "LOGO":
+						$content = str_replace($tag, "<img src='" . base_url() . "resources/img/logo_gestage.png' width='130'>", $content);
+						break;
 					case "SIGNATURE_ELEVE":
 						$signature_value_eleve = $this->Obligation_model->get_obligation_signature_by_document_student($document_id);
 						if ($signature_value_eleve != "") {
