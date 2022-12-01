@@ -26,6 +26,7 @@ class Teacher extends MY_Controller {
 			"status" => "teacher",
 			"status_id" => 2,
 			"name" => $tea["NAME"],
+			"mail" => $tea["EMAIL_CS"],
 			"logged_in" => 1,
 			"ADMIN" => $admin,
 		));
@@ -37,6 +38,7 @@ class Teacher extends MY_Controller {
 	 */
 	function remove_program($program_id, $user_id) {
 		$this->Teacher_model->remove_program($program_id, $user_id);
+		$this->db->where("PROGRAM_ID", $program_id)->where("TEACHER_ID", $user_id)->update("STUDENTS", array("TEACHER_ID" => 0));
 		redirect('user/profile');
 	}
 

@@ -93,6 +93,7 @@ class Student extends MY_Controller {
 				'PROGRAM_ID' => $this->input->post('PROGRAM_ID'),
                 'SCHOOL' => $this->input->post('SCHOOL'),
                 'PASSWORD_HASH' => password_hash($this->input->post('PASSWORD'), PASSWORD_BCRYPT),
+				'TEACHER_ID' => 0,
 			);
 
 			$student_id = $this->Student_model->add_student($params);

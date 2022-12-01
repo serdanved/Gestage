@@ -36,11 +36,21 @@
 						<?php } ?>
 
 						<?php if ($typeid == 2) {
-						    foreach($programs as $program) {
-						      echo "<li class=\"list-group-item\"><b>Membre du programme</b> " . '<a href="/teacher/remove_program/' .$program["ID"] .'/'.$user["ID"].'" style="margin-right: 15px;" class="pull-right btn btn-danger btn-xs" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Supprimer le programme"><span class="fa fa-trash"></span></a>' . "<a style='margin-right: 15px;' class=\"pull-right\">".$program["NAME"]."</a></li>";
-						    }
+						    foreach ($programs as $program) { ?>
+                                <li class='list-group-item'>
+                                    <b>Membre du programme</b>
+                                    <?php if (count($programs) > 1) { ?>
+                                    <a href='/teacher/remove_program/<?= $program["ID"] ?>/<?= $user["ID"] ?>' style='margin-right: 15px;'
+                                       class='pull-right btn btn-danger btn-xs' data-toggle='tooltip' data-placement='bottom'
+                                       title='' data-original-title='Supprimer le programme'>
+                                        <span class='fa fa-trash'></span>
+                                    </a>
+                                    <?php } ?>
+                                    <a style='margin-right: 15px;' class='pull-right'><?= $program["NAME"] ?></a>
+                                </li>
+                            <?php }
 						    foreach($students as $student) {
-						      echo "<li class=\"list-group-item\"><b>Élève: </b>".$student["NAME"]."<a style='margin-right: 52px;' class=\"pull-right\">".get_program_name_by_id($student["PROGRAM_ID"])."</a></li>";
+                                echo "<li class=\"list-group-item\"><b>Élève: </b>".$student["NAME"]."<a style='margin-right: 52px;' class=\"pull-right\">".get_program_name_by_id($student["PROGRAM_ID"])."</a></li>";
 						    }
 				        } ?>
 						</ul>

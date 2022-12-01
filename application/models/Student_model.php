@@ -119,7 +119,7 @@ class Student_model extends CI_Model
         return $this->db->get_where('STUDENTS', array('TEACHER_ID' => $ID))->result_array();
     }
 
-     function get_all_student_by_teacher_id($TEACHER_ID,$PROGRAMS,$FLAG)
+    function get_all_student_by_teacher_id($TEACHER_ID,$PROGRAMS,$FLAG)
     {
         $this->db->select("COUNT(ID)");
         $this->db->from('STUDENTS');
@@ -142,7 +142,7 @@ class Student_model extends CI_Model
 
     }
 
-      function get_all_student_by_employer_id($TEACHER_ID,$PROGRAMS,$FLAG)
+    function get_all_student_by_employer_id($TEACHER_ID,$PROGRAMS,$FLAG)
     {
         $this->db->select("COUNT(ID)");
         $this->db->from('STUDENTS');
@@ -188,8 +188,8 @@ class Student_model extends CI_Model
             ARCHIVE
         ");
         $this->db->from('STUDENTS');
-        $this->db->where_in('STUDENTS.TEACHER_ID',0);
-        $this->db->where_in('STUDENTS.PROGRAM_ID',$IDS);
+        $this->db->where_in('STUDENTS.TEACHER_ID', 0);
+        $this->db->where_in('STUDENTS.PROGRAM_ID', $IDS);
         // $this->db->order_by('STUDENTS.NAME','ASC');
         $this->db->order_by("FIRST_NAME", "ASC");
         // echo "<pre>";

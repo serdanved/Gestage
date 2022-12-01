@@ -15,31 +15,31 @@
 </li>
 <li>
     <a href="<?= site_url("/program/index") ?>">
-        <i class="fas fa-list-ul" style="margin: 0 4px"></i> <span>GESTION PROGRAMMES</span>
+        <i class="fas fa-list-ul" style="margin-left: 4px"></i> <span>GESTION PROGRAMMES</span>
     </a>
 </li>
 <li>
     <a href="<?= site_url("/student/index") ?>">
-        <i class="fas fa-list-ul" style="margin: 0 4px"></i> <span>GESTION ÉLÈVES</span>
+        <i class="fas fa-list-ul" style="margin-left: 4px"></i> <span>GESTION ÉLÈVES</span>
     </a>
 </li>
 <li>
     <a href="<?= site_url("/teacher/index") ?>">
-        <i class="fas fa-list-ul" style="margin: 0 4px"></i> <span>GESTION ENSEIGNANTS</span>
+        <i class="fas fa-list-ul" style="margin-left: 4px"></i> <span>GESTION ENSEIGNANTS</span>
     </a>
 </li>
 <li>
     <a href="<?= site_url("/lettergenerator/index") ?>">
-        <i class="fa fa-list-ul" style="margin: 0 4px"></i> GÉNÉRATEUR DE LETTRES
+        <i class="fa fa-list-ul" style="margin-left: 4px"></i> <span>GÉNÉRATEUR DE LETTRES</span>
     </a>
 </li>
 <li>
     <a href="<?= site_url("/pdf/index") ?>">
-        <i class="fas fa-file-pdf" style="margin: 0 4px"></i> <span>GESTION PDF</span>
+        <i class="fas fa-file-pdf" style="margin-left: 4px"></i> <span>GESTION PDF</span>
     </a>
 </li>
 <li>
     <a href="<?= site_url("/option/index") ?>">
-        <i class="fas fa-cog" style="margin: 0 4px"></i> <span>GESTION OPTIONS</span>
+        <i class="fas fa-cog" style="margin-left: 4px"></i> <span>GESTION OPTIONS</span>
     </a>
 </li>
