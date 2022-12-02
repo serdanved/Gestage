@@ -293,8 +293,11 @@ class Employer extends MY_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 
-		//$data['all_programs'] = $this->Program_model->get_all_programs();
-		$data['all_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+        if (is_admin()) {
+            $data['all_programs'] = $this->Program_model->get_all_programs();
+        } else {
+            $data['all_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+        }
 
 		//CHECK IF USER SUBMIT A NEW EMPLOYER
 		if ($this->input->post('PHONEHASH')) {
