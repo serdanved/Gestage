@@ -81,6 +81,7 @@
 					echo "<br><br>";
                     echo "<li>{PAVILION_ADDRESS}</li> ";
                     echo "<li>{PAVILION_POSTAL_CODE}</li> ";
+					echo "<li>{LOGO}</li> ";
 
 					echo "<br><br>";
                     echo "<li>{DATE}</li> ";
