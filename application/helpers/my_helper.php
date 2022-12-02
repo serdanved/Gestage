@@ -60,22 +60,7 @@ function get_user_fullname_by_id_and_type($id, $type) {
 
 function email($from, $from_name = "Gestage", $to = "support@blitzmedia.io", $subject = "Test Courriel Gestage", $message = "Ceci est un message test pour smtp Gestage", $internship_id = "", $archor = "#vosobligations") {
 	$CI =& get_instance();
-	$config = array(
-		'protocol' => 'smtp',
-		'smtp_host' => get_option_value("_SMTP_HOST"),
-		'smtp_port' => get_option_value("_SMTP_PORT"),
-		'smtp_user' => get_option_value("_SMTP_USER"),
-		'smtp_pass' => get_option_value("_SMTP_PASS"),
-		'mailtype' => 'html',
-		'charset' => 'utf-8',
-	);
-
-	$CI->load->library('email');
-	$CI->email->initialize($config);
-	$CI->email->set_mailtype("html");
-	$CI->email->set_newline("\r\n");
-	$CI->email->set_crlf("\r\n");
-
+	
 	$email_body = file_get_contents(dirname(__FILE__) . "/../../resources/uploads/template/Notification.html");
 	$email_body = str_replace("{SITE_URL}", site_url(), $email_body);
 	$email_body = str_replace("{SCHOOL_NAME}", get_option_value("_SCHOOL_NAME"), $email_body);
@@ -94,14 +79,45 @@ function email($from, $from_name = "Gestage", $to = "support@blitzmedia.io", $su
 		$email_body = str_replace("{MESSAGE_BTN_TITLE}", "Connexion", $email_body);
 		$email_body = str_replace("{MESSAGE_BTN_LINK}", site_url("/user/login"), $email_body);
 	}
-
-	$CI->email->to($to);
-	$CI->email->from($from, $from_name);
-	$CI->email->subject($subject);
-	$CI->email->message($email_body);
-
-	$CI->email->send();
-	//$data["result"] = $this->email->print_debugger();
+	
+	if (!file_exists("application/controllers/Azure.php")) {
+    	$config = array(
+    		'protocol' => 'smtp',
+    		'smtp_host' => get_option_value("_SMTP_HOST"),
+    		'smtp_port' => get_option_value("_SMTP_PORT"),
+    		'smtp_user' => get_option_value("_SMTP_USER"),
+    		'smtp_pass' => get_option_value("_SMTP_PASS"),
+    		'mailtype' => 'html',
+    		'charset' => 'utf-8',
+    	);
+    
+    	$CI->load->library('email');
+    	$CI->email->initialize($config);
+    	$CI->email->set_mailtype("html");
+    	$CI->email->set_newline("\r\n");
+    	$CI->email->set_crlf("\r\n");
+    
+    	$CI->email->to($to);
+    	$CI->email->from($from, $from_name);
+    	$CI->email->subject($subject);
+    	$CI->email->message($email_body);
+    
+    	$CI->email->send();
+    	//$data["result"] = $this->email->print_debugger();
+	} else {
+	    require_once "application/controllers/Azure.php";
+	    graph_sendMail($from, [
+	        "subject" => $subject,
+	        "toRecipients" => [
+	            ["name" => explode("@", $to)[0], "address" => $to],
+            ],
+            "ccRecipients" => [],
+            "importance" => "normal",
+            "body" => $email_body,
+            "images" => [],
+            "attachments" => [],
+        ]);
+	}
 }
 
 function get_letters_favorite() {
