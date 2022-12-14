@@ -18,9 +18,9 @@ class Student extends MY_Controller {
 
 		$stu = $this->Student_model->get_student($ID);
 		$admin = $this->session->userdata("userid");
-		foreach($this->session->all_userdata() as $D => $V) {
-            $this->session->unset_userdata($D);
-        }
+		foreach ($this->session->all_userdata() as $D => $V) {
+			$this->session->unset_userdata($D);
+		}
 		$this->session->set_userdata(array(
 			"userid" => $stu["ID"],
 			"status" => "student",
@@ -39,7 +39,7 @@ class Student extends MY_Controller {
 	 */
 	function index() {
 		$data['students'] = $this->Student_model->get_all_students();
-        $data['archived_students'] = $this->Student_model->get_all_archived_students();
+		$data['archived_students'] = $this->Student_model->get_all_archived_students();
 
 		$data['_view'] = 'student/index';
 		$this->load->view('layouts/main', $data);
@@ -83,16 +83,16 @@ class Student extends MY_Controller {
 		$this->form_validation->set_rules('EMAIL_CS', 'COURRIEL CS', 'valid_email|required');
 		$this->form_validation->set_rules('NAME', 'NOM', 'required');
 		$this->form_validation->set_rules('PROGRAM_ID', 'PROGRAMME', 'numeric|required');
-        $this->form_validation->set_rules('PASSWORD', 'MOT DE PASSE', 'required');
-        $this->form_validation->set_rules('SCHOOL', 'ÉCOLE', 'required');
+		$this->form_validation->set_rules('PASSWORD', 'MOT DE PASSE', 'required');
+		$this->form_validation->set_rules('SCHOOL', 'ÉCOLE', 'required');
 
 		if ($this->form_validation->run()) {
 			$params = array(
 				'NAME' => $this->input->post('NAME'),
 				'EMAIL_CS' => $this->input->post('EMAIL_CS'),
 				'PROGRAM_ID' => $this->input->post('PROGRAM_ID'),
-                'SCHOOL' => $this->input->post('SCHOOL'),
-                'PASSWORD_HASH' => password_hash($this->input->post('PASSWORD'), PASSWORD_BCRYPT),
+				'SCHOOL' => $this->input->post('SCHOOL'),
+				'PASSWORD_HASH' => password_hash($this->input->post('PASSWORD'), PASSWORD_BCRYPT),
 				'TEACHER_ID' => 0,
 			);
 
@@ -116,16 +116,16 @@ class Student extends MY_Controller {
 			$this->load->library('form_validation');
 
 			$this->form_validation->set_rules('PROGRAM_ID', 'PROGRAM', 'numeric|required');
-            $this->form_validation->set_rules('EMAIL_CS', 'EMAIL', 'valid_email|required');
-            $this->form_validation->set_rules('NAME', 'NOM', 'required');
-            $this->form_validation->set_rules('SCHOOL', 'ÉCOLE', 'required');
+			$this->form_validation->set_rules('EMAIL_CS', 'EMAIL', 'valid_email|required');
+			$this->form_validation->set_rules('NAME', 'NOM', 'required');
+			$this->form_validation->set_rules('SCHOOL', 'ÉCOLE', 'required');
 
 			if ($this->form_validation->run()) {
 				$params = array(
 					'PROGRAM_ID' => $this->input->post('PROGRAM_ID'),
-                    'EMAIL_CS' => $this->input->post('EMAIL_CS'),
-                    'NAME' => $this->input->post('NAME'),
-                    'SCHOOL' => $this->input->post('SCHOOL'),
+					'EMAIL_CS' => $this->input->post('EMAIL_CS'),
+					'NAME' => $this->input->post('NAME'),
+					'SCHOOL' => $this->input->post('SCHOOL'),
 				);
 
 				$this->Student_model->update_student($ID, $params);
@@ -139,7 +139,7 @@ class Student extends MY_Controller {
 		}
 	}
 
-    function password($ID) {
+	function password($ID) {
 		$pass = $this->input->post("PASS");
 		$confirm = $this->input->post("CONFIRM");
 		if ($pass != $confirm) {
@@ -151,15 +151,15 @@ class Student extends MY_Controller {
 		redirect("/student/edit/$ID");
 	}
 
-    function archive_student($ID) {
-        $this->Student_model->update_student($ID, array("ARCHIVE" => 1));
-        redirect("/student/index");
-    }
+	function archive_student($ID) {
+		$this->Student_model->update_student($ID, array("ARCHIVE" => 1));
+		redirect("/student/index");
+	}
 
 	function unarchive_student($ID) {
-        $this->Student_model->update_student($ID, array("ARCHIVE" => 0));
-        redirect("/student/index");
-    }
+		$this->Student_model->update_student($ID, array("ARCHIVE" => 0));
+		redirect("/student/index");
+	}
 
 	/*
 	 * Deleting student

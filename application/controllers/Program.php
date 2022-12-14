@@ -5,76 +5,76 @@
  */
 
 class Program extends MY_Controller {
-    function __construct() {
-        parent::__construct();
-        $this->load->model('Program_model');
-    }
+	function __construct() {
+		parent::__construct();
+		$this->load->model('Program_model');
+	}
 
-    /*
-     * Listing of programs
-     */
-    function index() {
-        $data['programs'] = $this->Program_model->get_all_programs();
+	/*
+	 * Listing of programs
+	 */
+	function index() {
+		$data['programs'] = $this->Program_model->get_all_programs();
 
-        $data['_view'] = 'program/index';
-        $this->load->view('layouts/main', $data);
-    }
+		$data['_view'] = 'program/index';
+		$this->load->view('layouts/main', $data);
+	}
 
-    /*
-     * Adding a new program
-     */
-    function add() {
-        if(isset($_POST) && count($_POST) > 0) {
-            $params = array(
+	/*
+	 * Adding a new program
+	 */
+	function add() {
+		if (isset($_POST) && count($_POST) > 0) {
+			$params = array(
 				'NAME' => $this->input->post('NAME'),
-                'PAVILION' => $this->input->post('PAVILION'),
-            );
+				'PAVILION' => $this->input->post('PAVILION'),
+			);
 
-            $program_id = $this->Program_model->add_program($params);
-            redirect('program/index');
-        } else {
-            $data['_view'] = 'program/add';
-            $this->load->view('layouts/main', $data);
-        }
-    }
+			$program_id = $this->Program_model->add_program($params);
+			redirect('program/index');
+		} else {
+			$data['_view'] = 'program/add';
+			$this->load->view('layouts/main', $data);
+		}
+	}
 
-    /*
-     * Editing a program
-     */
-    function edit($ID) {
-        // check if the program exists before trying to edit it
-        $data['program'] = $this->Program_model->get_program($ID);
+	/*
+	 * Editing a program
+	 */
+	function edit($ID) {
+		// check if the program exists before trying to edit it
+		$data['program'] = $this->Program_model->get_program($ID);
 
-        if(isset($data['program']['ID'])) {
-            if(isset($_POST) && count($_POST) > 0) {
-                $params = array(
+		if (isset($data['program']['ID'])) {
+			if (isset($_POST) && count($_POST) > 0) {
+				$params = array(
 					'NAME' => $this->input->post('NAME'),
-                    'PAVILION' => $this->input->post('PAVILION'),
-                );
+					'PAVILION' => $this->input->post('PAVILION'),
+				);
 
-                $this->Program_model->update_program($ID, $params);
-                redirect('program/index');
-            } else {
-                $data['_view'] = 'program/edit';
-                $this->load->view('layouts/main', $data);
-            }
-        } else {
-            show_error('The program you are trying to edit does not exist.');
-        }
-    }
+				$this->Program_model->update_program($ID, $params);
+				redirect('program/index');
+			} else {
+				$data['_view'] = 'program/edit';
+				$this->load->view('layouts/main', $data);
+			}
+		} else {
+			show_error('The program you are trying to edit does not exist.');
+		}
+	}
 
-    /*
-     * Deleting program
-     */
-    function remove($ID) {
-        $program = $this->Program_model->get_program($ID);
+	/*
+	 * Deleting program
+	 */
+	function remove($ID) {
+		$program = $this->Program_model->get_program($ID);
 
-        // check if the program exists before trying to delete it
-        if(isset($program['ID'])) {
-            $this->Program_model->delete_program($ID);
-            redirect('program/index');
-        } else {
-            show_error('The program you are trying to delete does not exist.');
-        }
-    }
+		// check if the program exists before trying to delete it
+		if (isset($program['ID'])) {
+			$this->Program_model->delete_program($ID);
+			redirect('program/index');
+		} else {
+			show_error('The program you are trying to delete does not exist.');
+		}
+	}
 }

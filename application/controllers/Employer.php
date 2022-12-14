@@ -5,14 +5,14 @@
  */
 
 function randomPassword() {
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    $pass = array(); //remember to declare $pass as an array
-    $alphaLength = strlen($alphabet) - 1; //put the length - 1 in cache
-    for ($i = 0; $i < 8; $i++) {
-        $n = rand(0, $alphaLength);
-        $pass[] = $alphabet[$n];
-    }
-    return implode($pass); //turn the array into a string
+	$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+	$pass = array(); //remember to declare $pass as an array
+	$alphaLength = strlen($alphabet) - 1; //put the length - 1 in cache
+	for ($i = 0; $i < 8; $i++) {
+		$n = rand(0, $alphaLength);
+		$pass[] = $alphabet[$n];
+	}
+	return implode($pass); //turn the array into a string
 }
 
 class Employer extends MY_Controller {
@@ -32,9 +32,9 @@ class Employer extends MY_Controller {
 
 		$emp = $this->Employer_model->get_employer($ID);
 		$admin = $this->session->userdata("userid");
-		foreach($this->session->all_userdata() as $D => $V) {
-            $this->session->unset_userdata($D);
-        }
+		foreach ($this->session->all_userdata() as $D => $V) {
+			$this->session->unset_userdata($D);
+		}
 		$this->session->set_userdata(array(
 			"userid" => $emp["ID"],
 			"status" => "employer",
@@ -127,10 +127,10 @@ class Employer extends MY_Controller {
 	function sendinfo() {
 		if ($this->input->post("employer_id")) {
 			$employer = $this->Employer_model->get_employer($this->input->post("employer_id"));
-            $pass = randomPassword();
-            $this->Employer_model->update_employer($employer["ID"], array(
-                "PASSWORD_HASH" => password_hash($pass, PASSWORD_BCRYPT),
-            ));
+			$pass = randomPassword();
+			$this->Employer_model->update_employer($employer["ID"], array(
+				"PASSWORD_HASH" => password_hash($pass, PASSWORD_BCRYPT),
+			));
 
 			foreach ($this->Employer_model->get_all_employer_contacts($employer["ID"]) as $c) {
 				$email_to = trim($c['CONTACT_EMAIL']);
@@ -254,7 +254,7 @@ class Employer extends MY_Controller {
 						'required',
 						array(
 							"unique",
-							function($value) {
+							function ($value) {
 								$count = $this->db->where("PHONEHASH", $value)->from("employers")->count_all_results();
 								if ($count > 0) {
 									$this->form_validation->set_message('unique', 'Un utilisateur avec ce ID existe déjà');
@@ -293,11 +293,11 @@ class Employer extends MY_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 
-        if (is_admin()) {
-            $data['all_programs'] = $this->Program_model->get_all_programs();
-        } else {
-            $data['all_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
-        }
+		if (is_admin()) {
+			$data['all_programs'] = $this->Program_model->get_all_programs();
+		} else {
+			$data['all_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+		}
 
 		//CHECK IF USER SUBMIT A NEW EMPLOYER
 		if ($this->input->post('PHONEHASH')) {
@@ -472,29 +472,29 @@ class Employer extends MY_Controller {
 		$this->load->view('layouts/main', $data);
 	}
 
-    //CHANGE PASSWORD FOR EMPLOYER
-    function change_password($ID) {
-        $employer = $this->Employer_model->get_employer($ID);
-        if ($employer != null) {
-            $this->Employer_model->update_employer($employer["ID"], array(
-                "PASSWORD_HASH" => password_hash($this->input->post("NEW_PASSWORD"), PASSWORD_BCRYPT),
-            ));
-            redirect("/employer/edit/$ID");
-        } else {
-            redirect("/employer/index");
-        }
-    }
+	//CHANGE PASSWORD FOR EMPLOYER
+	function change_password($ID) {
+		$employer = $this->Employer_model->get_employer($ID);
+		if ($employer != null) {
+			$this->Employer_model->update_employer($employer["ID"], array(
+				"PASSWORD_HASH" => password_hash($this->input->post("NEW_PASSWORD"), PASSWORD_BCRYPT),
+			));
+			redirect("/employer/edit/$ID");
+		} else {
+			redirect("/employer/index");
+		}
+	}
 
-    function profile_password() {
-        if (is_employer()) {
+	function profile_password() {
+		if (is_employer()) {
 			$employer = $this->Employer_model->get_employer($this->session->userid);
-            $this->Employer_model->update_employer($employer["ID"], array(
-                "PASSWORD_HASH" => password_hash($this->input->post("NEW_PASSWORD"), PASSWORD_BCRYPT),
-            ));
-        }
+			$this->Employer_model->update_employer($employer["ID"], array(
+				"PASSWORD_HASH" => password_hash($this->input->post("NEW_PASSWORD"), PASSWORD_BCRYPT),
+			));
+		}
 
-        redirect("/employer/profile");
-    }
+		redirect("/employer/profile");
+	}
 
 	//SET INACTIVE TO 1 FOR AN EMPLOYER
 	function remove_employer_program($EMPLOYER_ID, $PROGRAM_ID) {
@@ -545,7 +545,11 @@ class Employer extends MY_Controller {
 
 		if (is_array($ids) && is_array($names) && is_array($emails) && is_array($phones)) {
 			foreach ($ids as $i => $id) {
-				$this->Employer_model->update_employer_contact($id, array("CONTACT_NAME" => $names[$i], "CONTACT_PHONE" => $phones[$i], "CONTACT_EMAIL" => $emails[$i],));
+				$this->Employer_model->update_employer_contact($id, array(
+					"CONTACT_NAME" => $names[$i],
+					"CONTACT_PHONE" => $phones[$i],
+					"CONTACT_EMAIL" => $emails[$i],
+				));
 			}
 		}
 

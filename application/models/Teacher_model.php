@@ -76,8 +76,8 @@ class Teacher_model extends CI_Model {
 
 	function get_all_teacher_programs() {
 		return $this->db->select("ID, NAME")
-		                ->get("PROGRAMS")
-		                ->result_array();
+			->get("PROGRAMS")
+			->result_array();
 	}
 
 	function get_teacher_programs($ID) {

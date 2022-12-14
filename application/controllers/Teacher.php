@@ -18,9 +18,9 @@ class Teacher extends MY_Controller {
 
 		$tea = $this->Teacher_model->get_teacher($ID);
 		$admin = $this->session->userdata("userid");
-		foreach($this->session->all_userdata() as $D => $V) {
-            $this->session->unset_userdata($D);
-        }
+		foreach ($this->session->all_userdata() as $D => $V) {
+			$this->session->unset_userdata($D);
+		}
 		$this->session->set_userdata(array(
 			"userid" => $tea["ID"],
 			"status" => "teacher",
@@ -259,13 +259,13 @@ class Teacher extends MY_Controller {
 		echo "DONE";
 	}
 
-    public function archive_teacher($ID) {
-        $this->Teacher_model->update_teacher($ID, array("DISABLED" => 1));
-        redirect("/teacher/index");
-    }
+	public function archive_teacher($ID) {
+		$this->Teacher_model->update_teacher($ID, array("DISABLED" => 1));
+		redirect("/teacher/index");
+	}
 
-    public function unarchive_teacher($ID) {
-        $this->Teacher_model->update_teacher($ID, array("DISABLED" => 0));
-        redirect("/teacher/index");
-    }
+	public function unarchive_teacher($ID) {
+		$this->Teacher_model->update_teacher($ID, array("DISABLED" => 0));
+		redirect("/teacher/index");
+	}
 }
