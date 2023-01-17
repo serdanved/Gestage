@@ -4,7 +4,7 @@
             <div class="box-header with-border">
               	<h3 class="box-title">CHOISIR VOS FILTRES DE RAPPORT</h3>
             </div>
-            <?php echo form_open('report/generatePdf', array('target' => '_blank')); ?>
+            <?= form_open('report/generatePdf', array('target' => '_blank')) ?>
           	<div class="box-body">
           		<div class="row clearfix">
                     <div class="col-md-12">
@@ -12,8 +12,8 @@
                         <div class="form-group">
                             <select id="REPORT_TYPE" name="REPORT_TYPE" style="width:100%">
                                 <option value="1" selected>Liste des stages entre 2 dates</option>
-                                <option value="2">Publipostage Employeur</option>
-                                <option value="3">Liste des Employeurs</option>
+                                <option value="2">Liste des Employeurs</option>
+                                <option value="3">Publipostage Employeur</option>
                                 <option value="4">Liste des Protocoles entre 2 dates</option>
                                 <option value="5">Publipostage Employeur simplifié</option>
                             </select>
@@ -67,29 +67,38 @@
 						</div>
 					</div>
 				</div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <label for="CITIES" class="control-label">CHOISIR LES VILLES (pour employeurs)</label>
+                        <div class="form-group">
+                            <?= form_multiselect("CITIES[]", $cities, array(-1), array(
+                                "class" => "form-control",
+                                "id" => "CITIES",
+                                "style" => "width:100%",
+                            )) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="CATS" class="control-label">CHOISIR LES CATÉGORIES (pour employeurs)</label>
+                        <div class="form-group">
+		                    <?= form_multiselect("CATS[]", $cats, array(0), array(
+			                    "class" => "form-control",
+			                    "id" => "CATS",
+			                    "style" => "width:100%",
+		                    )) ?>
+                        </div>
+                    </div>
+                </div>
 			</div>
           	<div class="box-footer">
             	<button type="submit" class="btn btn-success">
             		<i class="fa fa-check"></i> GÉNÉRER PDF
             	</button>
-                <button type="submit" class="btn btn-success" onclick="excelClick(event)" formaction="<?= site_url("report/generateXls") ?>">
+                <button type="submit" class="btn btn-success" formaction="<?= site_url("report/generateXls") ?>">
             		<i class="fa fa-check"></i> GÉNÉRER EXCEL
             	</button>
           	</div>
-            <?php echo form_close(); ?>
+            <?= form_close() ?>
       	</div>
     </div>
 </div>
-
-<script>
-    function excelClick(event) {
-        let type = document.querySelector("#REPORT_TYPE").value;
-        if (type === "1") {
-            return true;
-        } else {
-            event.preventDefault();
-            alert("Il n'y a pas de rapport Excel pour ce type de rapport.");
-            return false;
-        }
-    }
-</script>

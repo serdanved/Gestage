@@ -207,13 +207,13 @@ class Employer_model extends CI_Model {
 	}
 
     function get_employers_for_report($programs, $loadContacts) {
-        $this->db->select("employers.ID, EMPLOYER_NAME, COUNTRY, PROVINCE, CITY, ADDRESS, POSTAL_CODE, CONTACT_NAME, EMAIL, NOTE, NOTE_2")
-            ->join("employer_programs", "employer_programs.EMPLOYER_ID = employers.ID", "left")
-            ->join("programs", "programs.ID = employer_programs.PROGRAM_ID", "left")
+        $this->db->select("EMPLOYERS.ID, EMPLOYER_NAME, COUNTRY, PROVINCE, CITY, ADDRESS, POSTAL_CODE, CONTACT_NAME, EMAIL, NOTE, NOTE_2")
+            ->join("EMPLOYER_PROGRAMS", "EMPLOYER_PROGRAMS.EMPLOYER_ID = EMPLOYERS.ID", "left")
+            ->join("PROGRAMS", "PROGRAMS.ID = EMPLOYER_PROGRAMS.PROGRAM_ID", "left")
             ->where("INACTIVE", 0);
 
         if (!in_array(0, $programs))
-            $this->db->where_in("programs.ID", $programs);
+            $this->db->where_in("PROGRAMS.ID", $programs);
 
         $employers = $this->db->order_by("EMPLOYER_NAME")
             //->limit(200)
@@ -231,4 +231,8 @@ class Employer_model extends CI_Model {
 
         return $employers;
     }
+
+	function list_cities() {
+		return $this->db->query("select distinct TRIM(CITY) as CITY from EMPLOYERS where CITY <> '' order by TRIM(CITY)")->result_array();
+	}
 }

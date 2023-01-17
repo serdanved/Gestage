@@ -1135,7 +1135,6 @@ $(document).ready(function () {
 				if (data == "ADDED") {
 					window.location.reload();
 				} else {
-
 					$(".private_note_validation_errors").html(data);
 				}
 			}

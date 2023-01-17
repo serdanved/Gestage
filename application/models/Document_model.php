@@ -89,22 +89,22 @@ class Document_model extends CI_Model {
 
 	function get_protocoles_for_report($date_debut, $date_end) {
 		$query = "SELECT
-                documents.ID,
-                documents.NAME,
-                documents.DATE,
-                employers.EMPLOYER_NAME,
-                students.NAME as STUDENT_NAME
-            FROM documents
-            left join internships on internships.ID = documents.INTERNSHIP_ID
-            left join blocks on blocks.ID = documents.BLOCK_ID
-            left join employers on employers.ID = internships.EMPLOYER_ID
-            left join students on students.ID = internships.STUDENT_ID
-            where documents.NAME like 'PROTOCOLE -%' and internships.INACTIVE = 0";
+                DOCUMENTS.ID,
+                DOCUMENTS.NAME,
+                DOCUMENTS.DATE,
+                EMPLOYERS.EMPLOYER_NAME,
+                STUDENTS.NAME as STUDENT_NAME
+            FROM DOCUMENTS
+            left join INTERNSHIPS on INTERNSHIPS.ID = DOCUMENTS.INTERNSHIP_ID
+            left join BLOCKS on BLOCKS.ID = DOCUMENTS.BLOCK_ID
+            left join EMPLOYERS on EMPLOYERS.ID = INTERNSHIPS.EMPLOYER_ID
+            left join STUDENTS on STUDENTS.ID = INTERNSHIPS.STUDENT_ID
+            where DOCUMENTS.NAME like 'PROTOCOLE -%' and INTERNSHIPS.INACTIVE = 0";
 
 		if ($date_debut != null && $date_end != null)
-			$query .= "\nand DATE(documents.DATE) between '{$date_debut}' and '{$date_end}'";
+			$query .= "\nand DATE(DOCUMENTS.DATE) between '{$date_debut}' and '{$date_end}'";
 
-		$query .= "\norder by documents.DATE";
+		$query .= "\norder by DOCUMENTS.DATE";
 		return array($this->db->query($query)->result_array(), $this->db->last_query());
 	}
 }

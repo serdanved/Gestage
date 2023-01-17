@@ -25,58 +25,45 @@
 					<th>PAR</th>
 					<th>DATE</th>
 					<th>NOTE</th>
-                    <?php if (!is_student() && !is_employer()) { ?>
-						<th style="text-align:center;"
-						    data-toggle="popover"
-						    data-trigger="hover"
-						    data-placement="top"
-						    title="INFORMATION"
-						    data-html="true"
-						    data-content="<p style='text-align:center;'>SEULEMENT VOUS ÊTES EN MESURE DE VISUALISER CETTE NOTE</p>"
-						    class="popover-general">
-							PRIVÉE <span class="fas fa-question-circle"></span>
-						</th>
+                    <th style="text-align:center;"
+                        data-toggle="popover"
+                        data-trigger="hover"
+                        data-placement="top"
+                        title="INFORMATION"
+                        data-html="true"
+                        data-content="<p style='text-align:center;'>SEULEMENT VOUS ET LES ENSEIGNANTS PEUVENT VISUALISER CETTE NOTE</p>"
+                        class="popover-general">
+                        PRIVÉE <span class="fas fa-question-circle"></span>
+                    </th>
+                    <?php if (is_teacher()) { ?>
 						<th>ACTIONS</th>
                     <?php } ?>
 				</tr>
 				</thead>
 				<tbody>
-                <?php foreach ($all_notes as $NP) { ?>
-                    <?php if ($NP['PRIVATE'] == 0) { ?>
-						<tr>
-							<td><?= get_notes_user_name($NP['CREATOR_ID'], $NP['CREATOR_TYPE']) ?></td>
-							<td><?= $NP['DATE'] ?></td>
-							<td><?= $NP['DESCRIPTION'] ?></td>
-                            <?php if (!is_student() && !is_employer()) { ?>
-								<td></td>
-								<td>
-									<a href="<?= site_url("note/edit/{$NP['ID']}/{$NP['INTERNSHIP_ID']}") ?>" class="btn btn-primary btn-xs">
-										<i class="fa fa-edit"></i> MODIFIER
-									</a>
-									<a href="<?= site_url("note/remove/{$NP['ID']}/{$NP['INTERNSHIP_ID']}") ?>" class="btn btn-danger btn-xs">
-										<i class="fa fa-trash"></i> SUPRIMMER
-									</a>
-								</td>
-                            <?php } ?>
-						</tr>
-                    <?php } ?>
-
-                    <?php if (($NP['PRIVATE'] == 1) && (is_teacher())) { ?>
-						<tr>
-							<td><?= get_notes_user_name($NP['CREATOR_ID'], $NP['CREATOR_TYPE']) ?></td>
-							<td><?= $NP['DATE'] ?></td>
-							<td><?= $NP['DESCRIPTION'] ?></td>
-							<td style="text-align: center"><i class="fa fa-check" aria-hidden="true"></i></td>
-							<td>
-								<a href="<?= site_url("note/edit/{$NP['ID']}/{$NP['INTERNSHIP_ID']}") ?>" class="btn btn-primary btn-xs">
-									<i class="fa fa-edit"></i> MODIFIER
-								</a>
-								<a href="<?= site_url("note/remove/{$NP['ID']}/{$NP['INTERNSHIP_ID']}") ?>" class="btn btn-danger btn-xs">
-									<i class="fa fa-trash"></i> SUPRIMMER
-								</a>
-							</td>
-						</tr>
-                    <?php } ?>
+                <?php foreach ($all_notes as $NP) {
+                    if ($NP['PRIVATE'] == 1) {
+                        if (!($NP['CREATOR_ID'] == $this->session->userdata("userid") && $NP['CREATOR_TYPE'] == $this->session->userdata('status_id')) && !is_teacher()) {
+                            die("???");
+                            continue;
+                        }
+                    } ?>
+                    <tr>
+                        <td><?= get_notes_user_name($NP['CREATOR_ID'], $NP['CREATOR_TYPE']) ?></td>
+                        <td><?= $NP['DATE'] ?></td>
+                        <td><?= $NP['DESCRIPTION'] ?></td>
+                        <td style="text-align: center"><?= $NP['PRIVATE'] == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : "" ?></td>
+                        <?php if (is_teacher()) { ?>
+                            <td>
+                                <a href="<?= site_url("note/edit/{$NP['ID']}/{$NP['INTERNSHIP_ID']}") ?>" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-edit"></i> MODIFIER
+                                </a>
+                                <a href="<?= site_url("note/remove/{$NP['ID']}/{$NP['INTERNSHIP_ID']}") ?>" class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"></i> SUPRIMMER
+                                </a>
+                            </td>
+                        <?php } ?>
+                    </tr>
                 <?php } ?>
 				</tbody>
 			</table>

@@ -235,24 +235,21 @@
 						<div class="col-md-6">
 							<label for='DATE_START' class="control-label">DATE DE DÉBUT</label>
 							<div class="form-group input-group col-md-12">
-								<input id="DATE_START" name="DATE_START" value="<?= $this->input->post('DATE_START') ?>"
-								       class="form-control has-datetimepicker" data-date-format="YYYY-MM-DD">
+								<input id="DATE_START" name="DATE_START" value="<?= $this->input->post('DATE_START') ?>" class="form-control has-datetimepicker" data-date-format="YYYY-MM-DD">
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<label for='DATE_END' class="control-label">DATE DE FIN</label>
 							<div class="form-group input-group col-md-12">
-								<input id="DATE_END" name="DATE_END" value="<?= $this->input->post('DATE_END') ?>"
-								       class="form-control has-datetimepicker" data-date-format="YYYY-MM-DD">
+								<input id="DATE_END" name="DATE_END" value="<?= $this->input->post('DATE_END') ?>" class="form-control has-datetimepicker" data-date-format="YYYY-MM-DD">
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<label for='TOTAL_HOURS' class="control-label">HEURES TOTAL</label>
 							<div class="form-group input-group col-md-12">
-								<input type="number" step="0.01" min="0.00" id="TOTAL_HOURS" name="TOTAL_HOURS"
-								       value="<?= $this->input->post('TOTAL_HOURS') ?>" class="form-control">
+								<input type="number" step="0.01" min="0.00" id="TOTAL_HOURS" name="TOTAL_HOURS" value="<?= $this->input->post('TOTAL_HOURS') ?>" class="form-control">
 							</div>
 						</div>
 
@@ -268,8 +265,7 @@
 
 				<!-- FOOTER SECTION OF MODAL PRIVATE NOTE" -->
 				<div class="modal-footer">
-					<button style="background-color:Gainsboro;float:left" type="button"
-					        class="btn btn-secondary bg-secondary" data-dismiss="modal">
+					<button style="background-color:Gainsboro;float:left" type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">
 						FERMER
 					</button>
 					<button class="btn btn-primary" id="submit_block" type="button" value="<?= $this->uri->segment(3) ?>">
@@ -294,13 +290,11 @@
 
 				<!-- BODY SECTION OF MODAL PRIVATE NOTE" -->
 				<div class="modal-body col-md-12">
-
 					<div class="row">
 						<div class="col-md-12">
 							<label for='DESCRIPTION' class="control-label">DESCRIPTION</label>
 							<div class="form-group input-group" style="width:100%;">
-								<input id="DESCRIPTION" name="DESCRIPTION"
-								       value="<?= $this->input->post('DESCRIPTION') ?>" class="form-control">
+								<input id="DESCRIPTION" name="DESCRIPTION" value="<?= $this->input->post('DESCRIPTION') ?>" class="form-control">
 							</div>
 						</div>
 
@@ -316,8 +310,7 @@
 				</div>
 				<!-- FOOTER SECTION OF MODAL PRIVATE NOTE" -->
 				<div class="modal-footer">
-					<button style="background-color:Gainsboro;float:left" type="button"
-					        class="btn btn-secondary bg-secondary" data-dismiss="modal">
+					<button style="background-color:Gainsboro;float:left" type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">
 						FERMER
 					</button>
 					<button class="btn btn-primary" id="submit_private_note" type="button" value="<?= $this->uri->segment(3) ?>">

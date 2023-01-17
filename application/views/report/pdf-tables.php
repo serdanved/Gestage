@@ -23,7 +23,7 @@
                 <h4>Liste des employeurs de stages en date du <?= date("Y-m-d") ?></h4>
             <?php } ?>
         <?php } ?>
-        <img height="80" src="<?= site_url("/resources/img/logo_gestage.png") ?>">
+        <img src="<?= site_url("/resources/img/logo.png") ?>">
         <br><br>
         <table style="width:100%" cellspacing="2" cellpadding="2">
             <thead>
@@ -38,6 +38,8 @@
                         <th style="width:250px">Employeur</th>
                         <th style="width:120px">Nom Contact</th>
                         <th style="width:auto">Email Contact</th>
+                        <th style="width:120px">Ville</th>
+                        <th style="width:80px">Catégorie</th>
                         <th style="width:60px">Date Début</th>
                         <th style="width:60px">Date Fin</th>
                     <?php } ?>
@@ -58,6 +60,8 @@
                             <td><?= $I["EMPLOYER_NAME"] ?></td>
                             <td><?= $I["CONTACT_NAME"] ?></td>
                             <td><?= $I["CONTACT_EMAIL"] ?></td>
+                            <td><?= $I["EMPLOYER_CITY"] ?></td>
+                            <td><?= $I["EMPLOYER_CATEGORY"] ?></td>
                             <td><?= $I["DATE_START"] ?></td>
                             <td><?= $I["DATE_END"] ?></td>
                         </tr>
