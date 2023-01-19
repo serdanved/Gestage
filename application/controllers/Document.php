@@ -7,6 +7,7 @@
 class Document extends MY_Controller {
 	function __construct() {
 		parent::__construct();
+		$this->load->model('Internship_model');
 		$this->load->model('Document_model');
 		$this->load->model('Obligation_model');
 	}

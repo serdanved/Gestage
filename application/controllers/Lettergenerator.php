@@ -8,6 +8,7 @@ class Lettergenerator extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('Lettergenerator_model');
+		$this->load->model('Internship_model');
 		$this->load->model('Teacher_model');
 	}
 
@@ -44,7 +45,12 @@ class Lettergenerator extends MY_Controller {
 
 			redirect('lettergenerator/edit/' . $letterid);
 		} else {
-			$data["all_programs"] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+			if (is_teacher()) {
+				$data["all_programs"] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+			}
+			if (is_admin()) {
+				$data["all_programs"] = $this->Teacher_model->get_all_teacher_programs();
+			}
 			$data['all_letters'] = $this->Lettergenerator_model->get_all_letters_copy();
 			$data['_view'] = 'lettergenerator/add';
 			$this->load->view('layouts/main', $data);

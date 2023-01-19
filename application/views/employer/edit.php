@@ -4,8 +4,8 @@
 			<div class="box-header with-border">
 				<h3 class="box-title">Modifier un employeur</h3>
 			</div>
-			<?= form_open('employer/edit/' . $employer['ID']) ?>
 			<div class="box-body">
+				<?= form_open('employer/edit/' . $employer['ID']) ?>
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -169,10 +169,8 @@
 							<i class="fa fa-check"></i> SAUVEGARDER
 						</button>
 					</div>
-					<?= form_close() ?>
 				</div>
-			</div>
-			<div class="box-footer">
+				<?= form_close() ?>
 			</div>
 		</div>
 	</div>
@@ -191,7 +189,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<div class="panel-heading-with-add">
-								<h3 class="panel-title"><?= $T['NAME']; ?></h3>
+								<h3 class="panel-title"><?= $T['NAME'] ?></h3>
 							</div>
 						</div>
 						<div class="panel-body cell-border table-responsive ">

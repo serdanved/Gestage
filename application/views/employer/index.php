@@ -24,6 +24,7 @@
 								<thead>
 								<tr>
 									<th>EMPLOYEUR</th>
+									<th>PROGRAMME</th>
 									<th>NB STAGES</th>
 									<th>VILLE</th>
 									<th>ADRESSE</th>
@@ -35,6 +36,16 @@
 									if ($E["VISIBLE"] == 1 && $E['PROGRAM_ID'] == $T['ID']) { ?>
 										<tr>
 											<td><?= $E['EMPLOYER_NAME'] ?></td>
+											<td><?php $first = true;
+											foreach ($this->Employer_model->get_employer_programs($E["ID"]) as $P) {
+												if ($first) {
+													$first = false;
+												} else {
+													echo ", ";
+												}
+
+												echo $P["NAME"];
+											} ?></td>
 											<td><?php get_employer_internship_count($E['ID']); ?></td>
 											<td><?= $E['CITY'] ?></td>
 											<td><?= $E['ADDRESS'] ?></td>
@@ -86,6 +97,7 @@
 							<thead>
 							<tr>
 								<th>EMPLOYEUR</th>
+								<th>PROGRAMME</th>
 								<th>NOM UTILISATEUR</th>
 								<th>NB STAGES</th>
 								<th>VILLE</th>
@@ -101,6 +113,16 @@
                                 if ($E["VISIBLE"] == 1 && in_array($E['PROGRAM_ID'], $tpn)) { ?>
                                     <tr>
                                         <td><?= $E['EMPLOYER_NAME'] ?></td>
+										<td><?php $first = true;
+										foreach ($this->Employer_model->get_employer_programs($E["ID"]) as $P) {
+											if ($first) {
+												$first = false;
+											} else {
+												echo ", ";
+											}
+
+											echo $P["NAME"];
+										} ?></td>
                                         <td><?= $E['EMAIL'] ?></td>
                                         <td><?php get_employer_internship_count($E['ID']); ?></td>
                                         <td><?= $E['CITY'] ?></td>
@@ -140,7 +162,7 @@
                 </a>
             </div>
             <div class="box-body">
-                <table class="table table-striped" data-sortable>
+                <table class="table table-striped employer-table" data-sortable>
                     <thead>
                     <tr>
 						<th>EMPLOYEUR</th>

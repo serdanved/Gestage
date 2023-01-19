@@ -27,7 +27,6 @@
 								<option value="0">Tous les programmes</option>
 								<?php foreach($all_programs as $program) {
 									$selected = ($program['ID'] == $this->input->post('PROGRAM_ID')) ? ' selected="selected"' : "";
-
 									echo '<option value="'.$program['ID'].'" '.$selected.'>'.$program['NAME'].'</option>';
 								} ?>
 							</select>

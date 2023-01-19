@@ -1,6 +1,7 @@
 <?php class User extends CI_Controller {
 	function __construct() {
 		parent::__construct();
+		$this->load->model('Internship_model');
 		$this->load->model("User_model");
 		$this->load->model("Student_model");
 		$this->load->model("Teacher_model");

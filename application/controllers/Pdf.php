@@ -4,6 +4,7 @@ class Pdf extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->error = null;
+		$this->load->model('Internship_model');
 		$this->load->model("Program_model");
 		$this->load->model("Pdf_model");
 		$this->load->library('upload');

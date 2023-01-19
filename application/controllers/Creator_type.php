@@ -6,6 +6,7 @@
 class Creator_type extends MY_Controller {
 	function __construct() {
 		parent::__construct();
+		$this->load->model('Internship_model');
 		$this->load->model('Creator_type_model');
 	}
 

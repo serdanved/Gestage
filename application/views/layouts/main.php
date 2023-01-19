@@ -1,8 +1,7 @@
 <?php include("main_header.php"); ?>
 <body class="hold-transition skin-black-light sidebar-mini fixed">
 <div class="pace  pace-inactive pace-inactive">
-	<div class="pace-progress" data-progress-text="100%" data-progress="99"
-	     style="transform: translate3d(100%, 0px, 0px);">
+	<div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
 		<div class="pace-progress-inner"></div>
 	</div>
 	<div class="pace-activity"></div>
@@ -32,8 +31,7 @@
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
 					<li class="dropdown notifications-menu">
-						<a style="font-size: 35px;" href="#" class="dropdown-toggle" data-toggle="dropdown"
-						   aria-expanded="false">
+						<a style="font-size: 35px;" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 							<i class="far fa-bell"></i>
 							<span style="right: 2px;font-size:20px;" class="label label-warning">
                                 <?php if (is_teacher()) {
@@ -91,10 +89,11 @@
 										<th style="text-align:center;" class="col-md-6">NOMBRE</th>
 									</tr>
 									</thead>
-									<?php foreach ($unique_obligations as $uo) { ?>
+									<?php foreach ($unique_obligations as $uo) {
+										$internship = $this->Internship_model->get_internship($uo); ?>
 										<tr>
 											<td>
-												<a href="/internship/edit/<?= $uo ?>/#vosobligations">STAGE #<?= $uo ?></a>
+												<a href="/internship/edit/<?= $uo ?>/#vosobligations"><?= $internship["STUDENT_NAME"] ?></a>
 											</td>
 											<td><?= $obligations_count[$uo] ?></td>
 										</tr>
@@ -107,8 +106,7 @@
 					</li>
 
 					<li class="dropdown user user-menu">
-						<a style="height: 60px; display: flex; justify-content: center; align-items: center;" href="#"
-						   class="dropdown-toggle" data-toggle="dropdown">
+						<a style="height: 60px; display: flex; justify-content: center; align-items: center;" href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<span class="">Bonjour, <strong><?= get_current_user_name(); ?></strong></span>
 						</a>
 						<ul class="dropdown-menu">

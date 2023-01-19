@@ -6,6 +6,7 @@
 class Form extends MY_Controller {
 	function __construct() {
 		parent::__construct();
+		$this->load->model('Internship_model');
 		$this->load->model('Document_model');
 		$this->load->model('Teacher_model');
 		$this->load->model('Form_model');
