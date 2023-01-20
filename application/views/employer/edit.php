@@ -69,7 +69,7 @@
 							</div>
 
 							<div class="col-md-6">
-								<label for="PHONEHASH" class="control-label">PROGRAMME(S) DE CET EMPLOYEUR</label>
+								<label for="PROGRAMS" class="control-label">PROGRAMME(S) DE CET EMPLOYEUR</label>
 								<div class="form-group">
 									<select class="selectpicker form-control" id="PROGRAMS" name="PROGRAMS[]" multiple required>
 										<?php foreach ($all_programs as $p) {
@@ -82,6 +82,25 @@
 											}
 
 											echo "<option value='{$p["ID"]}' $selected>{$p["NAME"]}</option>";
+										} ?>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label for="CATEGORY" class="control-label">CATÉGORIE(S) DE CET EMPLOYEUR</label>
+								<div class="form-group">
+									<select class="selectpicker form-control" id="CATEGORY" name="CATEGORY[]" multiple required>
+										<?php foreach ($all_categories as $c) {
+											$selected = "";
+											foreach ($employer_categories as $ec) {
+												if ($ec["CATEGORY_ID"] == $c["ID"]) {
+													$selected = "selected";
+													break;
+												}
+											}
+
+											echo "<option value='{$c["ID"]}' $selected>{$c["NAME"]}</option>";
 										} ?>
 									</select>
 								</div>
@@ -192,62 +211,6 @@
 		</div>
 	</div>
 </div>
-
-<?php /*<div class="row">
-	<div class="col-md-12">
-		<div class="box box-info">
-			<div class="box-header">
-				<h3 class="box-title">LISTE DES CATEGORIES DE CET EMPLOYEUR POUR MES PROGRAMMES</h3>
-			</div>
-			<div class="box-body">
-				<?php foreach ($teacher_programs as $T) {
-					$categories = $this->Employer_model->get_categories($T["ID"]);
-					$current = $this->Employer_model->get_employer_category_from_program($employer["ID"], $T["ID"]); ?>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<div class="panel-heading-with-add">
-								<h3 class="panel-title"><?= $T['NAME'] ?></h3>
-							</div>
-						</div>
-						<div class="panel-body cell-border table-responsive ">
-							<?= form_open('employer/setcategory/' . $employer['ID'] . "/" . $T['ID']) ?>
-							<table class="table table-hover">
-								<thead>
-								<tr>
-									<th>CATÉGORIE</th>
-									<th>ACTIONS</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr>
-									<td>
-										<select class='form-control' name='category_id' placeholder='Choisir une catégorie'>
-											<option value="" selected disabled>Choisir une catégorie</option>
-											<?php foreach ($categories as $C) {
-												$selected = "";
-												if ($current["ID"] == $C["ID"]) {
-													$selected = "SELECTED";
-												}
-												echo "<option $selected value='{$C["ID"]}'>{$C["NAME"]}</option>";
-											} ?>
-										</select>
-									</td>
-									<td>
-										<button type="submit" class="btn btn-success">
-											<i class="fa fa-save"></i> ENREGISTRER
-										</button>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-							<?= form_close() ?>
-						</div>
-					</div>
-				<?php } ?>
-			</div>
-		</div>
-	</div>
-</div>*/ ?>
 
 <!-- MODAL ABSENCES -->
 <form id="employercontactform" method="post" accept-charset="utf-8">

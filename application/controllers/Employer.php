@@ -428,9 +428,11 @@ class Employer extends MY_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$data["all_programs"] = $this->Program_model->get_all_programs();
+		$data["all_categories"] = $this->Employer_model->get_all_categories();
 		$data['employer'] = $this->Employer_model->get_employer($ID);
 		$data['employer_contacts'] = $this->Employer_model->get_all_employer_contacts($ID);
 		$data["employer_programs"] = $this->Employer_model->get_employer_programs($ID);
+		$data["employer_categories"] = $this->Employer_model->get_employer_categories($ID);
 
 		//CHECK IF THE EMPLOYER EXISTS
 		if ($data['employer'] !== null) {
@@ -463,6 +465,11 @@ class Employer extends MY_Controller {
 					$this->db->where("EMPLOYER_ID", $ID)->delete("EMPLOYER_PROGRAMS");
 					foreach ($this->input->post("PROGRAMS") as $p) {
 						$this->db->insert("EMPLOYER_PROGRAMS", ["EMPLOYER_ID" => $ID, "PROGRAM_ID" => $p]);
+					}
+
+					$this->db->where("EMPLOYER_ID", $ID)->delete("EMPLOYERS_CAT_PROGRAMS");
+					foreach ($this->input->post("CATEGORY") as $c) {
+						$this->db->insert("EMPLOYERS_CAT_PROGRAMS", ["EMPLOYER_ID" => $ID, "CATEGORY_ID" => $c]);
 					}
 					redirect('employer/index');
 				}
