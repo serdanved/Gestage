@@ -7,42 +7,30 @@
 			<?php echo form_open('employer/edit_programs/'.$employer['ID']); ?>
 			<div class="panel-body">
 				<div class="row clearfix">
-					
+
 					<div class="col-md-6">
         						<label for="PROGRAMS_IDS" class="control-label"><span class="text-danger">*</span>PROGRAMME(S)</label>
         						<div class="form-group">
         							<select id="PROGRAM_IDS" name="PROGRAM_IDS[]"  class="selectpicker form-control" multiple data-actions-box="false" data-header="CHOISIR PROGRAMME" title="AUCUNE">
         								<option value="none" id="unselector">AUCUN</option>
-        								
-        								<?php
-        								
-										
-										$selected = "";			
-        								foreach($all_programs as $program)
-        								{											
-											
+
+        								<?php $selected = "";
+        								foreach($all_programs as $program) {
 											//show_error(var_dump($program));
-											
-											foreach($employer_programs as $no)
-											{
+											foreach($employer_programs as $no) {
 												$selected = ($program["ID"] == $no["ID"]) ? ' selected="selected"' : "";
-												if ($selected != "")
-												{
+												if ($selected != "") {
 													break;
 												}
-												
 											}
 
 											echo '<option value='.$program["ID"].' '.$selected.'>'.$program["NAME"].'</option>';
-
-        									
-        								}
-        								?>
+        								} ?>
         							</select>
         							<span class="text-danger"><?php echo form_error('PROGRAM_IDS');?></span>
         						</div>
         					</div>
-					
+
 					<!--<div class="col-md-6">-->
 					<!--	<label for="GUID" class="control-label">GUID</label>-->
 					<!--	<div class="form-group">-->
@@ -68,7 +56,7 @@
             	<button type="submit" class="btn btn-success">
 					<i class="fa fa-check"></i> SAUVEGARDER
 				</button>
-	        </div>				
+	        </div>
 			<?php echo form_close(); ?>
 		</div>
     </div>

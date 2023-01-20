@@ -427,9 +427,10 @@ class Employer extends MY_Controller {
 	function edit($ID) {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
+		$data["all_programs"] = $this->Program_model->get_all_programs();
 		$data['employer'] = $this->Employer_model->get_employer($ID);
 		$data['employer_contacts'] = $this->Employer_model->get_all_employer_contacts($ID);
-		$data['teacher_programs'] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+		$data["employer_programs"] = $this->Employer_model->get_employer_programs($ID);
 
 		//CHECK IF THE EMPLOYER EXISTS
 		if ($data['employer'] !== null) {
@@ -444,13 +445,12 @@ class Employer extends MY_Controller {
 				$this->form_validation->set_rules('PROVINCE', 'PROVINCE', 'required');
 				$this->form_validation->set_rules('CITY', 'VILLE', 'required');
 				$this->form_validation->set_rules('ADDRESS', 'ADRESSE', 'required');
-				//$this->form_validation->set_rules('POSTAL_CODE','CODE POSTAL', 'callback_zip_check');
+				$this->form_validation->set_rules('POSTAL_CODE','CODE POSTAL', 'required');
 				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', 'required');
-				$this->form_validation->run();
 
 				//CHECK IF ALL VALIDATION ARE GOOOD AND INSERT IN DB THEN REDIRECT IN EMPLOYER INDEX
-				if ($this->form_validation->run() == true) {
-					$params = array(
+				if ($this->form_validation->run()) {
+					$this->Employer_model->update_employer($ID, [
 						'PHONEHASH' => $this->input->post('PHONEHASH'),
 						'EMPLOYER_NAME' => $this->input->post('EMPLOYER_NAME'),
 						'PROVINCE' => $this->input->post('PROVINCE'),
@@ -458,9 +458,12 @@ class Employer extends MY_Controller {
 						'ADDRESS' => $this->input->post('ADDRESS'),
 						'POSTAL_CODE' => strtoupper(preg_replace("/[^a-zA-Z0-9]+/", "", $this->input->post('POSTAL_CODE'))),
 						'NOTE' => $this->input->post('NOTE'),
-					);
+					]);
 
-					$this->Employer_model->update_employer($ID, $params);
+					$this->db->where("EMPLOYER_ID", $ID)->delete("EMPLOYER_PROGRAMS");
+					foreach ($this->input->post("PROGRAMS") as $p) {
+						$this->db->insert("EMPLOYER_PROGRAMS", ["EMPLOYER_ID" => $ID, "PROGRAM_ID" => $p]);
+					}
 					redirect('employer/index');
 				}
 			}

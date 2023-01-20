@@ -67,9 +67,26 @@
 									       class="form-control" id="PHONEHASH" />
 								</div>
 							</div>
-							<div class="col-md-12 form_validation_errors">
-								<?= validation_errors() ?>
+
+							<div class="col-md-6">
+								<label for="PHONEHASH" class="control-label">PROGRAMME(S) DE CET EMPLOYEUR</label>
+								<div class="form-group">
+									<select class="selectpicker form-control" id="PROGRAMS" name="PROGRAMS[]" multiple required>
+										<?php foreach ($all_programs as $p) {
+											$selected = "";
+											foreach ($employer_programs as $ep) {
+												if ($ep["ID"] == $p["ID"]) {
+													$selected = "selected";
+													break;
+												}
+											}
+
+											echo "<option value='{$p["ID"]}' $selected>{$p["NAME"]}</option>";
+										} ?>
+									</select>
+								</div>
 							</div>
+							<div class="col-md-12 form_validation_errors"><?= validation_errors() ?></div>
 						</div>
 						<div class="col-md-12">
 							<label for="NOTE" class="control-label">
@@ -176,7 +193,7 @@
 	</div>
 </div>
 
-<div class="row">
+<?php /*<div class="row">
 	<div class="col-md-12">
 		<div class="box box-info">
 			<div class="box-header">
@@ -230,7 +247,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>*/ ?>
 
 <!-- MODAL ABSENCES -->
 <form id="employercontactform" method="post" accept-charset="utf-8">
