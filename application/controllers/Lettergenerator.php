@@ -417,6 +417,9 @@ class Lettergenerator extends MY_Controller {
 							$content = str_replace($tag,$bloc4[$fixtag[1]],$content);
 							break;
 						*/
+						case "LOGO":
+							$content = str_replace($tag, "<img src='" . base_url() . "resources/img/logo_gestage.png' width='130'>", $content);
+							break;
 						case "SIGNATURE_ELEVE":
 							$content = str_replace($tag, "", $content);
 							break;
