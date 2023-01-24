@@ -183,7 +183,7 @@ if (get_current_user_status() == "employer") { ?>
 											<h3 class="profile-username text-center"><?= $user["EMPLOYER_NAME"] ?></h3>
 											<h3 class="profile-username text-center"><?= $user["CONTACT_NAME"] ?></h3>
 											<p class="text-muted text-center"><?= $type ?></p>
-											<p class="text-muted text-center"><?= $user["USERNAME"] ?></p>
+											<p class="text-muted text-center"><?= $this->Employer_model->get_all_employer_contacts($this->session->userid)[0]["CONTACT_EMAIL"] ?></p>
 										</div>
 									</div>
 								</div>
