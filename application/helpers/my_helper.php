@@ -183,8 +183,12 @@ function get_current_user_name() {
 function get_program_name_by_id($id) {
 	$CI = &get_instance();
 
-	$program_name = $CI->program_model->get_program_name_by_id($id);
-	return $program_name['NAME'];
+	if ($id > 0) {
+		$program_name = $CI->program_model->get_program_name_by_id($id);
+		return $program_name['NAME'];
+	} else {
+		return "";
+	}
 }
 
 function get_programs_by_teacher_id($id) {

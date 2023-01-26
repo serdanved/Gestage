@@ -159,7 +159,7 @@ class Student_model extends CI_Model {
         ");
 		$this->db->from('STUDENTS');
 		$this->db->where_in('STUDENTS.TEACHER_ID', 0);
-		$this->db->where_in('STUDENTS.PROGRAM_ID', $IDS);
+		$this->db->where_in('STUDENTS.PROGRAM_ID', array_merge([0], $IDS));
 		// $this->db->order_by('STUDENTS.NAME','ASC');
 		$this->db->order_by("FIRST_NAME", "ASC");
 		// echo "<pre>";
