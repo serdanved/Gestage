@@ -193,9 +193,6 @@ class Teacher extends MY_Controller {
 		//die(var_dump($programs));
 
 		$data['students'] = $this->Student_model->get_all_students_from_program_ids($programs);
-
-		$data['teachers'] = $this->Teacher_model->get_all_teachers_from_program_ids($programs);
-
 		$data['unassigned_students'] = $this->Student_model->get_all_unassigned_students_by_program_id($programs);
 		$data['_view'] = 'teacher/list_students';
 		$this->load->view('layouts/main', $data);
@@ -228,15 +225,19 @@ class Teacher extends MY_Controller {
 	}
 
 	public function mass_assign_students() {
-		$students_id = $this->input->post("selected");
+		$students_id = $this->input->post("students");
+		$prog_id = $this->input->post("prog");
 
-		if ($students_id == null) {
+		if ($students_id == null || $prog_id == null) {
 			echo "EMPTY";
 			die();
 		}
 
-		foreach ($students_id as $id) {
-			$this->Student_model->assign_student_to_teacher($id, $this->session->userid);
+		foreach (json_decode($students_id) as $id) {
+			$this->Student_model->update_student($id, [
+				"PROGRAM_ID" => $prog_id,
+				"TEACHER_ID" => $this->session->userid,
+			]);
 		}
 
 		echo "DONE";

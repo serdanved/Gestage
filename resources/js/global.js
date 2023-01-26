@@ -385,6 +385,33 @@ $(document).ready(function () {
 		});
 	}
 
+	if ($('.assign-student-list').length) {
+		$('.assign-student-list').DataTable({
+			paging: true,
+
+			"language": {
+				"decimal": "",
+				"emptyTable": "Aucun élève",
+				"info": "_TOTAL_ élèves",
+				"infoEmpty": "",
+				"infoFiltered": "(filtré de _MAX_ total élève)",
+				"infoPostFix": "",
+				"thousands": ",",
+				"lengthMenu": "&nbsp;&nbsp;&nbsp;&nbsp;Afficher _MENU_ élèves",
+				"loadingRecords": "Chargement...",
+				"processing": "En traitement...",
+				"search": "Rechercher:",
+				"zeroRecords": "Aucun enregistrements correspondants trouvés",
+				"paginate": {
+					"first": "Première",
+					"last": "Dernière",
+					"next": "Suivant",
+					"previous": "Précédent"
+				}
+			}
+		});
+	}
+
 	if ($('.internship-table-actives').length) {
 		$('.internship-table-actives').DataTable({
 			paging: false,
