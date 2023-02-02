@@ -29,4 +29,43 @@
 			<?php echo form_close(); ?>
 		</div>
     </div>
+
+	<div class="col-md-12">
+      	<div class="panel panel-primary">
+            <div class="panel-heading with-border">
+				<div class="panel-heading-with-add">
+					<h3 class="panel-title">Gestion des horaires</h3>
+					<a href="<?= site_url("/program/schedule_add/{$program['ID']}") ?>" class="btn btn-success btn-xs">
+						<span class="glyphicon glyphicon-plus"></span>
+					</a>
+				</div>
+            </div>
+			<div class="panel-body">
+				<table class="table table-striped" data-sortable>
+                    <thead>
+                    <tr>
+						<th style="width:8rem">ID</th>
+						<th>NOM</th>
+						<th style="width:20rem">ACTIONS</th>
+                    </tr>
+                    </thead>
+                    <?php foreach($schedules as $S){ ?>
+                    <tr>
+						<td><?= $S['ID'] ?></td>
+						<td><?= $S['NAME'] ?></td>
+						<td>
+                            <a href="<?= site_url('program/schedule_edit/' . $S['ID']) ?>" class="btn btn-info btn-xs">
+								<span class="fa fa-edit"></span> Modifier
+							</a>
+                            <a href="<?= site_url('program/schedule_delete/' . $S['ID']) ?>" class="btn btn-danger btn-xs"
+								onclick="return confirm('Ètes-vous sûr de vouloir faire cela?');">
+								<span class="fa fa-trash"></span> Supprimer
+							</a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
+			</div>
+		</div>
+	</div>
 </div>

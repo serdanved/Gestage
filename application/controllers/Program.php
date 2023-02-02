@@ -45,6 +45,7 @@ class Program extends MY_Controller {
 	function edit($ID) {
 		// check if the program exists before trying to edit it
 		$data['program'] = $this->Program_model->get_program($ID);
+		$data["schedules"] = $this->Program_model->list_program_schedules_for_program($ID);
 
 		if (isset($data['program']['ID'])) {
 			if (isset($_POST) && count($_POST) > 0) {
@@ -77,5 +78,109 @@ class Program extends MY_Controller {
 		} else {
 			show_error('The program you are trying to delete does not exist.');
 		}
+	}
+
+	/*
+	 * Gestion des horaires par programme
+	 */
+	private function time_to_decimal($time) {
+		$timeArr = explode(':', $time);
+		$decTime = ($timeArr[0] * 60) + ($timeArr[1]);
+
+		return $decTime;
+	}
+
+	function schedule_add($prog) {
+		$this->form_validation->set_rules('NAME', 'NOM', 'required');
+
+		if ($this->form_validation->run()) {
+			$id = $this->Program_model->insert_program_schedule([
+				"PROGRAM_ID" => $prog,
+				"NAME" => $this->input->post("NAME"),
+				"SCHEDULE" => '[{"DAY":"LUNDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":7},{"DAY":"MARDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":7},{"DAY":"MERCREDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":7},{"DAY":"JEUDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":7},{"DAY":"VENDREDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":7},{"DAY":"SAMEDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","CLOSED":"on","TOTAL":0},{"DAY":"DIMANCHE","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","CLOSED":"on","TOTAL":0}]',
+			]);
+			redirect("program/schedule_edit/$id");
+		} else {
+			$data['prog'] = $this->Program_model->get_program($prog);
+			$data['_view'] = 'program/schedule_add';
+			$this->load->view('layouts/main', $data);
+		}
+	}
+
+	function schedule_edit($id) {
+		$data["edit"] = $this->Program_model->find_program_schedule_by_id($id);
+		$this->form_validation->set_rules('NAME', 'NOM', 'required');
+
+		if ($this->form_validation->run()) {
+			$day = $this->input->post("DAY");
+			$fromAm = $this->input->post("FROM_AM");
+			$toAm = $this->input->post("TO_AM");
+			$fromPm = $this->input->post("FROM_PM");
+			$toPm = $this->input->post("TO_PM");
+			$fromEv = $this->input->post("FROM_EV");
+			$toEv = $this->input->post("TO_EV");
+			$closed = $this->input->post("CLOSED");
+			$evening = $this->input->post("CK_HORAIRE_EVENING") != null;
+
+			$arr = [];
+			foreach ($day as $i => $d) {
+				$entry = [
+					"DAY" => $day[$i],
+					"FROM_AM" => $fromAm[$i],
+					"TO_AM" => $toAm[$i],
+					"FROM_PM" => $fromPm[$i],
+					"TO_PM" => $toPm[$i],
+				];
+
+				if ($evening) {
+					$entry["FROM_EV"] = $fromEv[$i];
+					$entry["TO_EV"] = $toEv[$i];
+				}
+
+				if (isset($closed[$i])) {
+					$entry["CLOSED"] = "on";
+					$entry["TOTAL"] = 0;
+				} else {
+					$time_fromAm = new DateTime($fromAm[$i]);
+					$time_toAm = new DateTime($toAm[$i]);
+					$amDiff = $this->time_to_decimal($time_fromAm->diff($time_toAm)->format('%H:%I'));
+
+					$time_fromPm = new DateTime($fromPm[$i]);
+					$time_toPm = new DateTime($toPm[$i]);
+					$pmDiff = $this->time_to_decimal($time_fromPm->diff($time_toPm)->format('%H:%I'));
+
+					$time_fromEv = new DateTime($fromEv[$i]);
+					$time_toEv = new DateTime($toEv[$i]);
+					$evDiff = $this->time_to_decimal($time_fromEv->diff($time_toEv)->format('%H:%I'));
+
+					$entry["TOTAL"] = ($amDiff + $pmDiff + ($evening ? $evDiff : 0)) / 60;
+				}
+
+				$arr[] = $entry;
+			}
+			$this->Program_model->update_program_schedule($id, [
+				"NAME" => $this->input->post("NAME"),
+				"SCHEDULE" => json_encode($arr),
+			]);
+			redirect("program/edit/{$data["edit"]["PROGRAM_ID"]}");
+		} else {
+			$data['prog'] = $this->Program_model->get_program($data["edit"]["PROGRAM_ID"]);
+			$data['schedule'] = json_decode($data["edit"]['SCHEDULE']);
+
+			if (isset($data['schedule'][0]->FROM_EV)) {
+				$data['schedule_ev'] = 1;
+			} else {
+				$data['schedule_ev'] = 0;
+			}
+
+			$data['_view'] = 'program/schedule_edit';
+			$this->load->view('layouts/main', $data);
+		}
+	}
+
+	function schedule_delete($id) {
+		$schedule = $this->Program_model->find_program_schedule_by_id($id);
+		$this->db->where("ID", $id)->delete("PROGRAM_SCHEDULES");
+		redirect('program/edit/' . $schedule["PROGRAM_ID"]);
 	}
 }

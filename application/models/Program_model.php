@@ -49,4 +49,24 @@ class Program_model extends CI_Model {
 	function get_program_name_by_id($ID) {
 		return $this->db->get_where('PROGRAMS', array('ID' => $ID))->row_array();
 	}
+
+	/*
+	 * Gestions des horaires par programme
+	 */
+	function list_program_schedules_for_program($prog) {
+		return $this->db->get_where("PROGRAM_SCHEDULES", ["PROGRAM_ID" => $prog])->result_array();
+	}
+
+	function find_program_schedule_by_id($id) {
+		return $this->db->get_where("PROGRAM_SCHEDULES", ["ID" => $id])->row_array();
+	}
+
+	function insert_program_schedule($params) {
+		$this->db->insert("PROGRAM_SCHEDULES", $params);
+		return $this->db->insert_id();
+	}
+
+	function update_program_schedule($id, $params) {
+		$this->db->where("ID", $id)->update("PROGRAM_SCHEDULES", $params);
+	}
 }

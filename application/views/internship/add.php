@@ -12,7 +12,7 @@
 							<h3 class="panel-title">INFORMATION DU STAGE</h3>
 						</div>
 						<div class="panel-body">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<label for="PROGRAM_ID" class="control-label">PROGRAMME</label>
 								<div class="form-group">
 									<select id="PROGRAM_ID" name="PROGRAM_ID" class="form-control program_select_change">
@@ -21,6 +21,15 @@
 											$selected = $program['ID'] == $this->input->post('PROGRAM_ID') ? 'selected="selected"' : "";
 											echo '<option value="' . $program['ID'] . '" ' . $selected . '>' . $program['NAME'] . '</option>';
 										} ?>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label for="schedule" class="control-label">HORAIRE</label>
+								<div class="form-group">
+									<select id="schedule" name="schedule" class="form-control" required>
+										<option value="">Sélectionner un horaire</option>
 									</select>
 								</div>
 							</div>
@@ -130,5 +139,14 @@
 			set_select_program_teacher_data(id);
 			set_select_program_employer_data(id);
 		}
+
+		$("#PROGRAM_ID").on("change.select2", async function(event) {
+			const schedule = document.getElementById("schedule");
+			const id = parseInt(event.target.value);
+			if (id !== NaN) {
+				const response = await fetch(`/internship/ajax_load_schedules/${id}`);
+				schedule.innerHTML = await response.text();
+			}
+		});
 	});
 </script>

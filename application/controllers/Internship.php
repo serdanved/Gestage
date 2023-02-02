@@ -89,8 +89,10 @@ class Internship extends MY_Controller {
 			$this->form_validation->set_rules('TOTAL_HOURS', 'HEURES TOTAL', 'numeric|required');
 			$this->form_validation->set_rules('DATE_START', 'DATE DE DÉBUT', 'required');
 			$this->form_validation->set_rules('DATE_END', 'DATE DE FIN', 'required');
+			$this->form_validation->set_rules('schedule', 'HORAIRE', 'required');
 
 			if ($this->form_validation->run() == true) {
+				$schedule = $this->Program_model->find_program_schedule_by_id($this->input->post("schedule"));
 				foreach ($_POST["STUDENT_ID"] as $student_id) {
 					//ADD ENTRY IN INTERNSHIPS
 					$params = array(
@@ -100,7 +102,7 @@ class Internship extends MY_Controller {
 						'EMPLOYER_CONTACT_ID' => $this->input->post('EMPLOYER_CONTACT_ID'),
 						'DATE_START' => $this->input->post('DATE_START'),
 						'DATE_END' => $this->input->post('DATE_END'),
-						'SCHEDULE' => '[{"DAY":"LUNDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":""},{"DAY":"MARDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":""},{"DAY":"MERCREDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":""},{"DAY":"JEUDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":""},{"DAY":"VENDREDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","TOTAL":""},{"DAY":"SAMEDI","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","CLOSED":"off","TOTAL":""},{"DAY":"DIMANCHE","FROM_AM":"8:00","TO_AM":"12:00","FROM_PM":"13:00","TO_PM":"16:00","CLOSED":"on","TOTAL":""}]',
+						'SCHEDULE' => $schedule["SCHEDULE"],
 					);
 
 					$internship_id = $this->Internship_model->add_internship($params);
@@ -800,5 +802,15 @@ class Internship extends MY_Controller {
 		$ini += strlen($start);
 		$len = strpos($string, $end, $ini) - $ini;
 		return substr($string, $ini, $len);
+	}
+
+	function ajax_load_schedules($prog) {
+		$this->load->model('Program_model');
+		$schedules = $this->Program_model->list_program_schedules_for_program($prog);
+
+		echo '<option value="" selected>Sélectionner un horaire</option>';
+		foreach ($schedules as $s) {
+			echo '<option value="' . $s["ID"] . '">' . $s["NAME"] . '</option>';
+		}
 	}
 }
