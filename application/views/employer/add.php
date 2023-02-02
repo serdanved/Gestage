@@ -58,6 +58,19 @@
 					</div>
 
 					<div class="col-md-4">
+						<label for="PROGRAM_ID" class="control-label">PROGRAMME</label>
+						<div class="form-group">
+							<select name="PROGRAM_ID" class="form-control">
+								<option value="">Sélectionner un programme</option>
+								<?php foreach ($all_programs as $program) {
+									$selected = ($program['ID'] == $this->input->post('PROGRAM_ID')) ? ' selected="selected"' : "";
+									echo "<option value='{$program['ID']}' $selected>{$program['NAME']}</option>";
+								} ?>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-4">
 						<label for="CONTACT_NAME" class="control-label">NOM DU CONTACT</label>
 						<div class="form-group">
 							<input type="text" name="CONTACT_NAME"
@@ -84,19 +97,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-6">
-						<label for="PROGRAM_ID" class="control-label">PROGRAMME</label>
-						<div class="form-group">
-							<select name="PROGRAM_ID" class="form-control">
-								<option value="">Sélectionner un programme</option>
-								<?php foreach ($all_programs as $program) {
-									$selected = ($program['ID'] == $this->input->post('PROGRAM_ID')) ? ' selected="selected"' : "";
-									echo "<option value='{$program['ID']}' $selected>{$program['NAME']}</option>";
-								} ?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6 form_validation_errors">
+					<div class="col-md-12 form_validation_errors">
 						<?= validation_errors() ?>
 					</div>
 				</div>
@@ -111,8 +112,8 @@
 						</div>
 					</div>
 				</div>
-
-			</div>			<div class="panel-footer">
+			</div>
+			<div class="panel-footer">
 				<button type="submit" class="btn btn-success">
 					<i class="fa fa-check"></i> SAUVEGARDER
 				</button>

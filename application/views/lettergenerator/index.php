@@ -36,12 +36,12 @@
 												<td><?= $L['DESC'] ?></td>
 												<?php if (is_teacher()) { ?><td>
 													<?php if ($L['FAVORITE'] == "0") { ?>
-														<a class="btn btn-app" href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID'] ?>','ID','FAVORITE','1',false,true);">
-															<i style='font-size:x-large' class='fas fa-heart'></i>
+														<a class="btn btn-app" style="height:40px;min-width:40px;padding:10px 5px;" href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID'] ?>','ID','FAVORITE','1',false,true);">
+															<i class='fas fa-check'></i>
 														</a>
 													<?php } if ($L['FAVORITE'] == "1") { ?>
-														<a class="btn btn-app" style='color:red' href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID']?>','ID','FAVORITE','0',false,true);">
-															<i class="fa fa-star"></i>
+														<a class="btn btn-app" style="height:40px;min-width:40px;padding:10px 5px;color:red" href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID']?>','ID','FAVORITE','0',false,true);">
+															<i class="fas fa-times"></i>
 														</a>
 													<?php } ?>
 												</td><?php } ?>
@@ -100,12 +100,12 @@
 											<td><?= $L['DESC'] ?></td>
 											<?php if (is_teacher()) { ?><td>
 												<?php if ($L['FAVORITE'] == "0") { ?>
-													<a class="btn btn-app" href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID'] ?>','ID','FAVORITE','1',false,true);">
-														<i style='font-size:x-large' class='fas fa-heart'></i>
+													<a class="btn btn-app" style="height:40px;min-width:40px;padding:10px 5px;" href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID'] ?>','ID','FAVORITE','1',false,true);">
+														<i class='fas fa-check'></i>
 													</a>
 												<?php } if ($L['FAVORITE'] == "1") { ?>
-													<a class="btn btn-app" style='color:red' href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID']?>','ID','FAVORITE','0',false,true);">
-														<i class="fa fa-star"></i>
+													<a class="btn btn-app" style="height:40px;min-width:40px;padding:10px 5px;color:red" href="javascript:blitz_js_db_update('LETTERS','<?= $L['ID']?>','ID','FAVORITE','0',false,true);">
+														<i class="fas fa-times"></i>
 													</a>
 												<?php } ?>
 											</td><?php } ?>

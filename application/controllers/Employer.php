@@ -250,22 +250,7 @@ class Employer extends MY_Controller {
 				$this->form_validation->set_rules('PROVINCE', 'PROVINCE', 'required');
 				$this->form_validation->set_rules('CITY', 'VILLE', 'required');
 				$this->form_validation->set_rules('ADDRESS', 'ADRESSE', 'required');
-				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION',
-					array(
-						'required',
-						array(
-							"unique",
-							function ($value) {
-								$count = $this->db->where("PHONEHASH", $value)->from("employers")->count_all_results();
-								if ($count > 0) {
-									$this->form_validation->set_message('unique', 'Un utilisateur avec ce ID existe déjà');
-									return false;
-								} else {
-									return true;
-								}
-							},
-						),
-					));
+				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', 'required');
 				$this->form_validation->set_rules('POSTAL_CODE', 'CODE POSTAL', 'callback_zip_check');
 
 				//CHECK IF ALL VALIDATION ARE GOOOD AND INSERT IN DB THEN REDIRECT IN EMPLOYER INDEX
@@ -282,6 +267,7 @@ class Employer extends MY_Controller {
 					);
 
 					$this->Employer_model->update_employer($ID, $params);
+					redirect("/");
 				}
 			}
 
@@ -303,59 +289,63 @@ class Employer extends MY_Controller {
 		//CHECK IF USER SUBMIT A NEW EMPLOYER
 		if ($this->input->post('PHONEHASH')) {
 			//FORM VALIDATION RULES
-			$_POST['PHONEHASH'] = preg_replace("/[^0-9]+/", "", $this->input->post('PHONEHASH'));
 			$this->form_validation->set_rules('EMPLOYER_NAME', 'NOM EMPLOYEUR', 'required');
-
 			$this->form_validation->set_rules('PROVINCE', 'PROVINCE', 'required');
 			$this->form_validation->set_rules('CITY', 'VILLE', 'required');
 			$this->form_validation->set_rules('ADDRESS', 'ADRESSE', 'required');
-			$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', 'required');
-			$this->form_validation->run();
+			$this->form_validation->set_rules('POSTAL_CODE', 'CODE POSTAL', 'callback_zip_check');
+			$this->form_validation->set_rules('EMPLOYER_NAME', 'NOM EMPLOYEUR', 'required');
+			$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', array(
+				'required',
+				'numeric',
+				array(
+					"unique",
+					function($value) {
+						$count = $this->db->where("PHONEHASH", $value)->from("EMPLOYERS")->count_all_results();
+						if ($count > 0) {
+							$this->form_validation->set_message('unique', 'Un utilisateur avec ce ID existe déjà');
+							return false;
+						} else {
+							return true;
+						}
+					},
+				),
+			));
 
 			//CHECK IF ALL VALIDATION ARE GOOOD AND INSERT IN DB THEN REDIRECT IN EMPLOYER INDEX
 			if ($this->form_validation->run()) {
 				//MANAGE INSERT HERE
-				$this->form_validation->set_rules('PROVINCE', 'PROVINCE', 'required');
-				$this->form_validation->set_rules('CITY', 'VILLE', 'required');
-				$this->form_validation->set_rules('ADDRESS', 'ADRESSE', 'required');
-				$this->form_validation->set_rules('POSTAL_CODE', 'CODE POSTAL', 'callback_zip_check');
-				$this->form_validation->set_rules('EMPLOYER_NAME', 'NOM EMPLOYEUR', 'required');
-				$this->form_validation->set_rules('PHONEHASH', 'ID CONNEXION', 'required');
-				$check_employer = $this->form_validation->run();
+				$params = array(
+					'PHONEHASH' => $this->input->post('PHONEHASH'),
+					'PASSWORD_HASH' => password_hash("1234", PASSWORD_BCRYPT),
+					'EMPLOYER_NAME' => $this->input->post('EMPLOYER_NAME'),
+					'PROVINCE' => $this->input->post('PROVINCE'),
+					'CITY' => $this->input->post('CITY'),
+					'ADDRESS' => $this->input->post('ADDRESS'),
+					'POSTAL_CODE' => strtoupper(preg_replace("/[^a-zA-Z0-9]+/", "", $this->input->post('POSTAL_CODE'))),
+					'NOTE' => $this->input->post('NOTE'),
+					'VISIBLE' => '1',
+					'EMAIL' => $this->input->post("CONTACT_EMAIL"),
+				);
 
-				if ($this->form_validation->run() == true) {
-					$params = array(
-						'PHONEHASH' => $this->input->post('PHONEHASH'),
-						'PASSWORD_HASH' => password_hash("1234", PASSWORD_BCRYPT),
-						'EMPLOYER_NAME' => $this->input->post('EMPLOYER_NAME'),
-						'PROVINCE' => $this->input->post('PROVINCE'),
-						'CITY' => $this->input->post('CITY'),
-						'ADDRESS' => $this->input->post('ADDRESS'),
-						'POSTAL_CODE' => strtoupper(preg_replace("/[^a-zA-Z0-9]+/", "", $this->input->post('POSTAL_CODE'))),
-						'NOTE' => $this->input->post('NOTE'),
-						'VISIBLE' => '1',
-						'EMAIL' => $this->input->post("CONTACT_EMAIL"),
-					);
+				$employer_id = $this->Employer_model->add_employer($params);
 
-					$employer_id = $this->Employer_model->add_employer($params);
+				$params = array(
+					'EMPLOYER_ID' => $employer_id,
+					'CONTACT_NAME' => $this->input->post("CONTACT_NAME"),
+					'CONTACT_PHONE' => $this->input->post('CONTACT_PHONE'),
+					'CONTACT_EMAIL' => $this->input->post("CONTACT_EMAIL"),
+				);
 
-					$params = array(
-						'EMPLOYER_ID' => $employer_id,
-						'CONTACT_NAME' => $this->input->post("CONTACT_NAME"),
-						'CONTACT_PHONE' => $this->input->post('CONTACT_PHONE'),
-						'CONTACT_EMAIL' => $this->input->post("CONTACT_EMAIL"),
-					);
+				$this->Employer_model->add_employer_contact($params);
 
-					$this->Employer_model->add_employer_contact($params);
-				}
-			}
-
-			//ADD PERMISION IF USER EXISTS BUT NOT IN EMPLOYER_PROGRAM
-			if ($this->input->post('PROGRAM_ID')) {
-				$employer_id = $this->Employer_model->get_employer_id($this->input->post('PHONEHASH'));
-				$program_id = $this->input->post('PROGRAM_ID');
-				if ($this->employer_programs_add($employer_id, $program_id)) {
-					redirect('employer/index');
+				//ADD PERMISION IF USER EXISTS BUT NOT IN EMPLOYER_PROGRAM
+				if ($this->input->post('PROGRAM_ID')) {
+					$employer_id = $this->Employer_model->get_employer_id($this->input->post('PHONEHASH'));
+					$program_id = $this->input->post('PROGRAM_ID');
+					if ($this->employer_programs_add($employer_id, $program_id)) {
+						redirect('employer/index');
+					}
 				}
 			}
 		}
