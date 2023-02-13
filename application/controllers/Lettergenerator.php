@@ -650,8 +650,8 @@ class Lettergenerator extends MY_Controller {
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_AM . '</td>
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_PM . '</td>
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_PM . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_EV . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_EV . '</td>
+<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->FROM_EV . '</td>
+<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->TO_EV . '</td>
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TOTAL . '</td>
 </tr>';
 				} else {
