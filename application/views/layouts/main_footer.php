@@ -38,24 +38,11 @@
         <script src="<?php echo site_url('resources/js/test.js');?>"></script>
         <script src="<?php echo site_url('resources/js/bootstrap-confirmation.min.js');?>"></script>
 
-        <script src="<?php echo site_url('resources/js/tinymce/tinymce.min.js');?>"></script> 
+        <script src="<?php echo site_url('resources/js/tinymce/tinymce.min.js');?>"></script>
         <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
         <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
-        <!--<script data-main="<?php echo site_url('resources/elfinder/main.default.js');?>" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>-->
 
-     <!--
-         <script type="text/javascript">
-        tinymce.init({
-            mode : "specific_textareas",
-            editor_selector : "myTextEditor",
-            plugins: "link image table paste preview code",
-            language: 'fr_FR',
-            toolbar: 'fontselect | fontsizeselect | formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
-            font_formats: 'Arial=arial,helvetica=helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
-            height: 200,
-        });
-        </script>
-     -->
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
         <script type="text/javascript">
         tinymce.init({
@@ -75,12 +62,6 @@
             ]});
         </script>
 
-    <!--[if IE]>
-        <script type="text/javascript" src="js/excanvas.js"></script> 
-        <![endif]-->
-        <script type="text/javascript" src="/resources/js/jquery.ui.touch-punch.min.js"></script>
-         <script type="text/javascript" src="/resources/js/jquery.signature.min.js"></script>
-
         <script type="text/javascript" src="/resources/timepicker/bootstrap-timepicker.min.js"></script>
 
 <script> //Timepicker
@@ -93,15 +74,12 @@
 
 $('[data-toggle=confirmation]').confirmation({
   rootSelector: '[data-toggle=confirmation]',
-    btnOkLabel: "Oui",	
+    btnOkLabel: "Oui",
     btnCancelLabel: "Non",
   // other options
 });
 
 </script>
-        
-       
        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
         <script src="<?php echo site_url('blitz/BlitzFrameworkInitiateJS');?>"></script>
         <?php date_default_timezone_set('America/New_York');?>
-        

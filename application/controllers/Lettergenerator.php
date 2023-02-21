@@ -354,11 +354,11 @@ class Lettergenerator extends MY_Controller {
 				}
 
 				/*
-								echo $pavilion_address;
-								echo "<br>";
-								echo $pavilion_postal_code;
-								echo "<br>";
-								die(var_dump($program));
+					echo $pavilion_address;
+					echo "<br>";
+					echo $pavilion_postal_code;
+					echo "<br>";
+					die(var_dump($program));
 				*/
 				preg_match_all('/{(.*?)}/', $content, $matches);
 
@@ -546,7 +546,6 @@ class Lettergenerator extends MY_Controller {
 			//       $this->pdf->render();
 			//   	    $this->pdf->stream($data['letter']["NAME"]);
 			//   }
-
 		}
 
 		$data['stages'] = $this->Internship_model->get_letters_generator_internships($this->session->userdata['userid']);

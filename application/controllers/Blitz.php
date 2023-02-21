@@ -30,7 +30,8 @@ class Blitz extends MY_Controller {
 		return $this->db->affected_rows();
 	}
 
-	function BlitzFrameworkInitiateJS() { ?>
+	function BlitzFrameworkInitiateJS() {
+		header('Content-type: text/javascript'); ?>
 		function blitz_js_db_update(dbtable,dbsearchvalue,dbsearchfield,dbupdrowfield,dbupdrowvalue,result=false,refresh=false,wherenoteq=false){
 
 		var get = "?wherenoteq="+wherenoteq+"&dbtable="+dbtable+"&dbsearchvalue="+dbsearchvalue+"&dbsearchfield="+dbsearchfield+"&dbupdrowfield="+dbupdrowfield+"&dbupdrowvalue="+dbupdrowvalue;
