@@ -235,7 +235,7 @@ $(document).ready(function () {
 				}
 			}
 		});
-	});
+	});1
 
 	$("#reset_signature").click(function (e) {
 		$("input[name='SIGNATURE_VALUE']").val("");

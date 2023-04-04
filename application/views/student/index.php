@@ -13,7 +13,7 @@
                         <h3 class="panel-title">ÉLÈVES ACTIFS</h3>
                     </div>
                     <div class="box-body">
-                        <table class="table table-striped teachers-datatable" data-sortable data-state-save="true" id="activeStudents">
+                        <table class="table table-striped assign-student-list" data-sortable data-state-save="true" id="activeStudents">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -56,7 +56,7 @@
                         <h3 class="panel-title">ÉLÈVES INACTIFS</h3>
                     </div>
                     <div class="panel-body">
-                        <table class="table table-striped teachers-datatable" data-sortable data-state-save="true" id="inactiveStudents">
+                        <table class="table table-striped assign-student-list" data-sortable data-state-save="true" id="inactiveStudents">
                             <thead>
                             <tr>
                                 <th>ID</th>
