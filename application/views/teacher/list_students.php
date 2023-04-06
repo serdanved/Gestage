@@ -21,18 +21,20 @@
                             </thead>
                             <tbody>
                             <?php foreach ($students as $S) {
-                                if ($S['TEACHER_ID'] == $this->session->userid) { ?>
+                                if ($this->session->is_ate == 1 || $S['TEACHER_ID'] == $this->session->userid) { ?>
                                     <tr>
                                         <td><?= $S['NAME'] ?></td>
                                         <td><?= $S['EMAIL_CS'] ?></td>
                                         <td><?= get_program_name_by_id($S['PROGRAM_ID']) ?></td>
                                         <td>
+											<?php if ($S['TEACHER_ID'] == $this->session->userid) { ?>
                                             <a href="<?= site_url('teacher/unassign_student/' . $S['ID']) ?>" class="btn btn-success btn-xs">
                                                 <span class="fa fa-pencil"></span> Désassigner cet élève
                                             </a>
                                             <a style="margin-left:15px;" href="<?= site_url('teacher/archive_student/' . $S['ID']) ?>" class="btn btn-danger btn-xs">
                                                 <span class="fa fa-pencil"></span> Archiver cet élève
                                             </a>
+											<?php } ?>
                                         </td>
                                     </tr>
                                 <?php }

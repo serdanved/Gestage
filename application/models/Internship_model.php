@@ -170,9 +170,7 @@ class Internship_model extends CI_Model {
 				$this->db->where('Stu.ID', $USER_ID);
 				break;
 			case "teacher":
-
 				$this->db->where_in('Inter.PROGRAM_ID', explode(",", $PROGRAM_ID));
-
 				break;
 		}
 		$this->db->group_by('ID');
