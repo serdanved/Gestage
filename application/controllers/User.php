@@ -106,7 +106,7 @@
 			"name" => $user["NAME"],
 			"mail" => $user["EMAIL_CS"],
 			"logged_in" => 1,
-			"is_ate" => $tea["FLAG_ATE"],
+			"is_ate" => $user["FLAG_ATE"],
 		));
 		return true;
 	}
