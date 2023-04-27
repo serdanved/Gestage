@@ -47,19 +47,18 @@
         <script type="text/javascript">
         tinymce.init({
             selector : "textarea:not(.mceNoEditor)",
-            plugins: "link image table paste preview code template",
-            menubar: "insert",
-            language: 'fr_FR',
-            toolbar: 'template fontselect | fontsizeselect | formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
             font_formats: 'Arial=arial,helvetica=helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
             height: 500,
-            templates : [
-                {
-                    title: "Protocole",
-                    url: "/resources/uploads/template/protocole.htm",
-                    description: "Adds Editors Name and Staff ID"
-                }
-            ]});
+            convert_urls: false,
+            relative_urls: false,
+            remove_script_host: false,
+          });
         </script>
 
         <script type="text/javascript" src="/resources/timepicker/bootstrap-timepicker.min.js"></script>

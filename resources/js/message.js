@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    
+
     if( $('.messages-datatable').length ){
-		
+
 		 var messagetable = $('.messages-datatable').DataTable({
 			"responsive": true,
 			"ordering": false,
@@ -27,31 +27,31 @@ $(document).ready(function() {
 			        "next":       "Suivant",
 			        "previous":   "Précédent"
 			    },
-			    
-        	}	
+
+        	}
 		});
-		
-		$('#inbox-refresh').on('click', function(t) 
+
+		$('#inbox-refresh').on('click', function(t)
     	{
-           
+
            messagetable.clear();
-           
+
            $.ajax({
 			type:'POST',
 			url:'/internship/getmessages/',
 			success:function(data) {
 				if (data!="") {
-				    
+
 				    $.each(JSON.parse(data), function(i, val) {
-                       
+
                        var row = [];
                        var from_category = "";
-                        
+
                         if (val['FROM_TYPE']==1) { from_category = "[ÉLÈVE]"; }
                         if (val['FROM_TYPE']==2) { from_category = "[ENSEIGNANT]"; }
                         if (val['FROM_TYPE']==3) { from_category = "[EMPLOYEUR]"; }
-                       
-                       
+
+
                        row[0] = '<input type="checkbox" data-from-date="' + val["DATE"] + '" data-from-content="'+val["DESCRIPTION"] + '" data-from-type="'+ val["FROM_TYPE"] + '" data-from-id="' + val["FROM_ID"] +'" data-from-subject="' +val["TITLE"] +'" data-from-name="' +val["FROM_NAME"] +'">';
                        row[1] = '<a href="" data-current-name="' + val["FROM_NAME"] + '" data-toggle="modal" data-action-type="read" data-from-message-td="mailbox-subject-' + val["ID"] +'" data-from-message-id="' + val["ID"] + '" data-from-content="' + val["DESCRIPTION"] + '" data-from-subject="' + val["TITLE"] + '" data-from-type="' + val["FROM_TYPE"] + '"data-from-id="' + val["FROM_ID"] + '" data-from-name="' + val["FROM_NAME"] + '" data-target="#MessageSendModal">' + val["FROM_NAME"] + ' <b>' + from_category + '</b></a>';
                        row[2] = val["TITLE"] + '- ' + val["DESCRIPTION"];
@@ -59,66 +59,66 @@ $(document).ready(function() {
                        messagetable.row.add(row);
                        messagetable.draw();
                     });
-				} 
+				}
 			}});
-           
-         
+
+
     	});
-    	
-    	
-    	
-    	
-    	
-    	$('#inbox-delete').on('click', function(t) 
+
+
+
+
+
+    	$('#inbox-delete').on('click', function(t)
     	{
 
             $("#message_list_form input:checkbox:checked").each(function()
     		{
     			var messageid = $(this).attr("data-message-id");
 
-    			
+
     			$.ajax({
 			    type:'POST',
 			    url:'/internship/deletemessage/',
 			    data:{messageid : messageid},
 			    success:function(data) {
 				    if (data=="true") {
-                    
+
 				        $('#inbox-refresh').click();
-				    } 
+				    }
 			}});
-                
+
 			});
-           
-            
+
+
     	});
-    	
+
 	}
-	
+
 	//FOR FILTER
-	
+
     /*
     $.fn.dataTableExt.afnFiltering.push(function(oSettings, aData, iDataIndex) {
         if( $('.messages-datatable').length ){
             alert("good");
-            return false;   
+            return false;
         }
     return true;
-             
-    });  
-    */    
-    
-    
-     /* 
+
+    });
+    */
+
+
+     /*
         $('#message-filter-select').on('change', function (e) {
     	    alert("in");
             $('.messages-datatable').dataTable().fnDraw();
-        });	
-        
+        });
+
         */
-  
-    
- 
+
+
+
     function resetModal()
     {
 
@@ -131,11 +131,11 @@ $(document).ready(function() {
     	$("#REPLY_MESSAGE").hide();
     	$(".TO_MESSAGE_ROW").show();
     	tinymce.get('CONTENT_MESSAGE').setContent("");
-    	
 
-    
+
+
     }
-    
+
     function setModal_title($this,$value)
     {
         $($this.currentTarget).find('#TITLE_MESSAGE').text($value);
@@ -152,7 +152,7 @@ $(document).ready(function() {
     {
         $($this.currentTarget).find('#SUBJECT_MESSAGE').val($($this.currentTarget).find('#SUBJECT_MESSAGE').val() +"RE: " + $value +" ");
     }
-    
+
     function setModal_subject_tr($this,$value)
     {
         $($this.currentTarget).find('#SUBJECT_MESSAGE').val($($this.currentTarget).find('#SUBJECT_MESSAGE').val() +"TR: " + $value +" ");
@@ -167,7 +167,7 @@ $(document).ready(function() {
     {
         var selectvalue = [];
         if($($this.currentTarget).find("#TO_MESSAGE").val() != null){
-          
+
     			selectvalue = $($this.currentTarget).find("#TO_MESSAGE").val();
     			selectvalue.push("{'USER_ID':'"+$value1+"','USER_TYPE':'"+$value2+"'}");
     			$($this.currentTarget).find("#TO_MESSAGE").val(selectvalue);
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
         $($this.currentTarget).find("#TO_MESSAGE").trigger("change");
     }
-    
+
 
     function setModal_to_profile($this,$value1,$value2,$value3)
     {
@@ -200,7 +200,7 @@ $(document).ready(function() {
             $($this.currentTarget).find('#REPLY_MESSAGE').show();
         }
     }
-    
+
     function setModal_read($this,$value1,$value2)
     {
         $('#' + $value1).html($('#' + $value1).text());
@@ -211,35 +211,35 @@ $(document).ready(function() {
     {
         $($this.currentTarget).find('#' + $value).parents(".form-group").hide();
     }
-    
+
     function setModal_content($this,$value)
     {
         tinymce.get('CONTENT_MESSAGE').setContent($value);
     }
-    
+
     function setModal_content_tr($this,$value1,$value2,$value3)
     {
         $html = "<br><br><br><hr><p><strong>Le " +$value2+", "+$value3+" a écrit:</p></strong> <p style=\"text-indent:5%\">" + $value1+ "</p>";
         tinymce.get('CONTENT_MESSAGE').execCommand('mceInsertContent', false, $html);
     }
-    
+
     function getModal_from()
     {
         $('#MessageSendModal').find('input[name="FROM_MESSAGE"]').val();
     }
-    
-    
-    
-    
-    
-     //SET MODAL MESSAGE INPUT FIELD 
+
+
+
+
+
+     //SET MODAL MESSAGE INPUT FIELD
     $('#MessageSendModal').on('show.bs.modal', function(e) {
-      
-     
+
+
     	var action_type = $(e.relatedTarget).data('action-type');
     	resetModal();
 
-    	
+
     	//CHECK IF WE ARE SENDING A NEW MESSAGE
     	if (action_type == "new")
     	{
@@ -247,29 +247,29 @@ $(document).ready(function() {
     		setModal_from(e,$(e.relatedTarget).data('from-name'));
     		setModal_button(e,"submit");
     	}
-    	
+
     	//CHECK IF WE ARE REPLYING TO MULTIPLE USERS AND SET FIELDS
     	if (action_type == "reply")
     	{
 
-    		
+
     		if($("#message_list_form input:checkbox:checked").length > 0)
     		{
  		        setModal_title(e,"RÉPONDRE AU MESSAGE");
         		setModal_from(e,$(e.relatedTarget).data('from-name'));
         		setModal_button(e,"submit");
-      
+
         		$("#message_list_form input:checkbox:checked").each(function()
         		{
         			setModal_to(e,$(this).attr("data-from-id"),$(this).attr("data-from-type"));
         			setModal_subject_re(e,$(this).attr("data-from-subject"));
         			setModal_content_tr(e,$(this).attr("data-from-content"),$(this).attr("data-from-date"),$(this).attr("data-from-name"));
-                    
+
     			});
     		}
     		else{e.preventDefault();}
     	}
-    	
+
     	//CHECK IF WE ARE REPLYING TO SOMEONE AND SET FIELDS
     	if (action_type == "read")
     	{
@@ -282,11 +282,11 @@ $(document).ready(function() {
     		setModal_subject(e,$(e.relatedTarget).data('from-subject'));
             setModal_content(e,$(e.relatedTarget).data('from-content'));
             setModal_button(e,"reply");
-          
-            
-			
+
+
+
     	}
-    	
+
     	//CHECK IF WE ARE FORWARDING MESSAGE(S)
     	if (action_type == "forward")
     	{
@@ -295,7 +295,7 @@ $(document).ready(function() {
                 setModal_title(e,"TRANSFERT MESSAGE");
         		setModal_from(e,$(e.relatedTarget).data('from-name'));
         		setModal_button(e,"submit");
-        		
+
         		$("#message_list_form input:checkbox:checked").each(function()
         		{
         			setModal_subject_tr(e,$(this).attr("data-from-subject"));
@@ -304,9 +304,9 @@ $(document).ready(function() {
     		}
     		else{e.preventDefault();}
     	}
-    	
+
     	//IF REPLY BUTTON IS PRESSED
-    	$('#MessageSendModal').off('click').on('click', '#REPLY_MESSAGE', function(t) 
+    	$('#MessageSendModal').off('click').on('click', '#REPLY_MESSAGE', function(t)
     	{
             resetModal();
             setModal_title(e,"RÉPONDRE AU MESSAGE");
@@ -328,7 +328,7 @@ $(document).ready(function() {
     	});
 
     	//IF SUBMIT BUTTON IS PRESSED
-    	$('#MessageSendModal').on('click', '#SUBMIT_MESSAGE', function(t) 
+    	$('#MessageSendModal').on('click', '#SUBMIT_MESSAGE', function(t)
     	{
             var message_to = $(e.currentTarget).find("#TO_MESSAGE").val();
             var message_from = ($(e.relatedTarget).data('current-value'));
@@ -347,34 +347,33 @@ $(document).ready(function() {
 			data: {internship_id:internship_id,message_to:message_to,message_from:message_from,message_subject:message_subject,message_content:message_content},
 			success:function(data) {
 				if (data=="ADDED") {
-				    
+
 				    $(".message_validation_errors").html("<p style='color:green;'>Message envoyé!</p>");
 				    setTimeout(function() { $('#MessageSendModal .close').click();}, 2000);
-				    
-				} 
+
+				}
 				else{
 				    $(".message_validation_errors").html(data);
 				}
-				
-				
+
+
 			}});
-            
-            
+
+
     	});
-    	
-    	
-    	
+
+
+
 	});
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 });
 
 
 
-        
-        
-        
+
+
