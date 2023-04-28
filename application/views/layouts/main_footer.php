@@ -58,6 +58,10 @@
             convert_urls: false,
             relative_urls: false,
             remove_script_host: false,
+            images_upload_url: '/upload/tiny_upload',
+            images_file_types: 'jpg,jpeg,png,webp,gif',
+            image_uploadtab: true,
+            images_upload_credentials: true
           });
         </script>
 

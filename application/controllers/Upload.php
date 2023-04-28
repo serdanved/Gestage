@@ -1,6 +1,4 @@
-<?php
-
-class Upload extends CI_Controller {
+<?php class Upload extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Internship_model');
@@ -18,7 +16,6 @@ class Upload extends CI_Controller {
 
 		//CHECK INPUT METHOD TO MAKE SURE USER IS SENDING A FILE
 		if ($this->input->method() == "post") {
-
 			//UPLOAD FILE IN FOLDER
 			$result = $uploader->handleUpload("resources/uploads", $this->input->post('internship_id'));
 
@@ -38,5 +35,22 @@ class Upload extends CI_Controller {
 				echo json_encode(array('success' => true));
 			}
 		}
+	}
+
+	public function tiny_upload() {
+        $this->load->library('upload', [
+            "upload_path" => "./resources/uploads/",
+            "allowed_types" => "jpg|jpeg|png|webp|gif",
+            "file_ext_tolower" => true,
+            "encrypt_name" => true,
+        ]);
+
+        if ($this->upload->do_upload('file')) {
+            echo json_encode([
+                "location" => site_url("resources/uploads/" . $this->upload->data('file_name')),
+            ]);
+        } else {
+            header("HTTP/1.1 500 Server Error");
+        }
 	}
 }
