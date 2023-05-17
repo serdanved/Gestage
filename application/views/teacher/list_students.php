@@ -59,7 +59,7 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<table class="table table-striped assign-student-list" id="unassigned_students_table" data-sortable>
+						<table class="table table-striped" id="unassigned_students_table" data-sortable>
 							<thead>
 							<tr>
 								<th data-searchable="false" data-width="5rem"></th>
@@ -96,7 +96,7 @@
 					</div>
 					<div class="panel-body">
 						<div id="collapse" class="panel-collapse collapse">
-							<table class="table table-striped assign-student-list" id="unassigned_students_table" data-sortable>
+							<table class="table table-striped assign-student-list" id="archived_students_table" data-sortable>
 								<thead>
 								<tr>
 									<th>NOM</th>
@@ -133,13 +133,45 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
+		const table = $("#unassigned_students_table").DataTable({
+			paging: true,
+
+			"language": {
+				"decimal": "",
+				"emptyTable": "Aucun élève",
+				"info": "_TOTAL_ élèves",
+				"infoEmpty": "",
+				"infoFiltered": "(filtré de _MAX_ total élève)",
+				"infoPostFix": "",
+				"thousands": ",",
+				"lengthMenu": "&nbsp;&nbsp;&nbsp;&nbsp;Afficher _MENU_ élèves",
+				"loadingRecords": "Chargement...",
+				"processing": "En traitement...",
+				"search": "Rechercher:",
+				"zeroRecords": "Aucun enregistrements correspondants trouvés",
+				"paginate": {
+					"first": "Première",
+					"last": "Dernière",
+					"next": "Suivant",
+					"previous": "Précédent"
+				}
+			}
+		});
+
+		console.log(table.column(0).nodes());
+
 		const assign = document.getElementById("mass_assign_select");
 		assign.addEventListener("change", async event => {
 			const select = assign.selectedOptions.item(0);
 			const students = [];
-			document.querySelectorAll("#unassigned_students_table input:checked").forEach(value => {
-				students.push(parseInt(value.value));
-			});
+
+			const nodes = table.column(0).nodes();
+			for (let i = 0; i < nodes.length; ++i) {
+				const checkbox = nodes[i].querySelector("input[type='checkbox']");
+				if (checkbox.checked) {
+					students.push(parseInt(checkbox.value));
+				}
+			}
 
 			if (students.length === 0) {
 				alert("Veuillez choisir un ou plusieurs élèves");
