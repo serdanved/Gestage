@@ -158,8 +158,6 @@
 			}
 		});
 
-		console.log(table.column(0).nodes());
-
 		const assign = document.getElementById("mass_assign_select");
 		assign.addEventListener("change", async event => {
 			const select = assign.selectedOptions.item(0);
@@ -176,7 +174,6 @@
 			if (students.length === 0) {
 				alert("Veuillez choisir un ou plusieurs élèves");
 			} else {
-				console.log(students);
 				if (select !== null) {
 					if (confirm(`Ètes-vous sûr de voulloir assigner le programme "${select.text}" à ${students.length} élève(s)?`)) {
 						const body = new FormData();
