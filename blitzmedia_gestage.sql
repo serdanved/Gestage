@@ -625,6 +625,23 @@ INSERT INTO `TEACHER_PROGRAMS` (`ID`, `TEACHER_ID`, `PROGRAM_ID`) VALUES
 --
 
 --
+-- Structure de la table `PROGRAM_SCHEDULES`
+--
+
+CREATE TABLE `PROGRAM_SCHEDULES` (
+  `ID` int NOT NULL,
+  `PROGRAM_ID` int NOT NULL,
+  `NAME` varchar(128) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `SCHEDULE` text COLLATE utf8mb3_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Index pour la table `PROGRAM_SCHEDULES`
+--
+ALTER TABLE `PROGRAM_SCHEDULES`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Index pour la table `ABSENCES`
 --
 ALTER TABLE `ABSENCES`
