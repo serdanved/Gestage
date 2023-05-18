@@ -17,9 +17,9 @@ class Uploadhandler {
     public $chunksExpireIn = 604800; // One week
 
     protected $uploadName;
-    
-    
-    
+
+
+
     function __construct(){}
     /**
      * Get the original filename
@@ -95,7 +95,7 @@ class Uploadhandler {
      * @param string $name Overwrites the name of the file.
      */
     public function handleUpload($uploadDirectory, $internship_id, $name = null){
-    
+
 
         if (is_writable($this->chunksFolder) &&
             1 == mt_rand(1, 1/$this->chunksCleanupProbability)){
@@ -106,8 +106,8 @@ class Uploadhandler {
 
         // Check that the max upload size specified in class configuration does not
         // exceed size allowed by server config
-        
-  
+
+
         if ($this->toBytes(ini_get('post_max_size')) < $this->sizeLimit ||
             $this->toBytes(ini_get('upload_max_filesize')) < $this->sizeLimit){
             $neededRequestSize = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
@@ -129,11 +129,11 @@ class Uploadhandler {
             return array('error' => "Server error. Not a multipart request. Please set forceMultipart to default value (true).");
         }
 
-      
+
         // Get size and name
         $file = $_FILES[$this->inputName];
         $size = $file['size'];
-        
+
         if (isset($_REQUEST['qqtotalfilesize'])) {
             $size = $_REQUEST['qqtotalfilesize'];
         }
@@ -146,18 +146,18 @@ class Uploadhandler {
         if($file['error']) {
             return array('error' => 'Upload Error #'.$file['error']);
         }
-       	
+
         // Validate name
         if ($name === null || $name === ''){
             return array('error' => 'File name empty.');
         }
 
         // Validate file size
-        if ($size == 0){
+        /*if ($size == 0){
             return array('error' => 'File is empty.');
-        }
+        }*/
 
-     
+
         if (!is_null($this->sizeLimit) && $size > $this->sizeLimit) {
             return array('error' => 'File is too large.', 'preventRetry' => true);
         }
@@ -217,11 +217,11 @@ class Uploadhandler {
             return array('error'=> 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
-        
-        
+
+
         // PROCESS DATABASE INS
-        
-        
+
+
     }
 
     /**

@@ -33,6 +33,8 @@
 				// var_dump(array('success' => true));
 				//$result['success']);
 				echo json_encode(array('success' => true));
+			} else {
+				echo json_encode($result);
 			}
 		}
 	}

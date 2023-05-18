@@ -1010,7 +1010,8 @@ $(document).ready(function () {
 		},
 		debug: false,
 		validation: {
-			sizeLimit: 5000000 // 50 kB = 50 * 1024 bytes
+			sizeLimit: 5000000, // 50 kB = 50 * 1024 bytes
+			allowEmpty: true,
 		},
 		thumbnails: {
 			placeholders: {
@@ -1056,7 +1057,7 @@ $(document).ready(function () {
 				this.setParams(newParams);
 			},
 			onAllComplete: function (id, fileName) {
-				location.reload();
+				//location.reload();
 			}
 		},
 
