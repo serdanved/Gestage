@@ -262,8 +262,6 @@ CREATE TABLE `EMPLOYERS` (
   `INACTIVE` tinyint(1) DEFAULT '0',
   `WEB_ADDRESS` text,
   `VISIBLE` int(11) DEFAULT NULL,
-  `SEXRESP` text,
-  `SEXRESP_2` text,
   `CATEGORY_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -271,8 +269,8 @@ CREATE TABLE `EMPLOYERS` (
 -- Déchargement des données de la table `EMPLOYERS`
 --
 
-INSERT INTO `EMPLOYERS` (`ID`, `USERNAME`, `PASSWORD_HASH`, `EMPLOYER_NAME`, `CONTACT_NAME`, `CONTACT_NAME_2`, `PHONE`, `PHONEHASH`, `COUNTRY`, `PROVINCE`, `CITY`, `ADDRESS`, `POSTAL_CODE`, `EMAIL`, `NOTE`, `NOTE_2`, `NEQ`, `INACTIVE`, `WEB_ADDRESS`, `VISIBLE`, `SEXRESP`, `SEXRESP_2`, `CATEGORY_ID`) VALUES
-(1, '', '$2y$10$LZmyIRu/W3hEoOMioe/ap.w/Nf60/MvWD9ndzeueoKQyxa29DGG0m', 'Employeur Blitz', NULL, NULL, NULL, '5813834747', NULL, 'Québec', 'Jonquière', '3480 rue de la reherche', 'G7X0L1', NULL, 'Test Employeur', NULL, NULL, 0, NULL, 1, NULL, NULL, NULL);
+INSERT INTO `EMPLOYERS` (`ID`, `USERNAME`, `PASSWORD_HASH`, `EMPLOYER_NAME`, `CONTACT_NAME`, `CONTACT_NAME_2`, `PHONE`, `PHONEHASH`, `COUNTRY`, `PROVINCE`, `CITY`, `ADDRESS`, `POSTAL_CODE`, `EMAIL`, `NOTE`, `NOTE_2`, `NEQ`, `INACTIVE`, `WEB_ADDRESS`, `VISIBLE`, `CATEGORY_ID`) VALUES
+(1, '', '$2y$10$LZmyIRu/W3hEoOMioe/ap.w/Nf60/MvWD9ndzeueoKQyxa29DGG0m', 'Employeur Blitz', NULL, NULL, NULL, '5813834747', NULL, 'Québec', 'Jonquière', '3480 rue de la reherche', 'G7X0L1', NULL, 'Test Employeur', NULL, NULL, 0, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 

@@ -4,7 +4,7 @@
 			<button class="btn_collapsed"
 			        style="background:transparent !important;border:unset !important;position: relative !important; top: unset; right:unset;"
 			        data-toggle="collapse" aria-controls="collapse-pdf" aria-expanded="true" href='#collapse-pdf'>
-				<i class="fa fa-minus"></i> DOCUMENTS PDF
+				<i class="fa fa-minus"></i> SUIVIS PDF INTERACTIFS
 			</button>
 
 			<?php if (is_teacher()): ?>

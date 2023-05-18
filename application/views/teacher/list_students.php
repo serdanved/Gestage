@@ -21,18 +21,20 @@
                             </thead>
                             <tbody>
                             <?php foreach ($students as $S) {
-                                if ($S['TEACHER_ID'] == $this->session->userid) { ?>
+                                if ($this->session->is_ate == 1 || $S['TEACHER_ID'] == $this->session->userid) { ?>
                                     <tr>
                                         <td><?= $S['NAME'] ?></td>
                                         <td><?= $S['EMAIL_CS'] ?></td>
                                         <td><?= get_program_name_by_id($S['PROGRAM_ID']) ?></td>
                                         <td>
+											<?php if ($S['TEACHER_ID'] == $this->session->userid) { ?>
                                             <a href="<?= site_url('teacher/unassign_student/' . $S['ID']) ?>" class="btn btn-success btn-xs">
                                                 <span class="fa fa-pencil"></span> Désassigner cet élève
                                             </a>
                                             <a style="margin-left:15px;" href="<?= site_url('teacher/archive_student/' . $S['ID']) ?>" class="btn btn-danger btn-xs">
                                                 <span class="fa fa-pencil"></span> Archiver cet élève
                                             </a>
+											<?php } ?>
                                         </td>
                                     </tr>
                                 <?php }
@@ -57,7 +59,7 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<table class="table table-striped assign-student-list" id="unassigned_students_table" data-sortable>
+						<table class="table table-striped" id="unassigned_students_table" data-sortable>
 							<thead>
 							<tr>
 								<th data-searchable="false" data-width="5rem"></th>
@@ -94,7 +96,7 @@
 					</div>
 					<div class="panel-body">
 						<div id="collapse" class="panel-collapse collapse">
-							<table class="table table-striped assign-student-list" id="unassigned_students_table" data-sortable>
+							<table class="table table-striped assign-student-list" id="archived_students_table" data-sortable>
 								<thead>
 								<tr>
 									<th>NOM</th>
@@ -131,18 +133,47 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
+		const table = $("#unassigned_students_table").DataTable({
+			paging: true,
+
+			"language": {
+				"decimal": "",
+				"emptyTable": "Aucun élève",
+				"info": "_TOTAL_ élèves",
+				"infoEmpty": "",
+				"infoFiltered": "(filtré de _MAX_ total élève)",
+				"infoPostFix": "",
+				"thousands": ",",
+				"lengthMenu": "&nbsp;&nbsp;&nbsp;&nbsp;Afficher _MENU_ élèves",
+				"loadingRecords": "Chargement...",
+				"processing": "En traitement...",
+				"search": "Rechercher:",
+				"zeroRecords": "Aucun enregistrements correspondants trouvés",
+				"paginate": {
+					"first": "Première",
+					"last": "Dernière",
+					"next": "Suivant",
+					"previous": "Précédent"
+				}
+			}
+		});
+
 		const assign = document.getElementById("mass_assign_select");
 		assign.addEventListener("change", async event => {
 			const select = assign.selectedOptions.item(0);
 			const students = [];
-			document.querySelectorAll("#unassigned_students_table input:checked").forEach(value => {
-				students.push(parseInt(value.value));
-			});
+
+			const nodes = table.column(0).nodes();
+			for (let i = 0; i < nodes.length; ++i) {
+				const checkbox = nodes[i].querySelector("input[type='checkbox']");
+				if (checkbox.checked) {
+					students.push(parseInt(checkbox.value));
+				}
+			}
 
 			if (students.length === 0) {
 				alert("Veuillez choisir un ou plusieurs élèves");
 			} else {
-				console.log(students);
 				if (select !== null) {
 					if (confirm(`Ètes-vous sûr de voulloir assigner le programme "${select.text}" à ${students.length} élève(s)?`)) {
 						const body = new FormData();

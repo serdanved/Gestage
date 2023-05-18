@@ -21,7 +21,7 @@ class Employer_model extends CI_Model {
 	}
 
 	function get_employer_categories($employer) {
-		return $this->db->get_where("EMPLOYERS_CAT_PROGRAMS", ["EMPLOYER_ID", $employer])->row_array();
+		return $this->db->get_where("EMPLOYERS_CAT_PROGRAMS", ["EMPLOYER_ID" => $employer])->result_array();
 	}
 
 	function update_category($ID, $params) {

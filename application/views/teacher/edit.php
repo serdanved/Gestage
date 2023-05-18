@@ -7,7 +7,7 @@
 			<?= form_open('teacher/edit/' . $teacher['ID']) ?>
 			<div class="panel-body">
 				<div class="row clearfix">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label for="PROGRAMS_IDS" class="control-label">
 							<span class="text-danger">*</span>PROGRAMME(S)
 						</label>
@@ -31,12 +31,21 @@
 							<span class="text-danger"><?= form_error('PROGRAM_IDS[]') ?></span>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label for="NAME" class="control-label">NOM</label>
 						<div class="form-group">
 							<input type="text" name="NAME"
 							       value="<?= $this->input->post('NAME') ? $this->input->post('NAME') : $teacher['NAME'] ?>"
 							       class="form-control" id="NAME" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label for="FLAG_ATE" class="control-label">ATE</label>
+						<div class="form-group">
+							<select class="selectpicker form-control" id="FLAG_ATE" name="FLAG_ATE">
+								<option value="0" <?= $teacher["FLAG_ATE"] == 0 ? "selected": "" ?>>Non</option>
+								<option value="1" <?= $teacher["FLAG_ATE"] == 1 ? "selected": "" ?>>Oui</option>
+							</select>
 						</div>
 					</div>
 				</div>

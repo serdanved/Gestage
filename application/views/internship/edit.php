@@ -38,9 +38,9 @@
 
 						<a name="notes"></a>
 						<?php include("edit_notes.php"); ?>
-						<?php if (!is_student() && !is_employer()):
+						<?php if (!is_student() && !is_employer()) {
 							//include("edit_notes_privees.php");
-						endif; ?>
+						} ?>
 
                         <a name="pdf"></a>
                         <?php include("edit_pdf.php"); ?>

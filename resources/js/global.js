@@ -197,19 +197,17 @@ $(document).ready(function () {
 		}
 	});
 
-	$('#SIGNATURE').signature({guideline: false, syncField: '.SIGNATURE_VALUE', syncFormat: 'PNG'});
-	$('#SIGNATUREFORM').signature({guideline: false, syncField: '.SIGNATURE_VALUE', syncFormat: 'PNG'});
+	const sig_canvas = document.getElementById("SIGNATURE");
+	let sig = null;
+	if (sig_canvas) {
+		sig = new SignaturePad(sig_canvas);
+
+		sig.addEventListener("afterUpdateStroke", () => {
+			$("input[name='SIGNATURE_VALUE']").val(sig.toDataURL());
+		});
+	}
 
 	$('#signatureModal').on('show.bs.modal', function (event) {
-		var obligation_id = $(event.relatedTarget).data("obligation-id");
-		var document_id = $(event.relatedTarget).data("document-id");
-		var form_id = $(event.relatedTarget).data("form-id");
-		$("input[name='OBLIGATION_ID']").val(obligation_id);
-		$("input[name='DOCUMENT_ID']").val(document_id);
-		$("input[name='FORM_ID']").val(form_id);
-	});
-
-	$('#signatureFormModal').on('show.bs.modal', function (event) {
 		var obligation_id = $(event.relatedTarget).data("obligation-id");
 		var document_id = $(event.relatedTarget).data("document-id");
 		var form_id = $(event.relatedTarget).data("form-id");
@@ -237,30 +235,13 @@ $(document).ready(function () {
 				}
 			}
 		});
-	});
-
-	$("#submit_signature_form").click(function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: 'POST',
-			url: '/form/submit_signature_ajax/',
-
-			data: $('#signatureform').serialize(),
-
-			success: function (data) {
-				if (data == "ADDED") {
-					window.location.reload();
-				} else {
-					console.log(data);
-					$(".signature_validation_errors").html(data);
-				}
-			}
-		});
-	});
+	});1
 
 	$("#reset_signature").click(function (e) {
-		$('#SIGNATURE').signature('clear');
-
+		$("input[name='SIGNATURE_VALUE']").val("");
+		if (sig) {
+			sig.clear();
+		}
 	});
 
 	//FOR LETTER GENERATOR

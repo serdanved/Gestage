@@ -170,9 +170,7 @@ class Internship_model extends CI_Model {
 				$this->db->where('Stu.ID', $USER_ID);
 				break;
 			case "teacher":
-
 				$this->db->where_in('Inter.PROGRAM_ID', explode(",", $PROGRAM_ID));
-
 				break;
 		}
 		$this->db->group_by('ID');
@@ -281,7 +279,7 @@ class Internship_model extends CI_Model {
 		left join EMPLOYERS_CAT_PROGRAMS on EMPLOYERS_CAT_PROGRAMS.EMPLOYER_ID = EMPLOYERS.ID
         left join EMPLOYERS_CAT on EMPLOYERS_CAT.ID = EMPLOYERS_CAT_PROGRAMS.CATEGORY_ID
         left join PROGRAMS on INTERNSHIPS.PROGRAM_ID = PROGRAMS.ID
-        where STUDENTS.NAME is not null";
+        where STUDENTS.NAME is not null and INTERNSHIPS.INACTIVE = 0";
 
         if (!in_array(0, $students))
             $query .= "\nand STUDENTS.ID in (" . implode(",", $students) . ")";

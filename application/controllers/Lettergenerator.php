@@ -354,11 +354,11 @@ class Lettergenerator extends MY_Controller {
 				}
 
 				/*
-								echo $pavilion_address;
-								echo "<br>";
-								echo $pavilion_postal_code;
-								echo "<br>";
-								die(var_dump($program));
+					echo $pavilion_address;
+					echo "<br>";
+					echo $pavilion_postal_code;
+					echo "<br>";
+					die(var_dump($program));
 				*/
 				preg_match_all('/{(.*?)}/', $content, $matches);
 
@@ -546,7 +546,6 @@ class Lettergenerator extends MY_Controller {
 			//       $this->pdf->render();
 			//   	    $this->pdf->stream($data['letter']["NAME"]);
 			//   }
-
 		}
 
 		$data['stages'] = $this->Internship_model->get_letters_generator_internships($this->session->userdata['userid']);
@@ -650,8 +649,8 @@ class Lettergenerator extends MY_Controller {
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_AM . '</td>
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_PM . '</td>
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_PM . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_EV . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_EV . '</td>
+<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->FROM_EV . '</td>
+<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->TO_EV . '</td>
 <td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TOTAL . '</td>
 </tr>';
 				} else {
@@ -699,7 +698,7 @@ class Lettergenerator extends MY_Controller {
 				$data['teacher_fields'] = $this->db->list_fields('TEACHERS');
 
 				$data['block_fields'] = array("BLOC1.DATE_DEBUT", "BLOC2.DATE_DEBUT", "BLOC3.DATE_DEBUT", "BLOC4.DATE_DEBUT", "BLOC1.DATE_FIN", "BLOC2.DATE_FIN", "BLOC3.DATE_FIN", "BLOC4.DATE_FIN", "BLOC1.HORAIRE", "BLOC2.HORAIRE", "BLOC3.HORAIRE", "BLOC4.HORAIRE");
-				$data["all_programs"] = $this->Teacher_model->get_teacher_programs($this->session->userdata("userid"));
+				$data["all_programs"] = $this->Teacher_model->get_all_teacher_programs();
 				$data['_view'] = 'lettergenerator/edit';
 				$this->load->view('layouts/main', $data);
 			}

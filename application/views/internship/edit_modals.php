@@ -56,7 +56,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<label for='SIGNATURE' class="control-label">SIGNATURE</label>
-							<div id="SIGNATURE" style="height:100px;width:500px;background-color:white;"></div>
+							<canvas id="SIGNATURE" width="500" height="100"></canvas>
 						</div>
 
 						<input type="hidden" class="SIGNATURE_VALUE" name="SIGNATURE_VALUE" value="">
@@ -73,63 +73,13 @@
 				</div>
 				<!-- FOOTER SECTION OF MODAL PUBLIC NOTE" -->
 				<div class="modal-footer">
-					<button style="background-color:Gainsboro;float:left" type="button"
-					        class="btn btn-secondary bg-secondary" data-dismiss="modal">
+					<button style="background-color:Gainsboro;float:left" type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">
 						FERMER
 					</button>
 					<button class="btn btn-primary" id="reset_signature" type="button" value="<?= $this->uri->segment(3) ?>">
 						EFFACER
 					</button>
 					<button class="btn btn-primary" id="submit_signature" type="button" value="<?= $this->uri->segment(3) ?>">
-						ENREGISTRER
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</form>
-
-<!-- MODAL SIGNATURE" -->
-<form id="signatureFormform" method="post" accept-charset="utf-8">
-	<div id="signatureFormModal" class="modal fade" role="dialog" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- HEADER SECTION OF MODAL PUBLIC NOTE" -->
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">SIGNATURE REQUISE</h4>
-				</div>
-
-				<!-- BODY SECTION OF MODAL PUBLIC NOTE" -->
-				<div class="modal-body col-md-12">
-					<div class="row">
-						<div class="col-md-12">
-							<label for='SIGNATUREFORM' class="control-label">SIGNATURE</label>
-							<div id="SIGNATUREFORM" style="height:100px;width:500px;background-color:white;"></div>
-						</div>
-
-						<input type="hidden" class="SIGNATURE_VALUE" name="SIGNATURE_VALUE" value="">
-						<input type="hidden" name="INTERNSHIP_ID" value="<?= $this->uri->segment(3) ?>">
-						<input type="hidden" name="OBLIGATION_ID" value="">
-						<input type="hidden" name="DOCUMENT_ID" value="">
-						<input type="hidden" name="BLOCK_ID" value="">
-						<input type="hidden" name="FORM_ID" value="">
-					</div>
-
-					<div class="row">
-						<div class="col-md-12 signature_validation_errors"></div>
-					</div>
-				</div>
-				<!-- FOOTER SECTION OF MODAL PUBLIC NOTE" -->
-				<div class="modal-footer">
-					<button style="background-color:Gainsboro;float:left" type="button"
-					        class="btn btn-secondary bg-secondary" data-dismiss="modal">
-						FERMER
-					</button>
-					<button class="btn btn-primary" id="reset_signature" type="button" value="<?= $this->uri->segment(3) ?>">
-						EFFACER
-					</button>
-					<button class="btn btn-primary" id="submit_signature_form" type="button" value="<?= $this->uri->segment(3) ?>">
 						ENREGISTRER
 					</button>
 				</div>

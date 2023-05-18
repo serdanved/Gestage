@@ -29,6 +29,7 @@ class Teacher extends MY_Controller {
 			"name" => $tea["NAME"],
 			"mail" => $tea["EMAIL_CS"],
 			"logged_in" => 1,
+			"is_ate" => $tea["FLAG_ATE"],
 			"ADMIN" => $admin,
 		));
 		redirect("dashboard/index");
@@ -109,6 +110,7 @@ class Teacher extends MY_Controller {
 				//UPDATE TEACHERS NAME
 				$params = array(
 					'NAME' => $this->input->post('NAME'),
+					'FLAG_ATE' => $this->input->post('FLAG_ATE'),
 				);
 				$this->Teacher_model->update_teacher($ID, $params);
 

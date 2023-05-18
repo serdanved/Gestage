@@ -41,6 +41,8 @@ class Internship extends MY_Controller {
 				case "teacher":
 					$current_user_program_id = $this->Teacher_model->get_teacher($user_id);
 					$data['internships'] = $this->Internship_model->get_all_internships("teacher", $user_id, $current_user_program_id['PROGRAM_IDS']);
+
+					//die("<pre>" . $this->db->last_query() . "</pre>");
 					break;
 
 				//LOAD INTERNSHIPS FOR USER_ROLE "STUDENT"
@@ -146,9 +148,17 @@ class Internship extends MY_Controller {
 		} else {
 			/* Si le user est un professeur, on ne lui donne pas toutes les infos */
 			if ($this->session->status == 'teacher') {
-				$data['all_students'] = $this->Student_model->get_all_students_by_teacher_id($this->session->userid);
-				$data['all_teachers'] = $this->Teacher_model->get_program_teachers($this->session->userid);
 				$data['all_programs'] = $this->Teacher_model->get_program_by_teacher_id_select($this->session->userid);
+				$data['all_teachers'] = $this->Teacher_model->get_program_teachers($this->session->userid);
+
+				if ($this->session->is_ate == 0) {
+					$data['all_students'] = $this->Student_model->get_all_students_by_teacher_id($this->session->userid);
+				} else {
+					$data['all_students'] = [];
+					foreach ($data['all_programs'] as $p) {
+						$data['all_students'] = array_merge($data['all_students'], $this->Student_model->get_all_students_from_program_ids($p["ID"]));
+					}
+				}
 			} else if ($this->session->status == 'admin') {
 				$data['all_students'] = $this->Student_model->get_all_students();
 				$data['all_teachers'] = $this->Teacher_model->get_all_teachers();

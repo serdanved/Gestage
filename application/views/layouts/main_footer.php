@@ -38,48 +38,32 @@
         <script src="<?php echo site_url('resources/js/test.js');?>"></script>
         <script src="<?php echo site_url('resources/js/bootstrap-confirmation.min.js');?>"></script>
 
-        <script src="<?php echo site_url('resources/js/tinymce/tinymce.min.js');?>"></script> 
+        <script src="<?php echo site_url('resources/js/tinymce/tinymce.min.js');?>"></script>
         <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
         <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
-        <!--<script data-main="<?php echo site_url('resources/elfinder/main.default.js');?>" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>-->
 
-     <!--
-         <script type="text/javascript">
-        tinymce.init({
-            mode : "specific_textareas",
-            editor_selector : "myTextEditor",
-            plugins: "link image table paste preview code",
-            language: 'fr_FR',
-            toolbar: 'fontselect | fontsizeselect | formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
-            font_formats: 'Arial=arial,helvetica=helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
-            height: 200,
-        });
-        </script>
-     -->
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
         <script type="text/javascript">
         tinymce.init({
             selector : "textarea:not(.mceNoEditor)",
-            plugins: "link image table paste preview code template",
-            menubar: "insert",
-            language: 'fr_FR',
-            toolbar: 'template fontselect | fontsizeselect | formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
             font_formats: 'Arial=arial,helvetica=helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
             height: 500,
-            templates : [
-                {
-                    title: "Protocole",
-                    url: "/resources/uploads/template/protocole.htm",
-                    description: "Adds Editors Name and Staff ID"
-                }
-            ]});
+            convert_urls: false,
+            relative_urls: false,
+            remove_script_host: false,
+            images_upload_url: '/upload/tiny_upload',
+            images_file_types: 'jpg,jpeg,png,webp,gif',
+            image_uploadtab: true,
+            images_upload_credentials: true
+          });
         </script>
-
-    <!--[if IE]>
-        <script type="text/javascript" src="js/excanvas.js"></script> 
-        <![endif]-->
-        <script type="text/javascript" src="/resources/js/jquery.ui.touch-punch.min.js"></script>
-         <script type="text/javascript" src="/resources/js/jquery.signature.min.js"></script>
 
         <script type="text/javascript" src="/resources/timepicker/bootstrap-timepicker.min.js"></script>
 
@@ -93,15 +77,12 @@
 
 $('[data-toggle=confirmation]').confirmation({
   rootSelector: '[data-toggle=confirmation]',
-    btnOkLabel: "Oui",	
+    btnOkLabel: "Oui",
     btnCancelLabel: "Non",
   // other options
 });
 
 </script>
-        
-       
        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
         <script src="<?php echo site_url('blitz/BlitzFrameworkInitiateJS');?>"></script>
         <?php date_default_timezone_set('America/New_York');?>
-        
