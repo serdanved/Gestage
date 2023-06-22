@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 13 juin 2022 à 13:46
--- Version du serveur :  5.7.38
--- Version de PHP : 7.4.29
+-- Généré le : jeu. 22 juin 2023 à 08:35
+-- Version du serveur : 5.7.41
+-- Version de PHP : 8.1.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -55,7 +54,7 @@ CREATE TABLE `ADMINISTRATORS` (
 --
 
 INSERT INTO `ADMINISTRATORS` (`ID`, `EMAIL`, `PASSWORD_HASH`, `NAME`) VALUES
-(1, 'support@blitzmedia.io', '$2y$10$gM3zhjZOQIp7SsNDKfsLjO4DoTneWm5Sb7/8Wby7lN.dCwWlCIUj6', 'Administrateur');
+(1, 'support@blitzmedia.io', '$2y$10$z4oxfm6CvYruUPRnCqBaYuIcQBDbwMBX7G6QybU8riMWwS1058KXe', 'Administrateur');
 
 -- --------------------------------------------------------
 
@@ -80,8 +79,7 @@ CREATE TABLE `BLOCKS` (
 --
 
 INSERT INTO `BLOCKS` (`ID`, `NAME`, `INTERNSHIP_ID`, `DATE_START`, `DATE_END`, `SCHEDULE`, `TOTAL_HOURS`, `TEACHER_ID`, `CURRENT`) VALUES
-(1, 'TEST BLITZ', 1, '2023-01-01', '2023-03-01', NULL, '50.00', 1, 1),
-(2, 'hgd', 2, '2022-06-13', '2022-06-17', NULL, '30.00', 1, 1);
+(1, 'TEST BLITZ', 1, '2023-01-01', '2023-03-01', NULL, 50.00, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -270,7 +268,8 @@ CREATE TABLE `EMPLOYERS` (
 --
 
 INSERT INTO `EMPLOYERS` (`ID`, `USERNAME`, `PASSWORD_HASH`, `EMPLOYER_NAME`, `CONTACT_NAME`, `CONTACT_NAME_2`, `PHONE`, `PHONEHASH`, `COUNTRY`, `PROVINCE`, `CITY`, `ADDRESS`, `POSTAL_CODE`, `EMAIL`, `NOTE`, `NOTE_2`, `NEQ`, `INACTIVE`, `WEB_ADDRESS`, `VISIBLE`, `CATEGORY_ID`) VALUES
-(1, '', '$2y$10$LZmyIRu/W3hEoOMioe/ap.w/Nf60/MvWD9ndzeueoKQyxa29DGG0m', 'Employeur Blitz', NULL, NULL, NULL, '5813834747', NULL, 'Québec', 'Jonquière', '3480 rue de la reherche', 'G7X0L1', NULL, 'Test Employeur', NULL, NULL, 0, NULL, 1, NULL);
+(1, '', '$2y$10$9//bcS.O2ZxDXDlFvd4k8..G8wTcfAL1jKLEMdgdEBFdHAS9iAYFe', 'Employeur Blitz', NULL, NULL, '5813834747', '5813834747', NULL, 'Québec', 'Jonquière', '3480 rue de la reherche', 'G7X0L1', 'dgrondin@blitzmedia.io', '', NULL, NULL, 0, NULL, 1, NULL),
+(3, '', '$2y$10$3CIi2OVbW790y7A9rokUTOZ2GpZFQUAaKot32eMsqK13uyS8IHn6C', 'test', NULL, NULL, NULL, '5141111111', NULL, 'test', 'test', 'test', 'H1R1Z7', 'jpsmith@blitzmedia.io', 'bla   ', NULL, NULL, 0, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -289,7 +288,8 @@ CREATE TABLE `EMPLOYERS_CAT` (
 --
 
 INSERT INTO `EMPLOYERS_CAT` (`ID`, `NAME`, `PROGRAM_ID`) VALUES
-(1, 'Boutique', 1);
+(1, 'Boutique', 1),
+(2, 'Test', 2);
 
 -- --------------------------------------------------------
 
@@ -309,7 +309,8 @@ CREATE TABLE `EMPLOYERS_CAT_PROGRAMS` (
 --
 
 INSERT INTO `EMPLOYERS_CAT_PROGRAMS` (`ID`, `CATEGORY_ID`, `PROGRAM_ID`, `EMPLOYER_ID`) VALUES
-(1, 1, 1, 1);
+(4, 1, 0, 1),
+(5, 2, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -330,7 +331,10 @@ CREATE TABLE `EMPLOYER_CONTACTS` (
 --
 
 INSERT INTO `EMPLOYER_CONTACTS` (`ID`, `EMPLOYER_ID`, `CONTACT_NAME`, `CONTACT_PHONE`, `CONTACT_EMAIL`) VALUES
-(1, 1, 'Jean-Paul Smith', '5813834747', 'jpsmith@blitzmedia.io');
+(1, 1, 'Jean-Paul Smith', '5813834747', 'jpsmith@blitzmedia.io'),
+(4, 3, 'test', 'test', 'test'),
+(5, 1, 'Blah', 'Blah', 'dgrondin@blitzmedia.io'),
+(6, 1, 'Yeet', 'Yeet', 'Yeet');
 
 -- --------------------------------------------------------
 
@@ -349,7 +353,9 @@ CREATE TABLE `EMPLOYER_PROGRAMS` (
 --
 
 INSERT INTO `EMPLOYER_PROGRAMS` (`ID`, `EMPLOYER_ID`, `PROGRAM_ID`) VALUES
-(1, 1, 1);
+(12, 1, 1),
+(13, 3, 1),
+(14, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -402,8 +408,7 @@ CREATE TABLE `INTERNSHIPS` (
 --
 
 INSERT INTO `INTERNSHIPS` (`ID`, `STUDENT_ID`, `EMPLOYER_ID`, `PROGRAM_ID`, `EMPLOYER_CONTACT_ID`, `DATE_START`, `DATE_END`, `DESCRIPTION`, `INACTIVE`, `SCHEDULE`) VALUES
-(1, 1, 1, 1, 1, '2023-01-01', '2023-03-01', NULL, 0, '[{\"DAY\":\"LUNDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"MARDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"MERCREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"JEUDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"VENDREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"SAMEDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"CLOSED\":\"off\",\"TOTAL\":\"\"},{\"DAY\":\"DIMANCHE\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"CLOSED\":\"on\",\"TOTAL\":\"\"}]'),
-(2, 1, 1, 1, 1, '2022-06-13', '2022-06-17', NULL, 0, '[{\"DAY\":\"LUNDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"MARDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"MERCREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"JEUDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"VENDREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"SAMEDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"CLOSED\":\"off\",\"TOTAL\":\"\"},{\"DAY\":\"DIMANCHE\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"CLOSED\":\"on\",\"TOTAL\":\"\"}]');
+(1, 1, 1, 1, 1, '2023-01-01', '2023-03-01', NULL, 0, '[{\"DAY\":\"LUNDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"MARDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"MERCREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"JEUDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"VENDREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"TOTAL\":\"\"},{\"DAY\":\"SAMEDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"CLOSED\":\"off\",\"TOTAL\":\"\"},{\"DAY\":\"DIMANCHE\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"CLOSED\":\"on\",\"TOTAL\":\"\"}]');
 
 -- --------------------------------------------------------
 
@@ -420,6 +425,13 @@ CREATE TABLE `LETTERS` (
   `PROGRAM_ID` int(11) NOT NULL DEFAULT '0',
   `DISABLE` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `LETTERS`
+--
+
+INSERT INTO `LETTERS` (`ID`, `NAME`, `DESC`, `CONTENT`, `FAVORITE`, `PROGRAM_ID`, `DISABLE`) VALUES
+(1, 'Test Blitz', 'Test Blitz', '<p>TEST&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Bonjour ....</p>', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -508,9 +520,10 @@ INSERT INTO `OPTIONS` (`ID`, `NAME`, `VALUE`) VALUES
 (2, '_SCHOOL_ADDRESS', '3480D RUE DE LA RECHERCHE<br>SAGUENAY QC<br>G7X 0L1'),
 (3, '_SMTP_HOST', 'mail.blitzmedia.io'),
 (4, '_SMTP_PORT', '25'),
-(5, '_SMTP_USER', 'user@blitzmedia.io'),
-(6, '_SMTP_PASS', '1234'),
-(7, '_ADOBE_KEY', 'e9103ee23ff2428599d4ace4d17e493f');
+(5, '_SMTP_USER', 'site@blitzmedia.io'),
+(6, '_SMTP_PASS', 'a.O[Fqp!W2?~'),
+(7, '_ADOBE_KEY', 'e9103ee23ff2428599d4ace4d17e493f'),
+(8, '_SMTP_FROM', 'support@blitzmedia.io');
 
 -- --------------------------------------------------------
 
@@ -531,7 +544,29 @@ CREATE TABLE `PROGRAMS` (
 --
 
 INSERT INTO `PROGRAMS` (`ID`, `GUID`, `NAME`, `PAVILION`, `LDAP_ID`) VALUES
-(1, NULL, 'Programme Blitz', 'Jonquiere', 0);
+(1, NULL, 'Programme Blitz', 'Jonquiere', 0),
+(2, NULL, 'Vente-conseil cosmétiques', 'Centre Antoine-de-Saint-Exupéry', 0),
+(3, NULL, 'Vente-conseil auto', 'Centre Anjou', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `PROGRAM_SCHEDULES`
+--
+
+CREATE TABLE `PROGRAM_SCHEDULES` (
+  `ID` int(11) NOT NULL,
+  `PROGRAM_ID` int(11) NOT NULL,
+  `NAME` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `SCHEDULE` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `PROGRAM_SCHEDULES`
+--
+
+INSERT INTO `PROGRAM_SCHEDULES` (`ID`, `PROGRAM_ID`, `NAME`, `SCHEDULE`) VALUES
+(1, 1, 'Test', '[{\"DAY\":\"LUNDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"CLOSED\":\"on\",\"TOTAL\":0},{\"DAY\":\"MARDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"CLOSED\":\"on\",\"TOTAL\":0},{\"DAY\":\"MERCREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"CLOSED\":\"on\",\"TOTAL\":0},{\"DAY\":\"JEUDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"CLOSED\":\"on\",\"TOTAL\":0},{\"DAY\":\"VENDREDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"CLOSED\":\"on\",\"TOTAL\":0},{\"DAY\":\"SAMEDI\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"TOTAL\":11},{\"DAY\":\"DIMANCHE\",\"FROM_AM\":\"8:00\",\"TO_AM\":\"12:00\",\"FROM_PM\":\"13:00\",\"TO_PM\":\"16:00\",\"FROM_EV\":\"17:00\",\"TO_EV\":\"21:00\",\"TOTAL\":11}]');
 
 -- --------------------------------------------------------
 
@@ -577,7 +612,7 @@ CREATE TABLE `STUDENTS` (
 --
 
 INSERT INTO `STUDENTS` (`ID`, `GUID`, `NAME`, `EMAIL_CS`, `PASSWORD_HASH`, `SCHOOL`, `PROGRAM_ID`, `TEACHER_ID`, `GROUP_ID`, `ARCHIVE`) VALUES
-(1, NULL, 'Etudiant Blitz', 'student@blitzmedia.io', '$2y$10$gM3zhjZOQIp7SsNDKfsLjO4DoTneWm5Sb7/8Wby7lN.dCwWlCIUj6', 'Blitz Media', 1, 1, '', 0);
+(1, NULL, 'Etudiant Blitz', 'student@blitzmedia.io', '$2y$10$RQXKcdE2pIo/5bjhF3icS.X2vJqoPUjxtqSuozmP95DO7galDtz86', 'Blitz Media', 3, 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -591,6 +626,7 @@ CREATE TABLE `TEACHERS` (
   `NAME` text,
   `EMAIL_CS` text,
   `PASSWORD_HASH` text NOT NULL,
+  `FLAG_ATE` tinyint(1) NOT NULL DEFAULT '0',
   `DISABLED` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -598,8 +634,8 @@ CREATE TABLE `TEACHERS` (
 -- Déchargement des données de la table `TEACHERS`
 --
 
-INSERT INTO `TEACHERS` (`ID`, `GUID`, `NAME`, `EMAIL_CS`, `PASSWORD_HASH`, `DISABLED`) VALUES
-(1, NULL, 'Enseignant Blitz', 'teacher@blitzmedia.io', '$2y$10$gM3zhjZOQIp7SsNDKfsLjO4DoTneWm5Sb7/8Wby7lN.dCwWlCIUj6', 0);
+INSERT INTO `TEACHERS` (`ID`, `GUID`, `NAME`, `EMAIL_CS`, `PASSWORD_HASH`, `FLAG_ATE`, `DISABLED`) VALUES
+(1, NULL, 'Enseignant Blitz', 'teacher@blitzmedia.io', '$2y$10$wBUQjc8f6ous5gy66e7pg.joa2jr.ETC44nlvHqk.BQjIcDfFwKRm', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -618,28 +654,14 @@ CREATE TABLE `TEACHER_PROGRAMS` (
 --
 
 INSERT INTO `TEACHER_PROGRAMS` (`ID`, `TEACHER_ID`, `PROGRAM_ID`) VALUES
-(1, 1, 1);
+(13, 1, 1),
+(14, 1, 3),
+(15, 1, 2),
+(17, 2, 3);
 
 --
 -- Index pour les tables déchargées
 --
-
---
--- Structure de la table `PROGRAM_SCHEDULES`
---
-
-CREATE TABLE `PROGRAM_SCHEDULES` (
-  `ID` int NOT NULL,
-  `PROGRAM_ID` int NOT NULL,
-  `NAME` varchar(128) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `SCHEDULE` text COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Index pour la table `PROGRAM_SCHEDULES`
---
-ALTER TABLE `PROGRAM_SCHEDULES`
-  ADD PRIMARY KEY (`ID`);
 
 --
 -- Index pour la table `ABSENCES`
@@ -783,6 +805,12 @@ ALTER TABLE `PROGRAMS`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Index pour la table `PROGRAM_SCHEDULES`
+--
+ALTER TABLE `PROGRAM_SCHEDULES`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Index pour la table `SETTINGS`
 --
 ALTER TABLE `SETTINGS`
@@ -820,19 +848,19 @@ ALTER TABLE `ABSENCES`
 -- AUTO_INCREMENT pour la table `ADMINISTRATORS`
 --
 ALTER TABLE `ADMINISTRATORS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `BLOCKS`
 --
 ALTER TABLE `BLOCKS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `BLOCK_SCHEDULES`
 --
 ALTER TABLE `BLOCK_SCHEDULES`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1175;
 
 --
 -- AUTO_INCREMENT pour la table `CREATOR_TYPES`
@@ -844,49 +872,49 @@ ALTER TABLE `CREATOR_TYPES`
 -- AUTO_INCREMENT pour la table `DOCUMENTS`
 --
 ALTER TABLE `DOCUMENTS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `DOCUMENT_PDF_PROG`
 --
 ALTER TABLE `DOCUMENT_PDF_PROG`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `DOCUMENT_PDF_STAGE`
 --
 ALTER TABLE `DOCUMENT_PDF_STAGE`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `EMPLOYERS`
 --
 ALTER TABLE `EMPLOYERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `EMPLOYERS_CAT`
 --
 ALTER TABLE `EMPLOYERS_CAT`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `EMPLOYERS_CAT_PROGRAMS`
 --
 ALTER TABLE `EMPLOYERS_CAT_PROGRAMS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `EMPLOYER_CONTACTS`
 --
 ALTER TABLE `EMPLOYER_CONTACTS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `EMPLOYER_PROGRAMS`
 --
 ALTER TABLE `EMPLOYER_PROGRAMS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `FOLLOWUPS`
@@ -904,13 +932,13 @@ ALTER TABLE `FORMS`
 -- AUTO_INCREMENT pour la table `INTERNSHIPS`
 --
 ALTER TABLE `INTERNSHIPS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `LETTERS`
 --
 ALTER TABLE `LETTERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `LOGS`
@@ -928,24 +956,30 @@ ALTER TABLE `MESSAGES`
 -- AUTO_INCREMENT pour la table `NOTES`
 --
 ALTER TABLE `NOTES`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `OBLIGATIONS`
 --
 ALTER TABLE `OBLIGATIONS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `OPTIONS`
 --
 ALTER TABLE `OPTIONS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `PROGRAMS`
 --
 ALTER TABLE `PROGRAMS`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `PROGRAM_SCHEDULES`
+--
+ALTER TABLE `PROGRAM_SCHEDULES`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -958,19 +992,19 @@ ALTER TABLE `SETTINGS`
 -- AUTO_INCREMENT pour la table `STUDENTS`
 --
 ALTER TABLE `STUDENTS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `TEACHERS`
 --
 ALTER TABLE `TEACHERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `TEACHER_PROGRAMS`
 --
 ALTER TABLE `TEACHER_PROGRAMS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
