@@ -75,7 +75,7 @@ class Teacher extends MY_Controller {
 
 		if ($this->form_validation->run()) {
 			$params = array(
-				'PROGRAM_ID' => $this->input->post('PROGRAM_ID'),
+				//'PROGRAM_ID' => $this->input->post('PROGRAM_ID'),
 				'PASSWORD_HASH' => password_hash($this->input->post('PASSWORD'), PASSWORD_BCRYPT),
 				'NAME' => $this->input->post('NAME'),
 				'EMAIL_CS' => $this->input->post('EMAIL_CS'),
