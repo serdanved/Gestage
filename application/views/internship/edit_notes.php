@@ -31,7 +31,7 @@
                         data-placement="top"
                         title="INFORMATION"
                         data-html="true"
-                        data-content="<p style='text-align:center;'>SEULEMENT VOUS ET LES ENSEIGNANTS PEUVENT VISUALISER CETTE NOTE</p>"
+                        data-content="<p style='text-align:center;'>LES NOTES PRIVÉES NE SONT VISIBLE QUE PAR LES ENSEIGNANTS ET LE CRÉATEUR DE CELLE-CI</p>"
                         class="popover-general">
                         PRIVÉE <span class="fas fa-question-circle"></span>
                     </th>
