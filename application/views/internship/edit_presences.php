@@ -21,15 +21,12 @@
 				<div class="col-md-3">
 					<label for="STUDENT_ID" class="control-label">BLOC</label>
 					<div class="form-group input-group col-md-12 ">
-						<select id="BLOCK_SCHEDULE_ID_SELECT" name="BLOCK_SCHEDULE_ID_SELECT" class="form-control"
-						        style="width:100%">
-							<?php
-							foreach ($all_blocks as $block) {
+						<select id="BLOCK_SCHEDULE_ID_SELECT" name="BLOCK_SCHEDULE_ID_SELECT" class="form-control" style="width:100%">
+							<?php foreach ($all_blocks as $block) {
 								$selected = ($block['CURRENT'] == 1) ? ' selected="selected"' : "";
 
 								echo '<option value="' . $block['ID'] . '" "' . $selected . '"   >' . $block['NAME'] . '</option>';
-							}
-							?>
+							} ?>
 						</select>
 					</div>
 				</div>
@@ -46,12 +43,10 @@
 						<th style="text-align:center;">À</th>
 						<th style="text-align:center;">DE</th>
 						<th style="text-align:center;">À</th>
-						<th class="th-evening"
-						    style="display:<?php echo($internship_schedule_ev == 1 ? 'table-cell' : 'none'); ?>;text-align:center;">
+						<th class="th-evening" style="display:<?= ($internship_schedule_ev == 1 ? 'table-cell' : 'none') ?>;text-align:center;">
 							DE
 						</th>
-						<th class="th-evening"
-						    style="display:<?php echo($internship_schedule_ev == 1 ? 'table-cell' : 'none'); ?>;text-align:center;">
+						<th class="th-evening" style="display:<?= ($internship_schedule_ev == 1 ? 'table-cell' : 'none') ?>;text-align:center;">
 							À
 						</th>
 						<th style="text-align:center;">NON APPLICABLE</th>
@@ -60,102 +55,97 @@
 					</thead>
 
 					<tbody>
-					<?php foreach ($all_block_schedules as $schedule): ?>
-						<tr data-schedule-id="<?php echo $schedule["ID"]; ?>"
-						    data-schedule-day="<?php echo $schedule["VALUE"]->DAY; ?>"
-						    data-schedule-date="<?php echo $schedule["VALUE"]->DATE; ?>"
-						    data-schedule-reason="<?php echo $schedule["VALUE"]->REASON; ?>"
-						    class="schedule-row-<?php echo $schedule['ID']; ?>">
-							<td>
-								<?php echo $schedule["BLOCK_ID"]; ?>
-							</td>
-							<td>
-								<?php echo $schedule["VALUE"]->DATE; ?>
-							</td>
+					<?php foreach ($all_block_schedules as $schedule) { ?>
+						<tr data-schedule-id="<?= $schedule["ID"] ?>"
+						    data-schedule-day="<?= $schedule["VALUE"]->DAY ?>"
+						    data-schedule-date="<?= $schedule["VALUE"]->DATE ?>"
+						    data-schedule-reason="<?= $schedule["VALUE"]->REASON ?>"
+						    class="schedule-row-<?= $schedule['ID'] ?>">
+							<td><?= $schedule["BLOCK_ID"] ?></td>
+							<td><?= $schedule["VALUE"]->DATE ?></td>
 							<td style="text-align:center;">
 								<div class="form-group">
-									<?php if (isset($schedule["VALUE"]->PRESENT)): ?>
+									<?php if (isset($schedule["VALUE"]->PRESENT)) { ?>
 										<input type="checkbox" checked name="PRESENT" data-toggle="tooltip"
 										       data-html="true" data-placement="right" title="<p></p>"
 										       class="checkbox-present" />
-									<?php endif; ?>
-									<?php if (!isset($schedule["VALUE"]->PRESENT)): ?>
+									<?php } ?>
+									<?php if (!isset($schedule["VALUE"]->PRESENT)) { ?>
 										<input type="checkbox" name="PRESENT" data-toggle="tooltip" data-html="true"
 										       data-placement="right"
-										       title="<p><?php echo $schedule["VALUE"]->REASON; ?></p>"
+										       title="<p><?= $schedule["VALUE"]->REASON ?></p>"
 										       class="checkbox-present" />
-									<?php endif; ?>
+									<?php } ?>
 								</div>
 							</td>
 							<td>
 								<div class="input-group">
-									<input type="text" name="FROM_AM" value="<?php echo $schedule["VALUE"]->FROM_AM; ?>"
+									<input type="text" name="FROM_AM" value="<?= $schedule["VALUE"]->FROM_AM ?>"
 									       class="form-control timepicker" />
 									<div class="input-group-addon"><i class="far fa-clock"></i></div>
 								</div>
 							</td>
 							<td>
 								<div class="input-group">
-									<input type="text" name="TO_AM" value="<?php echo $schedule["VALUE"]->TO_AM; ?>"
+									<input type="text" name="TO_AM" value="<?= $schedule["VALUE"]->TO_AM ?>"
 									       class=" form-control timepicker" />
 									<div class="input-group-addon"><i class="far fa-clock"></i></div>
 								</div>
 							</td>
 							<td>
 								<div class="input-group">
-									<input type="text" name="FROM_PM" value="<?php echo $schedule["VALUE"]->FROM_PM; ?>"
+									<input type="text" name="FROM_PM" value="<?= $schedule["VALUE"]->FROM_PM ?>"
 									       class=" form-control timepicker" />
 									<div class="input-group-addon"><i class="far fa-clock"></i></div>
 								</div>
 							</td>
 							<td>
 								<div class="input-group">
-									<input type="text" name="TO_PM" value="<?php echo $schedule["VALUE"]->TO_PM ?>"
+									<input type="text" name="TO_PM" value="<?= $schedule["VALUE"]->TO_PM ?>"
 									       class=" form-control timepicker" />
 									<div class="input-group-addon"><i class="far fa-clock"></i></div>
 								</div>
 							</td>
-							<td style="display:<?php echo($internship_schedule_ev == 1 ? '' : 'none'); ?>;"
+							<td style="display:<?= ($internship_schedule_ev == 1 ? '' : 'none') ?>;"
 							    class="td-evening">
 								<div class="input-group">
 									<input type="text" name="FROM_EV"
-									       value="<?php echo(isset($schedule["VALUE"]->FROM_EV) ? $schedule["VALUE"]->FROM_EV : '17:00') ?>"
+									       value="<?= (isset($schedule["VALUE"]->FROM_EV) ? $schedule["VALUE"]->FROM_EV : '17:00') ?>"
 									       class=" form-control timepicker" />
 									<div class="input-group-addon"><i class="far fa-clock"></i></div>
 								</div>
 							</td>
-							<td style="display:<?php echo($internship_schedule_ev == 1 ? '' : 'none'); ?>;"
+							<td style="display:<?= ($internship_schedule_ev == 1 ? '' : 'none') ?>;"
 							    class="td-evening">
 								<div class="input-group">
 									<input type="text" name="TO_EV"
-									       value="<?php echo(isset($schedule["VALUE"]->TO_EV) ? $schedule["VALUE"]->TO_EV : '17:00') ?>"
+									       value="<?= (isset($schedule["VALUE"]->TO_EV) ? $schedule["VALUE"]->TO_EV : '17:00') ?>"
 									       class=" form-control timepicker" />
 									<div class="input-group-addon"><i class="far fa-clock"></i></div>
 								</div>
 							</td>
 							<td style="text-align:center;">
 								<div class="form-group">
-									<?php if (isset($schedule["VALUE"]->CLOSED)): ?>
+									<?php if (isset($schedule["VALUE"]->CLOSED)) { ?>
 										<input type="checkbox" checked name="CLOSED" />
-									<?php endif; ?>
-									<?php if (!isset($schedule["VALUE"]->CLOSED)): ?>
+									<?php } ?>
+									<?php if (!isset($schedule["VALUE"]->CLOSED)) { ?>
 										<input type="checkbox" name="CLOSED" />
-									<?php endif; ?>
+									<?php } ?>
 								</div>
 							</td>
 							<td>
 								<div class="form-group">
-									<input readonly type="text" name="TOTAL"
-									       value="<?php echo $schedule["VALUE"]->TOTAL; ?>" class=" form-control" />
+									<input readonly type="text" name="TOTAL" value="<?= $schedule["VALUE"]->TOTAL ?>" class=" form-control" />
 								</div>
 							</td>
 						</tr>
-					<?php endforeach; ?>
+					<?php } ?>
 					</tbody>
 				</table>
 			</form>
 
-			<button type="button" id="submit_presences" value="<?php echo $this->uri->segment(3); ?>"
+			<button type="button" id="submit_presences" value="<?= $this->uri->segment(3) ?>"
 			        class="btn btn-success">
 				<i class="fa fa-check"></i> SAUVEGARDER LE BLOC
 			</button>
