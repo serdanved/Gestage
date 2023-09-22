@@ -147,7 +147,7 @@
 		</nav>
 
 		<?php if (($this->uri->segment(1) == "internship") && ($this->uri->segment(2) == "edit")) { ?>
-		<nav class="hidden-xs navbar navbar-static-top" style='border:1px solid #eee;'>
+		<nav class="hidden-xs navbar navbar-static-top" style='border:1px solid #eee;z-index:unset;'>
 			<div class="collapse navbar-collapse pull-left" id="navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="scroll">
