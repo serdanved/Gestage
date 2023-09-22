@@ -44,7 +44,7 @@
                 <?php foreach ($all_notes as $NP) {
                     if ($NP['PRIVATE'] == 1) {
                         if (!($NP['CREATOR_ID'] == $this->session->userdata("userid") && $NP['CREATOR_TYPE'] == $this->session->userdata('status_id')) && !is_teacher()) {
-                            die("???");
+                            //die("???");
                             continue;
                         }
                     } ?>
