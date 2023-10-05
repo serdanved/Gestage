@@ -15,6 +15,7 @@
 		"ldaptools/ldaptools": "^0.25.2",
 		"spipu/html2pdf": "^5.2",
 		"thenetworg/oauth2-azure": "^1.4",
-		"tecnickcom/tcpdf": "^6.4"
+		"tecnickcom/tcpdf": "^6.4",
+		"dompdf/dompdf": "^2.0"
 	}
 }

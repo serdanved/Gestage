@@ -12,7 +12,6 @@
  * @link			https://github.com/chrisnharvey/CodeIgniter-PDF-Generator-Library
  */
 use Dompdf\Dompdf;
-require_once(dirname(__FILE__) . '/dompdf/autoload.inc.php');
 
 class Pdf extends DOMPDF {
 	/**

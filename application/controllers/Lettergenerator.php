@@ -2,8 +2,6 @@
 
 use Dompdf\Dompdf;
 
-require_once('application/libraries/dompdf/autoload.inc.php');
-
 class Lettergenerator extends MY_Controller {
 	function __construct() {
 		parent::__construct();
@@ -72,8 +70,6 @@ class Lettergenerator extends MY_Controller {
 		$this->load->model('Block_model');
 		$this->load->model('Obligation_model');
 		$this->load->model('Document_model');
-		$this->load->library('pdf');
-		$this->load->library('htmltopdf');
 
 		$obligation_id = $this->input->post('OBLIGATION_ID');
 		$document_id = $this->input->post('DOCUMENT_ID');
@@ -94,7 +90,9 @@ class Lettergenerator extends MY_Controller {
 
 			$width_in_mm = 8.5 * 25.4;
 			$height_in_mm = 11 * 25.4;
-			$html2pdf = new htmltopdf('P', 'letter');
+			//$html2pdf = new htmltopdf('P', 'letter');
+			$html2pdf = new DOMPDF();
+			$html2pdf->setPaper("Letter", "portrait");
 
 			$content = $letter["CONTENT"];
 			$content = str_replace("../../resources/img/centre_prof_alma.jpg", base_url() . "resources/img/logo_gestage.png", $content);
@@ -216,7 +214,9 @@ class Lettergenerator extends MY_Controller {
 						break;
 					*/
 					case "LOGO":
-						$content = str_replace($tag, "<img src='" . base_url() . "resources/img/logo_gestage.png' width='130'>", $content);
+						//$content = str_replace($tag, "<img src='" . base_url() . "resources/img/logo_gestage.png' width='130'>", $content);
+						$img = base64_encode(file_get_contents("./resources/img/logo_gestage.png"));
+						$content = str_replace($tag, "<img src='data:image/png;base64,$img' width='130'>", $content);
 						break;
 					case "SIGNATURE_ELEVE":
 						$signature_value_eleve = $this->Obligation_model->get_obligation_signature_by_document_student($document_id);
@@ -245,8 +245,11 @@ class Lettergenerator extends MY_Controller {
 				}
 			}
 
-			$html2pdf->writeHTML($content);
-			$pdf_content = $html2pdf->output('', 'S');
+			/*$html2pdf->writeHTML($content);
+			$pdf_content = $html2pdf->output('', 'S');*/
+			$html2pdf->loadHtml($content);
+			$html2pdf->render();
+			$pdf_content = $html2pdf->output();
 			if (!is_dir('resources/uploads/' . $internship_id)) {
 				mkdir('resources/uploads/' . $internship_id);
 			}
@@ -264,8 +267,6 @@ class Lettergenerator extends MY_Controller {
 		$this->load->model('Program_model');
 		$this->load->model('Employer_model');
 		$this->load->model('Block_model');
-		$this->load->library('pdf');
-		$this->load->library('htmltopdf');
 
 		if (isset($_POST) && count($_POST) > 1) {
 			// die(var_dump($this->input->post()));
@@ -275,85 +276,87 @@ class Lettergenerator extends MY_Controller {
             if ($stages != null) {
     			foreach ($stages as $stageid) {
     				$data['letter'] = $this->Lettergenerator_model->get_letter($ID);
-    
+
     				$stage_id = $this->Block_model->get_block_internship_id($stageid);
-    
+
     				$width_in_mm = 8.5 * 25.4;
     				$height_in_mm = 11 * 25.4;
-    				$html2pdf = new htmltopdf('P', 'letter');
-    
+    				//$html2pdf = new htmltopdf('P', 'letter');
+					$html2pdf = new DOMPDF();
+					$html2pdf->setPaper("Letter", "portrait");
+
     				$content = $data['letter']["CONTENT"];
     				$original_content = $content;
     				$content = str_replace("<body", "<page", $content);
     				$content = str_replace("</body>", "</page>", $content);
     				// die($content);
-    
+
     				$stage = $this->Internship_model->get_internship($stage_id);
     				$program = $this->Program_model->get_program($stage['PROGRAM_ID']);
     				$teacher = $this->Teacher_model->get_teacher($stage['TEACHER_ID']);
     				$student = $this->Student_model->get_student($stage['STUDENT_ID']);
     				$employeur = $this->Employer_model->get_employer($stage['EMPLOYER_ID']);
     				$contact = $this->Employer_model->get_employer_contact($stage["EMPLOYER_CONTACT_ID"]);
-    
+
     				$employeur["CONTACT_NAME"] = $contact["CONTACT_NAME"];
     				$employeur["PHONE"] = $contact["CONTACT_PHONE"];
     				$employeur["EMAIL"] = $contact["CONTACT_EMAIL"];
-    
+
     				$blocks = $this->Block_model->get_block_letter($stage_id);
     				$block = $this->Block_model->get_block($stageid);
     				//die(var_dump($blocks));
     				$blocks_count = count($blocks);
-    
+
     				/*
     				if( $blocks_count > 0){
     					$bloc1       = $blocks[0];
     				}
     				else { $bloc1["DATE_DEBUT"] = "";$bloc1["DATE_FIN"] = "";$bloc1["HORAIRE"] = ""; }
-    
+
     				if( $blocks_count > 1){
     					$bloc2       = $blocks[1];
     				}
     				else { $bloc2["DATE_DEBUT"] = "";$bloc2["DATE_FIN"] = "";$bloc2["HORAIRE"] = ""; }
-    
+
     				if( $blocks_count > 2){
     					$bloc3       = $blocks[2];
     				}
     				else { $bloc3["DATE_DEBUT"] = "";$bloc3["DATE_FIN"] = "";$bloc3["HORAIRE"] = ""; }
-    
+
     				if( $blocks_count > 3){
     					$bloc4       = $blocks[3];
     				}
     				else { $bloc4["DATE_DEBUT"] = "";$bloc4["DATE_FIN"] = "";$bloc4["HORAIRE"] = ""; }
     				*/
-    
+
     				/* SET PAVILION VARIABLE */
     				switch ($program["PAVILION"]) {
     					case "AUGER":
     						$pavilion_address = "1550, boul. Auger Ouest";
     						$pavilion_postal_code = "G8C 1H8";
     						break;
-    
+
     					case "BEGIN":
     						$pavilion_address = "850, av. Bégin Sud";
     						$pavilion_postal_code = "G8B 5W2";
     						break;
-    
+
     					case "SANTE":
     						$pavilion_address = "685, rue Gauthier Ouest";
     						$pavilion_postal_code = "G8B 2H9";
     						break;
-    
+
     					case "TANGUAY":
     						$pavilion_address = "855, rue Tanguay";
     						$pavilion_postal_code = "G8B 5Y2";
     						break;
-    
+
     					default:
     						$pavilion_address = "";
     						$pavilion_postal_code = "";
     						break;
     				}
-    
+
     				/*
     					echo $pavilion_address;
     					echo "<br>";
@@ -362,7 +365,7 @@ class Lettergenerator extends MY_Controller {
     					die(var_dump($program));
     				*/
     				preg_match_all('/{(.*?)}/', $content, $matches);
-    
+
     				foreach ($matches[0] as $tag) {
     					$fixtag = str_replace("{", "", $tag);
     					$fixtag = str_replace("}", "", $fixtag);
@@ -387,7 +390,7 @@ class Lettergenerator extends MY_Controller {
     							$content = str_replace($tag, $teacher[$fixtag[1]], $content);
     							break;
     						case "ETUDIANT":
-    
+
     							$content = str_replace($tag, $student[$fixtag[1]], $content);
     							break;
     						case "STAGE":
@@ -402,7 +405,7 @@ class Lettergenerator extends MY_Controller {
     								$content = str_replace($tag, $block[$fixtag[1]], $content);
     							}
     							$content = str_replace($tag, $stage[$fixtag[1]], $content);
-    
+
     							break;
     						/*
     						case "BLOC1":
@@ -419,7 +422,9 @@ class Lettergenerator extends MY_Controller {
     							break;
     						*/
     						case "LOGO":
-    							$content = str_replace($tag, "<img src='" . base_url() . "resources/img/logo_gestage.png' width='130'>", $content);
+    							//$content = str_replace($tag, "<img src='" . base_url() . "resources/img/logo_gestage.png' width='130'>", $content);
+								$img = base64_encode(file_get_contents("./resources/img/logo_gestage.png"));
+								$content = str_replace($tag, "<img src='data:image/png;base64,$img' width='130'>", $content);
     							break;
     						case "SIGNATURE_ELEVE":
     							$content = str_replace($tag, "", $content);
@@ -427,62 +432,65 @@ class Lettergenerator extends MY_Controller {
     						case "SIGNATURE_ENSEIGNANT":
     							$content = str_replace($tag, "", $content);
     							break;
-    
+
     						case "SIGNATURE_EMPLOYEUR":
     							$content = str_replace($tag, "", $content);
     							break;
     					}
     				}
     				//$data['content'] = $content;
-    
-    				$html2pdf->writeHTML($content);
-    
-    				$pdf_content = $html2pdf->output('', 'S');
-    
+
+    				/*$html2pdf->writeHTML($content);
+
+    				$pdf_content = $html2pdf->output('', 'S');*/
+					$html2pdf->loadHtml($content);
+					$html2pdf->render();
+					$pdf_content = $html2pdf->output();
+
     				$path_and_file_name = "resources/tmp/$stage_id - {$data['letter']['NAME']} - {$block["ID"]} - " . date("Y-m-d") . ".pdf";
     				file_put_contents($path_and_file_name, $pdf_content);
-    
+
     				echo "<script type='text/javascript'>";
     				echo "window.open(\"/$path_and_file_name\");";
     				echo "</script>";
-    
+
     				// DEPOT DE DOCUMENT
     				if ($this->input->post("depot")) {
     					$block_data = $this->Block_model->get_block_where(array('ID' => $stageid));
     					$real_stageid = $block_data->INTERNSHIP_ID;
-    
+
     					if (!is_dir('resources/uploads/' . $real_stageid)) {
     						mkdir('resources/uploads/' . $real_stageid);
     					}
-    
+
     					$path_and_file_name = "resources/uploads/" . $real_stageid . "/" . $data['letter']['NAME'] . " - " . $block["ID"] . " - " . date("Y-m-d H-i-s") . ".pdf";
-    
+
     					file_put_contents($path_and_file_name, $pdf_content);
-    
+
     					/* DOCUMENT PERMISSIONS AND ADD SECTION */
     					if ($this->input->post("ck_CANSEE_EMPLOYERS") == 'on') {
     						$can_see_employer = 1;
     					} else {
     						$can_see_employer = 0;
     					}
-    
+
     					if ($this->input->post("ck_CANSEE_STUDENTS") == 'on') {
     						$can_see_student = 1;
     					} else {
     						$can_see_student = 0;
     					}
-    
+
     					$can_see_teacher = 1;
-    
+
     					$documentid = insert_upload_entry($real_stageid, $path_and_file_name, $can_see_student, $can_see_teacher, $can_see_employer, $block["ID"], 0, $ID);
-    
+
     					/* END DOCUMENT PERMISSIONS AND ADD SECTION */
-    
+
     					/* OBLIGATION ADD SECTION */
     					$add_obligation_signature_employer = 0;
     					$add_obligation_signature_student = 0;
     					$add_obligation_signature_teacher = 0;
-    
+
     					if ($this->input->post("ck_OBLIGATION_EMPLOYERS") == 'on') {
     						$add_obligation_employer = 1;
     						if (strpos($original_content, 'SIGNATURE_EMPLOYEUR') !== false) {
@@ -491,45 +499,45 @@ class Lettergenerator extends MY_Controller {
     							$add_obligation_signature_employer = 0;
     						}
     					}
-    
+
     					if ($this->input->post("ck_OBLIGATION_EMPLOYERS") != 'on') {
     						$add_obligation_employer = 0;
     					}
-    
+
     					if ($this->input->post("ck_OBLIGATION_STUDENTS") == 'on') {
     						$add_obligation_student = 1;
-    
+
     						if (strpos($original_content, 'SIGNATURE_ELEVE') !== false) {
     							$add_obligation_signature_student = 1;
     						} else {
     							$add_obligation_signature_student = 0;
     						}
     					}
-    
+
     					if ($this->input->post("ck_OBLIGATION_STUDENTS") != 'on') {
     						$add_obligation_student = 0;
     					}
-    
+
     					if ($this->input->post("ck_OBLIGATION_TEACHERS") == 'on') {
     						$add_obligation_teacher = 1;
-    
+
     						if (strpos($original_content, 'SIGNATURE_ENSEIGNANT') !== false) {
     							$add_obligation_signature_teacher = 1;
     						} else {
     							$add_obligation_signature_teacher = 0;
     						}
     					}
-    
+
     					if ($this->input->post("ck_OBLIGATION_TEACHERS") != 'on') {
     						$add_obligation_teacher = 0;
     					}
-    
+
     					if ($add_obligation_employer == 1 || $add_obligation_student == 1 || $add_obligation_teacher == 1) {
     						insert_obligations_entry($real_stageid, $documentid, $add_obligation_student, $add_obligation_teacher, $add_obligation_employer, $add_obligation_signature_student, $add_obligation_signature_teacher, $add_obligation_signature_employer);
     					}
     					/* END OBLIGATION ADD SECTION */
     				}
-    
+
     				unset($pdf);
     			}
             }
