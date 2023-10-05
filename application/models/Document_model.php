@@ -73,6 +73,9 @@ class Document_model extends CI_Model {
 		$table = "";
 
 		switch ($TYPE) {
+			case 0:
+				$table = "ADMINISTRATORS";
+				break;
 			case 1:
 				$table = "STUDENTS";
 				break;
