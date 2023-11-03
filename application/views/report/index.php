@@ -15,7 +15,7 @@
                                 <option value="2">Liste des Employeurs</option>
                                 <option value="3">Publipostage Employeur</option>
                                 <option value="4">Liste des Protocoles entre 2 dates</option>
-                                <option value="5">Publipostage Employeur simplifié</option>
+                                <option value="5">Publipostage Employeur simplifiée</option>
                             </select>
                         </div>
                     </div>

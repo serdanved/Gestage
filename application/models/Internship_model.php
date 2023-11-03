@@ -256,6 +256,59 @@ class Internship_model extends CI_Model {
 		return $this->db->get('INTERNSHIPS')->result_array();
 	}
 
+	function get_entreprise_for_report($students, $employers, $programs, $date_debut, $date_fin, $cities = null, $cats = null) {
+		$query = "SELECT DISTINCT
+			EMPLOYERS.ID AS EMPLOYER_ID,
+			EMPLOYERS.EMPLOYER_NAME,
+			EMPLOYERS.CITY AS EMPLOYER_CITY,
+			EMPLOYERS.ADDRESS AS EMPLOYER_ADDRESS,
+			EMPLOYERS.POSTAL_CODE AS EMPLOYER_POSTAL_CODE,
+			EMPLOYERS_CAT.NAME AS EMPLOYER_CATEGORY,
+			EMPLOYER_CONTACTS.CONTACT_NAME,
+			EMPLOYER_CONTACTS.CONTACT_PHONE,
+			EMPLOYER_CONTACTS.CONTACT_EMAIL
+		FROM INTERNSHIPS
+		LEFT JOIN EMPLOYERS ON INTERNSHIPS.EMPLOYER_ID = EMPLOYERS.ID
+		LEFT JOIN EMPLOYER_CONTACTS ON INTERNSHIPS.EMPLOYER_CONTACT_ID = EMPLOYER_CONTACTS.ID
+		LEFT JOIN EMPLOYERS_CAT_PROGRAMS ON EMPLOYERS_CAT_PROGRAMS.EMPLOYER_ID = EMPLOYERS.ID
+		LEFT JOIN EMPLOYERS_CAT ON EMPLOYERS_CAT.ID = EMPLOYERS_CAT_PROGRAMS.CATEGORY_ID
+        where EMPLOYERS.EMPLOYER_NAME is not null and INTERNSHIPS.INACTIVE = 0";
+
+        if (!in_array(0, $students))
+            $query .= "\nand INTERNSHIPS.STUDENT_ID in (" . implode(",", $students) . ")";
+
+        if (!in_array(0, $employers))
+            $query .= "\nand INTERNSHIPS.EMPLOYER_ID in (" . implode(",", $employers) . ")";
+
+        if (!in_array(0, $programs))
+            $query .= "\nand INTERNSHIPS.PROGRAM_ID in (" . implode(",", $programs) . ")";
+
+        if ($date_debut != null && $date_fin != null)
+            $query .= "\nand DATE(DATE_START) between '{$date_debut}' and '{$date_fin}'";
+
+		if ($cities != null && is_array($cities) && count($cities) > 0) {
+			$list = $this->Employer_model->list_cities();
+			if (!in_array(-1, $cities)) {
+				$first = true;
+				$query .= "\nand (";
+				foreach ($cities as $c) {
+					if ($first) {
+						$first = false;
+						$query .= " EMPLOYERS.CITY like '%{$list[$c]["CITY"]}%'";
+					} else {
+						$query .= " or EMPLOYERS.CITY like '%{$list[$c]["CITY"]}%'";
+					}
+				}
+				$query .= ")";
+			}
+		}
+
+	    if ($cats != null && is_array($cats) && count($cats) > 0 && !in_array(0, $cats))
+		    $query .= "\nand EMPLOYERS_CAT.ID in (" . implode(",", $cats) . ")";
+
+        return array($this->db->query($query)->result_array(), $this->db->last_query());
+	}
+
     function get_interships_for_report($students, $employers, $programs, $date_debut, $date_fin, $cities = null, $cats = null) {
         $query = "select
 			INTERNSHIPS.ID as INTERNSHIP_ID,

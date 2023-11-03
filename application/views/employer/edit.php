@@ -90,7 +90,7 @@
 							<div class="col-md-6">
 								<label for="CATEGORY" class="control-label">CATÉGORIE(S) DE CET EMPLOYEUR</label>
 								<div class="form-group">
-									<select class="selectpicker form-control" id="CATEGORY" name="CATEGORY[]" multiple required>
+									<select class="selectpicker form-control" id="CATEGORY" name="CATEGORY[]" multiple>
 										<?php foreach ($all_categories as $c) {
 											$selected = "";
 											foreach ($employer_categories as $ec) {

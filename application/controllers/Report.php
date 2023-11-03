@@ -57,7 +57,7 @@ class Report extends MY_Controller {
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
 		$objDrawing->setName('logo');
 		$objDrawing->setDescription('logo');
-		$objDrawing->setPath(dirname(__FILE__) . "/../../resources/img/logo.png");
+		$objDrawing->setPath(dirname(__FILE__) . "/../../resources/img/logo_gestage.png");
 		$objDrawing->setCoordinates('E1');
 		//setOffsetX works properly
 		$objDrawing->setOffsetX(5);
@@ -301,7 +301,7 @@ class Report extends MY_Controller {
 				$this->pdf->load_view("report/pdf-tables", $data);
 				break;
 			case "2": //Liste des Employeurs
-				$data["internships"] = $this->Internship_model->get_interships_for_report(
+				$data["internships"] = $this->Internship_model->get_entreprise_for_report(
 					$this->input->post("STUDENTS"),
 					$this->input->post("EMPLOYERS"),
 					$this->input->post("PROGRAMS"),
@@ -314,7 +314,7 @@ class Report extends MY_Controller {
 				$this->pdf->load_view("report/pdf-tables", $data);
 				break;
 			case "3": //Publipostage Employeur
-				$data["employers"] = $this->Employer_model->get_employers_for_report($this->input->post("PROGRAMS"), $this->input->post("REPORT_TYPE") == "3");
+				$data["employers"] = $this->Employer_model->get_employers_for_report($this->input->post("PROGRAMS"));
 				$this->pdf->setPaper("Letter", "Portrait");
 				$this->pdf->load_view("report/pdf-employers", $data);
 				break;
@@ -324,7 +324,7 @@ class Report extends MY_Controller {
 				$this->pdf->load_view("report/pdf-protocoles", $data);
 				break;
 			case "5": //Publipostage Employeur simplifié
-				$data["employers"] = $this->Employer_model->get_employers_for_report($this->input->post("PROGRAMS"), $this->input->post("REPORT_TYPE") == "3");
+				$data["employers"] = $this->Employer_model->get_employers_for_report($this->input->post("PROGRAMS"));
 				$this->pdf->setPaper("Letter", "Portrait");
 				$this->pdf->load_view("report/pdf-simple-employers", $data);
 				break;

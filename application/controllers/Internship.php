@@ -277,9 +277,16 @@ class Internship extends MY_Controller {
 
 	function time_to_decimal($time) {
 		$timeArr = explode(':', $time);
-		$decTime = ($timeArr[0] * 60) + ($timeArr[1]);
+		$decTime = ($timeArr[0] * 60) + ($timeArr[0] < 0 ? -$timeArr[1] : $timeArr[1]);
 
 		return $decTime;
+	}
+	
+	function test() {
+	    $datetime_from_am = new DateTime("10:30");
+		$datetime_to_am = new DateTime("09:10");
+		$datetime_am = $this->time_to_decimal($datetime_from_am->diff($datetime_to_am)->format('%r%H:%I'));
+		echo $datetime_am;
 	}
 
 	function update_presence() {

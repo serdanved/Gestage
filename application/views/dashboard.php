@@ -1,8 +1,7 @@
 <div style="display: none;" id="browsercheck" class="row">
 	<div style="background-color: orange; border-radius: 5px; text-align: center; padding-top: 15px; padding-bottom: 15px; border: 1px solid black; color: black; font-weight: bold; text-transform: uppercase;"
 	     class="col-md-6">
-		<p style="margin-bottom:0;">Pour la meilleure expérience possible, il est recommandé d'utiliser un navigateur
-			plus récent.</p>
+		<p style="margin-bottom:0;">Pour la meilleure expérience possible, il est recommandé d'utiliser un navigateur plus récent.</p>
 		<a href="https://www.google.com/intl/fr/chrome/" target="_blank"> CHROME </a>
 		<label> | </label>
 		<a href="https://www.mozilla.org/fr/firefox/" target="_blank"> FIREFOX </a>
@@ -38,6 +37,19 @@ if (get_current_user_status() == "teacher") { ?>
 								<div class="inner">
 									<h3><?= get_student_count_by_teacher($this->session->userdata("userid"), "SELF") ?></h3>
 									<p>ÉLÈVES ASSIGNÉS</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-person"></i>
+								</div>
+								<p class="small-box-footer">&nbsp;</p>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="small-box bg-blue">
+								<div class="inner">
+									<h3><?= count(explode(",", get_programs_by_teacher_id($this->session->userdata("userid")))) ?></h3>
+									<p>PROGRAMMES ASSIGNÉS</p>
 								</div>
 								<div class="icon">
 									<i class="ion ion-person"></i>
@@ -120,53 +132,42 @@ if (get_current_user_status() == "employer") { ?>
 				</div>
 
 				<div class="box-body">
-					<div class="col-md-3">
-						<div class="small-box bg-blue">
-							<div class="inner">
-								<h3><?= get_internship_count_by_employer($this->session->userdata("userid"), "SELF") ?></h3>
-								<p>STAGES ASSIGNÉS</p>
+					<div class="row" style="display: flex; justify-content: center; align-items: center;">
+						<div class="col-md-3">
+							<div class="small-box bg-blue">
+								<div class="inner">
+									<h3><?= get_internship_count_by_employer($this->session->userdata("userid"), "SELF") ?></h3>
+									<p>STAGES ASSIGNÉS</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-monitor"></i>
+								</div>
+								<p class="small-box-footer">&nbsp;</p>
 							</div>
-							<div class="icon">
-								<i class="ion ion-monitor"></i>
-							</div>
-							<p class="small-box-footer">&nbsp;</p>
 						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="small-box bg-blue">
-							<div class="inner">
-								<h3><?= get_student_count_by_employer($this->session->userdata("userid"), "SELF") ?></h3>
-								<p>ÉLÈVES ASSIGNÉS</p>
+						<div class="col-md-3">
+							<div class="small-box bg-blue">
+								<div class="inner">
+									<h3><?= get_count_programs_by_employer_id($this->session->userdata("userid"), "PROGRAM") ?></h3>
+									<p>PROGRAMMES ASSIGNÉS</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-person"></i>
+								</div>
+								<p class="small-box-footer">&nbsp;</p>
 							</div>
-							<div class="icon">
-								<i class="ion ion-person"></i>
-							</div>
-							<p class="small-box-footer">&nbsp;</p>
 						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="small-box bg-blue">
-							<div class="inner">
-								<h3><?= get_count_programs_by_employer_id($this->session->userdata("userid"), "PROGRAM") ?></h3>
-								<p>PROGRAMMES ASSIGNÉS</p>
+						<div class="col-md-3 ">
+							<div class="small-box bg-red">
+								<div class="inner">
+									<h3><?= count(get_obligations_unopen_by_employer($this->session->userdata("userid"))) ?></h3>
+									<p>NOUVELLES OBLIGATIONS</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-edit"></i>
+								</div>
+								<p class="small-box-footer">&nbsp;</p>
 							</div>
-							<div class="icon">
-								<i class="ion ion-person"></i>
-							</div>
-							<p class="small-box-footer">&nbsp;</p>
-						</div>
-					</div>
-					<div class="col-md-3 ">
-						<div class="small-box bg-red">
-							<div class="inner">
-								<h3><?= count(get_obligations_unopen_by_employer($this->session->userdata("userid"))) ?></h3>
-								<p>NOUVELLES OBLIGATIONS</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-edit"></i>
-							</div>
-							<p class="small-box-footer">&nbsp;</p>
 						</div>
 					</div>
 

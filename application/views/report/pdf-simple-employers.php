@@ -25,8 +25,8 @@
                 <?php foreach($employers as $e) { ?>
                 <tr>
                     <td><?= $e["EMPLOYER_NAME"] ?></td>
-                    <td><?= $e["CONTACT_NAME"] ?></td>
-                    <td><?= $e["EMAIL"] ?></td>
+                    <td><?= $e["CONTACTS"][0]["CONTACT_NAME"] ?></td>
+                    <td><?= $e["CONTACTS"][0]["CONTACT_EMAIL"] ?></td>
                 </tr>
                 <?php } ?>
             </tbody>

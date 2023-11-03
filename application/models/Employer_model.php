@@ -210,8 +210,8 @@ class Employer_model extends CI_Model {
 		return $this->db->get_where('EMPLOYER_CONTACTS', array('ID' => $ID))->row_array();
 	}
 
-    function get_employers_for_report($programs, $loadContacts) {
-        $this->db->select("EMPLOYERS.ID, EMPLOYER_NAME, COUNTRY, PROVINCE, CITY, ADDRESS, POSTAL_CODE, CONTACT_NAME, EMAIL, NOTE, NOTE_2")
+    function get_employers_for_report($programs) {
+        $this->db->distinct()->select("EMPLOYERS.ID, EMPLOYER_NAME, COUNTRY, PROVINCE, CITY, ADDRESS, POSTAL_CODE, CONTACT_NAME, EMAIL, NOTE, NOTE_2")
             ->join("EMPLOYER_PROGRAMS", "EMPLOYER_PROGRAMS.EMPLOYER_ID = EMPLOYERS.ID", "left")
             ->join("PROGRAMS", "PROGRAMS.ID = EMPLOYER_PROGRAMS.PROGRAM_ID", "left")
             ->where("INACTIVE", 0);
@@ -224,14 +224,12 @@ class Employer_model extends CI_Model {
             ->get("EMPLOYERS")
             ->result_array();
 
-        if ($loadContacts == true) {
-            foreach ($employers as &$e) {
-                $e["CONTACTS"] = $this->db->select("ID, CONTACT_NAME, CONTACT_PHONE, CONTACT_EMAIL")
-                    ->where("EMPLOYER_ID", $e["ID"])
-                    ->get("EMPLOYER_CONTACTS")
-                    ->result_array();
-            }
-        }
+		foreach ($employers as &$e) {
+			$e["CONTACTS"] = $this->db->select("ID, CONTACT_NAME, CONTACT_PHONE, CONTACT_EMAIL")
+				->where("EMPLOYER_ID", $e["ID"])
+				->get("EMPLOYER_CONTACTS")
+				->result_array();
+		}
 
         return $employers;
     }
