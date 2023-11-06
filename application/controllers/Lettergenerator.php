@@ -27,7 +27,7 @@ class Lettergenerator extends MY_Controller {
 	/*
 	 * Adding a new letter
 	 */
-	function add() {
+	function add($progId = 0) {
 		if (isset($_POST) && count($_POST) > 0) {
 			$params = array(
 				'NAME' => $this->input->post('NAME'),
@@ -49,6 +49,7 @@ class Lettergenerator extends MY_Controller {
 			if (is_admin()) {
 				$data["all_programs"] = $this->Teacher_model->get_all_teacher_programs();
 			}
+			$data["progId"] = $progId;
 			$data['all_letters'] = $this->Lettergenerator_model->get_all_letters_copy();
 			$data['_view'] = 'lettergenerator/add';
 			$this->load->view('layouts/main', $data);
@@ -601,36 +602,36 @@ class Lettergenerator extends MY_Controller {
 
 		if ($night == 0) {
 			$schedule_content .= '<table style="margin-left:30px;" class="mce-item-table" border="1">
-<thead style="background-color:black;border:unset !important;">
-<tr>
-<th style="text-align:center;width:100px;border:unset !important;background-color:black;background-color:black;color:white;"></th>
-<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">DE</th>
-<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">À</th>
-<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">DE</th>
-<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">À</th>
-<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">TOTAL</th> </tr>
-</thead><tbody>';
+				<thead style="background-color:black;border:unset !important;">
+				<tr>
+				<th style="text-align:center;width:100px;border:unset !important;background-color:black;background-color:black;color:white;"></th>
+				<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">DE</th>
+				<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">À</th>
+				<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">DE</th>
+				<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">À</th>
+				<th style="text-align:center;width:100px;border:unset !important;background-color:black;color:white;">TOTAL</th> </tr>
+				</thead><tbody>';
 
 			foreach ($schedules as $schedule) {
 				$schedule["VALUE"] = json_decode($schedule["VALUE"]);
 				if (!isset($schedule["VALUE"]->CLOSED)) {
 					$schedule_content .= '<tr>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->DATE . '</td>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->FROM_AM . '</td>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->TO_AM . '</td>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->FROM_PM . '</td>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->TO_PM . '</td>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->TOTAL . '</td>
-</tr>';
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->DATE . '</td>
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->FROM_AM . '</td>
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->TO_AM . '</td>
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->FROM_PM . '</td>
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->TO_PM . '</td>
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->TOTAL . '</td>
+						</tr>';
 				} else {
 					$schedule_content .= '<tr>
-<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->DATE . '</td>
-<td style="text-align:center;width:100px;background-color:gray;"></td>
-<td style="text-align:center;width:100px;background-color:gray;"></td>
-<td style="text-align:center;width:100px;background-color:gray;"></td>
-<td style="text-align:center;width:100px;background-color:gray;"></td>
-<td style="text-align:center;width:100px;background-color:gray;"></td>
-</tr>';
+						<td style="text-align:center;width:100px;">' . $schedule["VALUE"]->DATE . '</td>
+						<td style="text-align:center;width:100px;background-color:gray;"></td>
+						<td style="text-align:center;width:100px;background-color:gray;"></td>
+						<td style="text-align:center;width:100px;background-color:gray;"></td>
+						<td style="text-align:center;width:100px;background-color:gray;"></td>
+						<td style="text-align:center;width:100px;background-color:gray;"></td>
+						</tr>';
 				}
 			}
 
@@ -638,42 +639,42 @@ class Lettergenerator extends MY_Controller {
 			return $schedule_content;
 		} else {
 			$schedule_content .= '<table style="margin-left:30px;" class="mce-item-table" border=1>
-<thead style="background-color:black;border:unset !important;">
-<tr>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;background-color:black;color:white;"></th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">DE</th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">À</th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">DE</th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">À</th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">DE</th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">À</th>
-<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">TOTAL</th> </tr>
-</thead><tbody>';
+				<thead style="background-color:black;border:unset !important;">
+				<tr>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;background-color:black;color:white;"></th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">DE</th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">À</th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">DE</th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">À</th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">DE</th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">À</th>
+				<th style="text-align:center;width:75px;border:unset !important;background-color:black;color:white;">TOTAL</th> </tr>
+				</thead><tbody>';
 
 			foreach ($schedules as $schedule) {
 				$schedule["VALUE"] = json_decode($schedule["VALUE"]);
 				if (!isset($schedule["VALUE"]->CLOSED)) {
 					$schedule_content .= '<tr>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->DATE . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_AM . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_AM . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_PM . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_PM . '</td>
-<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->FROM_EV . '</td>
-<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->TO_EV . '</td>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TOTAL . '</td>
-</tr>';
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->DATE . '</td>
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_AM . '</td>
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_AM . '</td>
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->FROM_PM . '</td>
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TO_PM . '</td>
+						<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->FROM_EV . '</td>
+						<td style="text-align:center;width:75px;">' . @$schedule["VALUE"]->TO_EV . '</td>
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->TOTAL . '</td>
+						</tr>';
 				} else {
 					$schedule_content .= '<tr>
-<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->DATE . '</td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-<td style="text-align:center;width:75px;background-color:gray;"></td>
-</tr>';
+						<td style="text-align:center;width:75px;">' . $schedule["VALUE"]->DATE . '</td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						<td style="text-align:center;width:75px;background-color:gray;"></td>
+						</tr>';
 				}
 			}
 

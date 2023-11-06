@@ -10,7 +10,7 @@
 						<div style="overflow:hidden;" class="panel-heading">
 							<h3 class="panel-title pull-left"><?= $P['NAME'] ?></h3>
 							<?php if (is_teacher() || is_admin()) { ?>
-								<a href="<?= site_url('lettergenerator/add') ?>" style="float:right;" class="btn btn-success btn-xs">
+								<a href="<?= site_url('lettergenerator/add/' . $P['ID']) ?>" style="float:right;" class="btn btn-success btn-xs">
 									<span class="glyphicon glyphicon-plus"></span>
 								</a>
 							<?php } ?>
@@ -72,7 +72,7 @@
 
 				<div class="panel panel-primary">
 					<div style="overflow:hidden;" class="panel-heading">
-						<h3 class="pull-left panel-title"><?= "Général" ?></h3>
+						<h3 class="pull-left panel-title">Général</h3>
 						<?php if (is_teacher() || is_admin()) { ?>
 							<a href="<?= site_url('lettergenerator/add') ?>" style="float:right;" class="btn btn-success btn-xs">
 								<span class="glyphicon glyphicon-plus"></span>
